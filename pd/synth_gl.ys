@@ -1,0 +1,22 @@
+# Variant of synth.ys for the gate-level functional sanity check only (not used for area/timing).
+# regfile is kept as a blackbox during synthesis so its "regs" array survives intact in the
+# generated netlist as a plain module instantiation; pd/gl links the real (unsynthesized) regfile.sv
+# against this netlist so tb_gl.cpp can keep using the existing hierarchical x31==1 halt convention.
+# Everything else (alu, muldiv, decode, core control/datapath) is real synthesized sg13g2 gates.
+
+read_verilog -sv ../rtl/alu.sv
+read_verilog -sv ../rtl/muldiv.sv
+read_verilog -sv ../rtl/regfile.sv
+read_verilog -sv ../rtl/decode.sv
+read_verilog -sv ../rtl/core.sv
+
+blackbox regfile
+hierarchy -top core
+synth -top core
+
+dfflibmap -liberty @LIBERTY@
+abc -liberty @LIBERTY@
+
+opt_clean
+
+write_verilog -noattr @OUT@.v

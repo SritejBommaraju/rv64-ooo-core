@@ -8,3 +8,8 @@ build/
 sim/cov/coverage.dat
 model/iss
 model/test_iss
+!pd/out/*.log
+pd/out/*.v
+pd/out/*.json
+tests/arch/build/
+__pycache__/

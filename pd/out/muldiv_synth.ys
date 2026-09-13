@@ -1,0 +1,21 @@
+# Yosys synthesis script for IHP sg13g2. TOP/OUT/LIBERTY are substituted by the Makefile (sed) before
+# this is run, since plain yosys script syntax (not -c/tcl mode) has no env-var substitution.
+
+read_verilog -sv ../rtl/alu.sv
+read_verilog -sv ../rtl/muldiv.sv
+read_verilog -sv ../rtl/regfile.sv
+read_verilog -sv ../rtl/decode.sv
+read_verilog -sv ../rtl/core.sv
+
+hierarchy -top muldiv
+synth -top muldiv
+
+dfflibmap -liberty /home/bomma/pdk/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_stdcell/lib/sg13g2_stdcell_typ_1p20V_25C.lib
+abc -liberty /home/bomma/pdk/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_stdcell/lib/sg13g2_stdcell_typ_1p20V_25C.lib
+
+opt_clean
+
+stat -liberty /home/bomma/pdk/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_stdcell/lib/sg13g2_stdcell_typ_1p20V_25C.lib
+
+write_verilog -noattr out/muldiv_syn.v
+write_json out/muldiv_syn.json

@@ -1,0 +1,40 @@
+# lui_auipc
+lui x29, 8
+lui x10, 0
+sd x10, 0(x29)
+lui x10, 1
+sd x10, 8(x29)
+lui x10, 2
+sd x10, 16(x29)
+lui x10, 524287
+sd x10, 24(x29)
+lui x10, 524288
+sd x10, 32(x29)
+lui x10, 1048574
+sd x10, 40(x29)
+lui x10, 1048575
+sd x10, 48(x29)
+lui x10, 74565
+sd x10, 56(x29)
+lui x10, 703710
+sd x10, 64(x29)
+auipc x10, 0
+sd x10, 72(x29)
+auipc x10, 0
+sd x10, 80(x29)
+auipc x10, 0
+sd x10, 88(x29)
+auipc x10, 0
+sd x10, 96(x29)
+auipc x10, 0
+sd x10, 104(x29)
+auipc x10, 0
+sd x10, 112(x29)
+auipc x10, 0
+sd x10, 120(x29)
+auipc x10, 0
+sd x10, 128(x29)
+auipc x10, 0
+sd x10, 136(x29)
+addi x31, x0, 1
+halt1: jal x0, halt1

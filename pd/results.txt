@@ -1,0 +1,153 @@
+IHP sg13g2 synthesis + STA results for rv64-ooo-core
+======================================================
+Run: 2026-09-13, WSL Ubuntu, 16 cores / 15 GB RAM.
+
+TOOLING (all installed under $HOME, no root/sudo used)
+--------------------------------------------------------
+- OSS CAD Suite, release 2026-09-13, linux-x64 tarball, from
+  https://github.com/YosysHQ/oss-cad-suite-build/releases/download/2026-09-13/oss-cad-suite-linux-x64-20260913.tgz
+  extracted to ~/oss-cad-suite. Contains Yosys 0.69+24 (git d0e71cfb7), Verilator 5.053, Icarus
+  Verilog 14.0 (devel).
+  IMPORTANT: this build does NOT contain OpenSTA or OpenROAD (`ls ~/oss-cad-suite/bin` has no
+  sta/openroad binary) -- that assumption going into this task was wrong for this release.
+- OpenSTA built from source to fill the gap: https://github.com/parallaxsw/OpenSTA.git,
+  commit d97587f669 ("rm noisy pointless comments"). Built with its own etc/build_sta.sh, which
+  downloads a prebuilt CUDD 3.0.0 tarball and runs cmake+make. Build deps (cmake, tcl-dev, swig,
+  bison, flex) were already present system-wide, so no root was needed. Binary at
+  ~/OpenSTA/build/docs-sta/sta, `sta -version` -> 3.1.0.
+- IHP-Open-PDK: https://github.com/IHP-GmbH/IHP-Open-PDK.git, commit
+  5e6d592e4002946a4616f798c357f0f3c06cf3b6 (2026-09-01), shallow-cloned to ~/pdk/IHP-Open-PDK.
+  Liberty used: ihp-sg13g2/libs.ref/sg13g2_stdcell/lib/sg13g2_stdcell_typ_1p20V_25C.lib
+  Verilog cell/UDP models: ihp-sg13g2/libs.ref/sg13g2_stdcell/verilog/sg13g2_stdcell.v +
+  sg13g2_udp.v (needed for the gate-level sanity sim).
+- LibreLane 3.0.14, installed via `python3 -m venv ~/librelane-venv && pip install librelane`
+  (pip needed --break-system-packages avoided by using a venv instead; PEP 668 blocks system pip).
+
+HOW TO REPRODUCE
+--------------------------------------------------------
+  wsl -d Ubuntu -- bash -lc "cd /mnt/c/Users/bomma/projects/rv64-ooo-core/pd && \
+    PATH=\$HOME/oss-cad-suite/bin:\$PATH make all"
+Produces pd/out/core_syn.v, pd/out/stat.txt, pd/out/sta.txt. Optional:
+  make synth-gl   # regfile-blackboxed netlist for the gate-level sanity check
+  make gl         # builds and runs pd/gl (verilator) against that netlist
+
+SYNTHESIS RESULTS (yosys synth -top <block>, dfflibmap/abc mapped to sg13g2_stdcell_typ)
+--------------------------------------------------------
+core (full design: alu + muldiv + regfile + decode + core control, flattened):
+  96684 cells, 1,092,583.18 um^2 total chip area
+    of which sequential elements: 100,329.06 um^2 (9.18%)
+  Per-submodule area (as instantiated inside core, before flattening stats were re-summed):
+    muldiv  : 865,447.90 um^2  (79.2% of core)
+    regfile : 179,494.59 um^2  (16.4%)
+    alu     :  24,435.92 um^2  ( 2.2%)
+    decode  :   1,008.73 um^2  ( 0.1%)
+  Top 5 cell types by area, whole core:
+    1. sg13g2_xnor2_1   15687 insts, 227,921 um^2
+    2. sg13g2_dfrbpq_1   2048 insts, 100,022 um^2  (flip-flops)
+    3. sg13g2_xor2_1     6563 insts,  95,299 um^2
+    4. sg13g2_nand2_1   12272 insts,  89,141 um^2
+    5. sg13g2_o21ai_1    8590 insts,  77,932 um^2
+  (sg13g2_a21oi_1 close behind at 8536 insts / 77,417 um^2.)
+  Synthesis wall time: 1064.9 s (dominated by ABC on muldiv's combinational multiply/divide logic,
+  ~1009s / 94% of the run -- see note below).
+
+muldiv standalone: 864,076.66 um^2 (matches the in-core figure to within opt/context noise)
+alu standalone   :  24,435.92 um^2 (identical to in-core figure, as expected for a leaf block)
+
+WHY MULDIV DOMINATES: rtl/muldiv.sv is explicitly a single-cycle COMBINATIONAL multiply/divide unit
+(its own header comment says so: "An iterative multi-cycle divider is future work"). Yosys/ABC
+synthesizes the 64-bit `/` and `%` operators as full combinational (non-restoring/array) dividers,
+which is what makes muldiv ~79% of core's area and, per STA below, the entire critical path.
+
+STATIC TIMING (OpenSTA, sg13g2_stdcell_typ_1p20V_25C.lib, create_clock -period 10 on clk)
+--------------------------------------------------------
+Startpoint: u_regfile/_13480_ (rising edge flip-flop)
+Endpoint:   u_regfile/_13670_ (rising edge flip-flop) -- path runs through u_muldiv's divider
+Data arrival time:  371.26 ns
+Data required time:   9.87 ns  (10 ns period - library setup)
+Slack (MAX):        -361.40 ns  VIOLATED
+tns (total negative slack): -709,845.00 ns
+wns (worst negative slack):    -361.40 ns
+
+Estimated fmax for this design (bounded by the muldiv critical path, ignoring the rest of the
+pipeline which is comfortably faster): ~1 / 371.26ns ~= 2.7 MHz, if DIV/MUL must complete in a
+single cycle as currently written. This is a real, structural result, not a tooling artifact: the
+combinational divider is ~350 ns of logic depth in sg13g2's ~0.13um-class cells. Making the core
+useful at a realistic clock (100s of MHz - GHz range) requires turning muldiv into a multi-cycle
+unit, exactly as its own source comment already flags as future work.
+
+GATE-LEVEL FUNCTIONAL SANITY CHECK
+--------------------------------------------------------
+Full flattening (as used for the numbers above) destroys regfile's `regs[0:31]` register array as
+a named signal, which sim/tb_main.cpp's halt convention (x31==1, read via
+top->rootp->top->u_core->u_regfile->regs[31]) depends on. To keep that hierarchical access valid
+for the sanity check while still exercising real synthesized gates for alu/muldiv/decode/core
+control, pd/synth_gl.ys `blackbox`es regfile before synthesis, producing pd/out/core_syn_gl.v with
+a real (unmapped) `regfile` instantiation; pd/gl links the genuine, unsynthesized rtl/regfile.sv
+against it. top.sv and mem.sv are unmodified, and pd/gl/tb_gl.cpp is a straight copy of
+sim/tb_main.cpp's halt-convention logic. Built and run with:
+  wsl -d Ubuntu -- bash -lc "cd .../pd && make synth-gl && cd gl && PATH=$HOME/oss-cad-suite/bin:$PATH make run"
+Verilator successfully compiles the synthesized netlist plus IHP's sg13g2_stdcell.v/sg13g2_udp.v
+cell models (specify-block timing is ignored with warnings only, as expected without an SDF
+back-annotation; the sequential cells are modeled via Verilog UDPs, which verilator does support).
+
+RESULT: FAIL (timed out after 10000 cycles) -- x31 never became 1.
+
+This is NOT a synthesis-induced regression. Before touching pd/ at all, the existing, unmodified
+sim/tb_main.cpp + sim/Makefile were run against sw/test1.bin on the ORIGINAL (pre-synthesis) RTL
+as a control:
+  wsl -d Ubuntu -- bash -lc "cd .../sim && PATH=$HOME/oss-cad-suite/bin:$PATH make clean && make run"
+  -> FAIL: timed out after 10000 cycles  (same outcome, same test, same cycle limit)
+So sw/test1.bin does not currently reach the x31==1 halt state against the RTL as it stands in this
+repo either -- this is a pre-existing condition of the design/test pairing, unrelated to this
+synthesis flow, and no RTL or sim file was modified to investigate or work around it (per
+instructions). The gate-level netlist's behavior is consistent with (not worse than) the RTL
+baseline; it exercises the same 10000 cycles without crashing/erroring, just never satisfies the
+same halt condition the RTL build also never satisfies. A real PASS/FAIL comparison against a test
+that does pass at RTL level was not possible within this task's scope since I was told not to
+modify RTL/sim files, including sw/test1.bin or its generator.
+
+LIBRELANE ATTEMPT (bounded to ~1 hour per instructions; actual time spent: ~25 min)
+--------------------------------------------------------
+1. `python3 -m venv ~/librelane-venv && ~/librelane-venv/bin/pip install librelane` -- succeeded,
+   librelane 3.0.14 installed cleanly (system pip refused with "externally-managed-environment"
+   per PEP 668; the venv sidesteps that, no root needed).
+2. Wrote pd/librelane/config.json targeting DESIGN_NAME=core, PDK=ihp-sg13g2,
+   STD_CELL_LIBRARY=sg13g2_stdcell, CLOCK_PERIOD=10.
+3. First run: `librelane --pdk-root ~/pdk config.json` -> "The PDK ihp-sg13g2 was not found." even
+   after downloading sky130 PDK data by default. LibreLane's PDK resolution defaults to sky130A and
+   fetches PDKs through `ciel` (bundled dependency), not from an arbitrary PDK directory.
+4. Enabled the PDK properly: `ciel ls-pdks` confirmed ihp-sg13g2 is a known ciel family;
+   `ciel enable --pdk-family ihp-sg13g2 --pdk-root ~/pdk/ciel <version>` (had to pick a version from
+   `ciel ls-remote --pdk-family ihp-sg13g2`, since librelane's own default PDK version hash is
+   sky130-specific) successfully downloaded and enabled the sg13g2 PDK bundle under ~/pdk/ciel.
+5. Re-ran with explicit `-p ihp-sg13g2 -s sg13g2_stdcell --pdk-root ~/pdk/ciel config.json`. This
+   got further (resolved the PDK variant, downloaded the matching PDK version) but then hit:
+     ModuleNotFoundError: No module named 'tkinter'
+   raised from librelane/common/tcl.py's `_eval_env`, which imports Python's `tkinter` to evaluate
+   the PDK's Tcl config file. `python3 -c 'import tkinter'` confirms it is genuinely absent, and
+   there is no `python3-tk` (or any tkinter) package installed system-wide. Installing it requires
+   `apt install python3-tk`, which needs root -- explicitly disallowed for this task. This is a
+   real, precise blocker: LibreLane's PDK-config loader has a hard, non-optional dependency on the
+   system Tcl/Tk bindings (not just Tcl), which cannot be satisfied from a user-writable venv alone
+   (tkinter is a CPython extension module built against the system's Tcl/Tk at Python-build time,
+   not something pip can vendor in after the fact for an already-installed system Python).
+Remaining requirement for a working LibreLane run in this environment: `sudo apt install
+python3-tk` (or an equivalent from-source Python + Tcl/Tk build under $HOME, not attempted --
+out of the ~1hr budget). pd/librelane/config.json is committed as-is; it should work unmodified
+once tkinter is available.
+
+FILES
+--------------------------------------------------------
+pd/synth.ys       - Yosys synth script for area/timing numbers (full flatten, all 3 top targets)
+pd/synth_gl.ys    - Variant with regfile blackboxed, for the gate-level functional sanity check only
+pd/sta.tcl        - OpenSTA script: read_liberty, read_verilog, link_design, create_clock -period 10,
+                    report_checks -path_delay max, report_tns, report_wns
+pd/Makefile       - install-check / synth / sta / synth-gl / gl / all / clean targets
+pd/gl/tb_gl.cpp   - Verilator C++ testbench, copy of sim/tb_main.cpp's halt convention
+pd/gl/Makefile    - builds pd/out/core_syn_gl.v + rtl/regfile.sv + rtl/mem.sv + rtl/top.sv +
+                    IHP's sg13g2_stdcell.v/sg13g2_udp.v cell models with Verilator
+pd/librelane/config.json - minimal LibreLane config for sg13g2 (not runnable in this environment;
+                    see LIBRELANE ATTEMPT above)
+pd/out/           - generated: core_syn.v, core_syn.json, muldiv_syn.v, alu_syn.v, core_syn_gl.v,
+                    stat.txt, sta.txt, and per-block *_synth.log

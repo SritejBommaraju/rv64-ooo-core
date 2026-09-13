@@ -1,0 +1,16 @@
+{
+    "DESIGN_NAME": "core",
+    "VERILOG_FILES": [
+        "dir::../../rtl/alu.sv",
+        "dir::../../rtl/muldiv.sv",
+        "dir::../../rtl/regfile.sv",
+        "dir::../../rtl/decode.sv",
+        "dir::../../rtl/core.sv"
+    ],
+    "CLOCK_PORT": "clk",
+    "CLOCK_PERIOD": 10,
+    "PDK": "ihp-sg13g2",
+    "STD_CELL_LIBRARY": "sg13g2_stdcell",
+    "FP_SIZING": "relative",
+    "FP_CORE_UTIL": 40
+}
