@@ -2,6 +2,11 @@
 #include <cstdlib>
 #include <fstream>
 #include "Vtop.h"
+#include "Vtop___024root.h"
+#include "Vtop_top.h"
+#include "Vtop_core.h"
+#include "Vtop_mem.h"
+#include "Vtop_regfile.h"
 #include "verilated.h"
 
 // Loads a flat binary program into memory then runs until x31 == 1 (test-pass convention) or cycle limit.
@@ -21,7 +26,7 @@ int main(int argc, char** argv) {
     }
     std::vector<uint8_t> prog((std::istreambuf_iterator<char>(f)), std::istreambuf_iterator<char>());
     for (size_t i = 0; i < prog.size(); i++)
-        top->rootp->top__DOT__u_mem__DOT__bytes[i] = prog[i];
+        top->rootp->top->u_mem->bytes[i] = prog[i];
 
     top->rst = 1;
     top->clk = 0;
@@ -36,7 +41,7 @@ int main(int argc, char** argv) {
         top->clk = 0; top->eval();
         top->clk = 1; top->eval();
 
-        uint64_t x31 = top->rootp->top__DOT__u_core__DOT__u_regfile__DOT__regs[31];
+        uint64_t x31 = top->rootp->top->u_core->u_regfile->regs[31];
         if (x31 == 1) {
             printf("PASS at cycle %d\n", cycle);
             delete top;

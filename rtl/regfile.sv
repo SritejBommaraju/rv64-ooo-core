@@ -5,7 +5,7 @@ module regfile (
     input  logic        wen,
     output logic [63:0] rdata1, rdata2
 );
-    logic [63:0] regs [0:31];
+    logic [63:0] regs [0:31] /* verilator public */;
 
     assign rdata1 = (rs1 == 5'd0) ? 64'd0 : regs[rs1];
     assign rdata2 = (rs2 == 5'd0) ? 64'd0 : regs[rs2];

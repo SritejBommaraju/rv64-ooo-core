@@ -10,7 +10,7 @@ module decode (
     output logic [2:0]  funct3
 );
     logic [6:0] opcode = instr[6:0];
-    logic [6:0] funct7 = instr[31:25];
+    logic       funct7_5 = instr[30]; // only bit that distinguishes ADD/SUB, SRL/SRA
 
     assign rd     = instr[11:7];
     assign rs1    = instr[19:15];
@@ -48,19 +48,19 @@ module decode (
                     3'h6: alu_op = 4'h8; // ORI
                     3'h7: alu_op = 4'h9; // ANDI
                     3'h1: alu_op = 4'h2; // SLLI
-                    3'h5: alu_op = funct7[5] ? 4'h7 : 4'h6; // SRAI/SRLI
+                    3'h5: alu_op = funct7_5 ? 4'h7 : 4'h6; // SRAI/SRLI
                     default: alu_op = 4'h0;
                 endcase
             end
             7'b0110011: begin // OP
                 reg_write = 1;
                 unique case (funct3)
-                    3'h0: alu_op = funct7[5] ? 4'h1 : 4'h0; // SUB/ADD
+                    3'h0: alu_op = funct7_5 ? 4'h1 : 4'h0; // SUB/ADD
                     3'h1: alu_op = 4'h2; // SLL
                     3'h2: alu_op = 4'h3; // SLT
                     3'h3: alu_op = 4'h4; // SLTU
                     3'h4: alu_op = 4'h5; // XOR
-                    3'h5: alu_op = funct7[5] ? 4'h7 : 4'h6; // SRA/SRL
+                    3'h5: alu_op = funct7_5 ? 4'h7 : 4'h6; // SRA/SRL
                     3'h6: alu_op = 4'h8; // OR
                     3'h7: alu_op = 4'h9; // AND
                     default: alu_op = 4'h0;
