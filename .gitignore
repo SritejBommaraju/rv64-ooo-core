@@ -1,5 +1,10 @@
 obj_dir/
+obj_dir_neg/
+obj_dir_small/
 *.vcd
 *.o
 *.log
 build/
+sim/cov/coverage.dat
+model/iss
+model/test_iss

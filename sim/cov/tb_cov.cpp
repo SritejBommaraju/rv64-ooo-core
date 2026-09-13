@@ -10,8 +10,10 @@
 #include "Vtop_mem.h"
 #include "Vtop_regfile.h"
 #include "verilated.h"
+#include "verilated_cov.h"
 
 // Loads a flat binary program into memory then runs until x31 == 1 (test-pass convention) or cycle limit.
+// Copy of ../tb_main.cpp with coverage.dat written before returning.
 int main(int argc, char** argv) {
     Verilated::commandArgs(argc, argv);
     Vtop* top = new Vtop;
@@ -60,6 +62,7 @@ int main(int argc, char** argv) {
         if (x31 == 1) {
             printf("PASS at cycle %d\n", cycle);
             write_dump();
+            Verilated::threadContextp()->coveragep()->write("coverage.dat");
             delete top;
             return 0;
         }
@@ -67,6 +70,7 @@ int main(int argc, char** argv) {
 
     printf("FAIL: timed out after %d cycles\n", MAX_CYCLES);
     write_dump();
+    Verilated::threadContextp()->coveragep()->write("coverage.dat");
     delete top;
     return 1;
 }

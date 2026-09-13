@@ -30,19 +30,6 @@ int main(int argc, char** argv) {
     for (size_t i = 0; i < prog.size(); i++)
         top->rootp->top->u_mem->bytes[i] = prog[i];
 
-    std::string dump_path;
-    if (argc >= 4 && std::strcmp(argv[2], "--dump-regs") == 0) dump_path = argv[3];
-
-    auto write_dump = [&]() {
-        if (dump_path.empty()) return;
-        FILE* df = fopen(dump_path.c_str(), "wb");
-        if (!df) { fprintf(stderr, "failed to open dump file %s\n", dump_path.c_str()); return; }
-        for (int i = 0; i < 32; i++)
-            fprintf(df, "x%d 0x%016llx\n", i, (unsigned long long)top->rootp->top->u_core->u_regfile->regs[i]);
-        fprintf(df, "pc 0x%016llx\n", (unsigned long long)top->rootp->top->u_core->__PVT__pc);
-        fclose(df);
-    };
-
     top->rst = 1;
     top->clk = 0;
     top->eval();
@@ -56,17 +43,21 @@ int main(int argc, char** argv) {
         top->clk = 0; top->eval();
         top->clk = 1; top->eval();
 
+        if (Verilated::gotFinish() || Verilated::gotError()) {
+            printf("FAIL: assertion fired at cycle %d\n", cycle);
+            delete top;
+            return 1;
+        }
+
         uint64_t x31 = top->rootp->top->u_core->u_regfile->regs[31];
         if (x31 == 1) {
             printf("PASS at cycle %d\n", cycle);
-            write_dump();
             delete top;
             return 0;
         }
     }
 
     printf("FAIL: timed out after %d cycles\n", MAX_CYCLES);
-    write_dump();
     delete top;
     return 1;
 }

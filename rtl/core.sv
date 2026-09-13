@@ -18,22 +18,25 @@ module core (
     logic [3:0]  alu_op;
     logic        alu_src_imm, reg_write, is_load, is_store, is_branch, is_jal, is_jalr, is_lui, is_auipc;
     logic [2:0]  funct3;
+    logic        is_word, is_muldiv;
+    logic [2:0]  muldiv_op;
 
     decode u_decode (
         .instr(imem_rdata), .rs1(rs1), .rs2(rs2), .rd(rd), .imm(imm),
         .alu_op(alu_op), .alu_src_imm(alu_src_imm), .reg_write(reg_write),
         .is_load(is_load), .is_store(is_store), .is_branch(is_branch),
         .is_jal(is_jal), .is_jalr(is_jalr), .is_lui(is_lui), .is_auipc(is_auipc),
-        .funct3(funct3)
+        .funct3(funct3), .is_word(is_word), .is_muldiv(is_muldiv), .muldiv_op(muldiv_op)
     );
 
     logic [63:0] rdata1, rdata2, wdata;
-    logic [63:0] alu_a, alu_b, alu_y;
+    logic [63:0] alu_a, alu_b, alu_y, muldiv_y;
 
     assign alu_a = is_auipc ? pc : rdata1;
     assign alu_b = alu_src_imm ? imm : rdata2;
 
-    alu u_alu (.a(alu_a), .b(alu_b), .op(alu_op), .y(alu_y));
+    alu u_alu (.a(alu_a), .b(alu_b), .op(alu_op), .is_word(is_word), .y(alu_y));
+    muldiv u_muldiv (.a(rdata1), .b(rdata2), .op(muldiv_op), .is_word(is_word), .y(muldiv_y));
 
     // branch condition
     logic branch_taken;
@@ -73,6 +76,7 @@ module core (
                    is_lui    ? imm :
                    is_jal    ? pc + 64'd4 :
                    is_jalr   ? pc + 64'd4 :
+                   is_muldiv ? muldiv_y :
                    alu_y;
 
     regfile u_regfile (
