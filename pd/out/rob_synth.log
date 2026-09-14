@@ -1,0 +1,2855 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)
+
+-- Executing script file `out/rob_synth.ys' --
+
+1. Executing SLANG frontend.
+Top level design units:
+    rob
+
+
+Build succeeded: 0 errors, 0 warnings
+
+1.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 3 empty switches in `\rob.$130'.
+Found and cleaned up 1 empty switch in `\rob.$126'.
+Found and cleaned up 1 empty switch in `\rob.$120'.
+Found and cleaned up 1 empty switch in `\rob.$115'.
+Found and cleaned up 1 empty switch in `\rob.$62'.
+Removing empty process `rob.$40'.
+Removing empty process `rob.$17'.
+Cleaned up 7 empty switches.
+
+1.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 2 switch rules as full_case in process $120 in module rob.
+Marked 1 switch rules as full_case in process $115 in module rob.
+Marked 5 switch rules as full_case in process $62 in module rob.
+Marked 8 switch rules as full_case in process $130 in module rob.
+Removed a total of 0 dead cases.
+
+1.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 10 redundant assignments.
+Promoted 0 assignments to connections.
+
+1.4. Executing PROC_INIT pass (extract init attributes).
+
+1.5. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~63 debug messages>
+
+1.6. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\rob.$120'.
+     1/3: $n_alloc$123
+     2/3: $n_alloc$121
+     3/3: $n_alloc$124
+Creating decoders for process `\rob.$115'.
+     1/2: $n_commit$118
+     2/2: $n_commit$116
+Creating decoders for process `\rob.$62'.
+     1/14: $flush_pc_c$104
+     2/14: $flush_idx_c$103
+     3/14: $flush_branch_c$102
+     4/14: $flush_pc_c$108
+     5/14: $flush_idx_c$107
+     6/14: $flush_branch_c$106
+     7/14: $flush_full_c$105
+     8/14: $flush_pc_c$79
+     9/14: $flush_idx_c$78
+    10/14: $flush_branch_c$77
+    11/14: $flush_pc_c$83
+    12/14: $flush_idx_c$82
+    13/14: $flush_branch_c$81
+    14/14: $flush_full_c$80
+Creating decoders for process `\rob.$130'.
+     1/228: $count_q$997
+     2/228: $tail_q$996
+     3/228: $count_q$1024
+     4/228: $tail_q$1023
+     5/228: $head_q$1022
+     6/228: $count_q$1027
+     7/228: $tail_q$1026
+     8/228: $head_q$1025
+     9/228: $1020
+    10/228: $1017
+    11/228: $1014
+    12/228: $1011
+    13/228: $1008
+    14/228: $1005
+    15/228: $1002
+    16/228: $999
+    17/228: $991
+    18/228: $988
+    19/228: $985
+    20/228: $982
+    21/228: $979
+    22/228: $976
+    23/228: $973
+    24/228: $970
+    25/228: $967
+    26/228: $964
+    27/228: $961
+    28/228: $958
+    29/228: $955
+    30/228: $952
+    31/228: $949
+    32/228: $946
+    33/228: $943
+    34/228: $940
+    35/228: $937
+    36/228: $927
+    37/228: $917
+    38/228: $907
+    39/228: $897
+    40/228: $887
+    41/228: $877
+    42/228: $867
+    43/228: $857
+    44/228: $847
+    45/228: $837
+    46/228: $827
+    47/228: $817
+    48/228: $807
+    49/228: $797
+    50/228: $787
+    51/228: $777
+    52/228: $767
+    53/228: $757
+    54/228: $747
+    55/228: $737
+    56/228: $727
+    57/228: $717
+    58/228: $707
+    59/228: $697
+    60/228: $687
+    61/228: $677
+    62/228: $667
+    63/228: $657
+    64/228: $647
+    65/228: $637
+    66/228: $627
+    67/228: $615
+    68/228: $612
+    69/228: $609
+    70/228: $606
+    71/228: $603
+    72/228: $600
+    73/228: $597
+    74/228: $594
+    75/228: $591
+    76/228: $588
+    77/228: $585
+    78/228: $582
+    79/228: $579
+    80/228: $576
+    81/228: $573
+    82/228: $570
+    83/228: $567
+    84/228: $564
+    85/228: $561
+    86/228: $558
+    87/228: $555
+    88/228: $552
+    89/228: $549
+    90/228: $546
+    91/228: $543
+    92/228: $540
+    93/228: $537
+    94/228: $534
+    95/228: $531
+    96/228: $528
+    97/228: $525
+    98/228: $522
+    99/228: $519
+   100/228: $516
+   101/228: $513
+   102/228: $510
+   103/228: $507
+   104/228: $504
+   105/228: $501
+   106/228: $498
+   107/228: $495
+   108/228: $492
+   109/228: $489
+   110/228: $486
+   111/228: $483
+   112/228: $480
+   113/228: $477
+   114/228: $474
+   115/228: $471
+   116/228: $468
+   117/228: $465
+   118/228: $462
+   119/228: $459
+   120/228: $456
+   121/228: $453
+   122/228: $450
+   123/228: $447
+   124/228: $444
+   125/228: $441
+   126/228: $438
+   127/228: $435
+   128/228: $432
+   129/228: $429
+   130/228: $426
+   131/228: $423
+   132/228: $420
+   133/228: $417
+   134/228: $414
+   135/228: $411
+   136/228: $408
+   137/228: $405
+   138/228: $402
+   139/228: $399
+   140/228: $396
+   141/228: $393
+   142/228: $390
+   143/228: $387
+   144/228: $384
+   145/228: $381
+   146/228: $378
+   147/228: $375
+   148/228: $372
+   149/228: $369
+   150/228: $366
+   151/228: $363
+   152/228: $360
+   153/228: $357
+   154/228: $354
+   155/228: $351
+   156/228: $348
+   157/228: $345
+   158/228: $342
+   159/228: $339
+   160/228: $336
+   161/228: $333
+   162/228: $330
+   163/228: $327
+   164/228: $324
+   165/228: $321
+   166/228: $318
+   167/228: $315
+   168/228: $312
+   169/228: $309
+   170/228: $306
+   171/228: $303
+   172/228: $300
+   173/228: $297
+   174/228: $294
+   175/228: $291
+   176/228: $288
+   177/228: $285
+   178/228: $282
+   179/228: $279
+   180/228: $276
+   181/228: $273
+   182/228: $270
+   183/228: $267
+   184/228: $264
+   185/228: $261
+   186/228: $258
+   187/228: $255
+   188/228: $252
+   189/228: $249
+   190/228: $246
+   191/228: $243
+   192/228: $240
+   193/228: $237
+   194/228: $234
+   195/228: $231
+   196/228: $228
+   197/228: $225
+   198/228: $222
+   199/228: $219
+   200/228: $216
+   201/228: $213
+   202/228: $210
+   203/228: $207
+   204/228: $204
+   205/228: $201
+   206/228: $198
+   207/228: $195
+   208/228: $192
+   209/228: $189
+   210/228: $186
+   211/228: $183
+   212/228: $180
+   213/228: $177
+   214/228: $174
+   215/228: $171
+   216/228: $168
+   217/228: $165
+   218/228: $162
+   219/228: $159
+   220/228: $156
+   221/228: $153
+   222/228: $150
+   223/228: $147
+   224/228: $144
+   225/228: $141
+   226/228: $138
+   227/228: $135
+   228/228: $132
+Creating decoders for process `\rob.$126'.
+     1/1: $n_squash$128
+
+1.7. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 5 empty switches in `\rob.$120'.
+Removing empty process `rob.$120'.
+Found and cleaned up 3 empty switches in `\rob.$115'.
+Removing empty process `rob.$115'.
+Found and cleaned up 7 empty switches in `\rob.$62'.
+Removing empty process `rob.$62'.
+Found and cleaned up 47 empty switches in `\rob.$130'.
+Removing empty process `rob.$130'.
+Found and cleaned up 1 empty switch in `\rob.$126'.
+Removing empty process `rob.$126'.
+Cleaned up 63 empty switches.
+
+1.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rob.
+<suppressed ~6 debug messages>
+
+2. Executing HIERARCHY pass (managing design hierarchy).
+
+2.1. Analyzing design hierarchy..
+Top module:  \rob
+
+2.2. Analyzing design hierarchy..
+Top module:  \rob
+Removed 0 unused modules.
+
+3. Executing SYNTH pass.
+
+3.1. Executing HIERARCHY pass (managing design hierarchy).
+
+3.1.1. Analyzing design hierarchy..
+Top module:  \rob
+
+3.1.2. Analyzing design hierarchy..
+Top module:  \rob
+Removed 0 unused modules.
+
+3.2. Executing PROC pass (convert processes to netlists).
+
+3.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+3.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed a total of 0 dead cases.
+
+3.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 0 assignments to connections.
+
+3.2.4. Executing PROC_INIT pass (extract init attributes).
+
+3.2.5. Executing PROC_ARST pass (detect async resets in processes).
+
+3.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+
+3.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+
+3.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+3.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+
+3.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+3.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+3.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rob.
+
+3.3. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rob.
+<suppressed ~2 debug messages>
+
+3.4. Executing CHECK pass (checking for obvious problems).
+Checking module rob...
+Found and reported 0 problems.
+
+3.5. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rob..
+Removed 1 unused cells and 766 unused wires.
+<suppressed ~25 debug messages>
+
+3.6. Executing OPT pass (performing simple optimizations).
+
+3.6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rob.
+
+3.6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rob'.
+Computing hashes of 1178 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Computing hashes of 1170 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+<suppressed ~24 debug messages>
+Removed a total of 8 cells.
+
+3.6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \rob..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 1/2 on $mux $procmux$122.
+    dead port 1/2 on $mux $procmux$115.
+    dead port 1/2 on $mux $procmux$108.
+    dead port 1/2 on $mux $procmux$101.
+    dead port 1/2 on $mux $procmux$98.
+    dead port 1/2 on $mux $procmux$90.
+    dead port 1/2 on $mux $procmux$87.
+    dead port 1/2 on $mux $procmux$64.
+    dead port 1/2 on $mux $procmux$59.
+    dead port 1/2 on $mux $procmux$54.
+    dead port 1/2 on $mux $procmux$31.
+    dead port 1/2 on $mux $procmux$26.
+    dead port 1/2 on $mux $procmux$21.
+    dead port 2/2 on $mux $procmux$4.
+Removed 14 multiplexer ports.
+<suppressed ~1164 debug messages>
+
+3.6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \rob.
+    Consolidated identical input bits for $mux cell $1021:
+      Old ports: A=64'0000000000000000000000000000000000000000000000000000000000000000, B=64'1111111111111111111111111111111111111111111111111111111111111111, Y=$1021y
+      New ports: A=1'0, B=1'1, Y=$1021y [0]
+      New connections: $1021y [63:1] = { $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] $1021y [0] }
+    Consolidated identical input bits for $mux cell $1009:
+      Old ports: A=64'0000000000000000000000000000000000000000000000000000000000000000, B=64'1111111111111111111111111111111111111111111111111111111111111111, Y=$1009y
+      New ports: A=1'0, B=1'1, Y=$1009y [0]
+      New connections: $1009y [63:1] = { $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] $1009y [0] }
+    Consolidated identical input bits for $mux cell $989:
+      Old ports: A=7'0000000, B=7'1111111, Y=$989y
+      New ports: A=1'0, B=1'1, Y=$989y [0]
+      New connections: $989y [6:1] = { $989y [0] $989y [0] $989y [0] $989y [0] $989y [0] $989y [0] }
+    Consolidated identical input bits for $mux cell $986:
+      Old ports: A=7'0000000, B=7'1111111, Y=$986y
+      New ports: A=1'0, B=1'1, Y=$986y [0]
+      New connections: $986y [6:1] = { $986y [0] $986y [0] $986y [0] $986y [0] $986y [0] $986y [0] }
+    Consolidated identical input bits for $mux cell $983:
+      Old ports: A=5'00000, B=5'11111, Y=$983y
+      New ports: A=1'0, B=1'1, Y=$983y [0]
+      New connections: $983y [4:1] = { $983y [0] $983y [0] $983y [0] $983y [0] }
+    Consolidated identical input bits for $mux cell $980:
+      Old ports: A=64'0000000000000000000000000000000000000000000000000000000000000000, B=64'1111111111111111111111111111111111111111111111111111111111111111, Y=$980y
+      New ports: A=1'0, B=1'1, Y=$980y [0]
+      New connections: $980y [63:1] = { $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] $980y [0] }
+    Consolidated identical input bits for $mux cell $962:
+      Old ports: A=7'0000000, B=7'1111111, Y=$962y
+      New ports: A=1'0, B=1'1, Y=$962y [0]
+      New connections: $962y [6:1] = { $962y [0] $962y [0] $962y [0] $962y [0] $962y [0] $962y [0] }
+    Consolidated identical input bits for $mux cell $959:
+      Old ports: A=7'0000000, B=7'1111111, Y=$959y
+      New ports: A=1'0, B=1'1, Y=$959y [0]
+      New connections: $959y [6:1] = { $959y [0] $959y [0] $959y [0] $959y [0] $959y [0] $959y [0] }
+    Consolidated identical input bits for $mux cell $956:
+      Old ports: A=5'00000, B=5'11111, Y=$956y
+      New ports: A=1'0, B=1'1, Y=$956y [0]
+      New connections: $956y [4:1] = { $956y [0] $956y [0] $956y [0] $956y [0] }
+    Consolidated identical input bits for $mux cell $953:
+      Old ports: A=64'0000000000000000000000000000000000000000000000000000000000000000, B=64'1111111111111111111111111111111111111111111111111111111111111111, Y=$953y
+      New ports: A=1'0, B=1'1, Y=$953y [0]
+      New connections: $953y [63:1] = { $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] $953y [0] }
+  Optimizing cells in module \rob.
+Performed a total of 10 changes.
+
+3.6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rob'.
+Computing hashes of 1156 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Computing hashes of 976 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Computing hashes of 796 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Computing hashes of 743 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Computing hashes of 721 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Computing hashes of 705 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Computing hashes of 689 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+<suppressed ~1401 debug messages>
+Removed a total of 467 cells.
+
+3.6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rob..
+Removed 0 unused cells and 489 unused wires.
+<suppressed ~1 debug messages>
+
+3.6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rob.
+
+3.6.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+3.6.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \rob..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~321 debug messages>
+
+3.6.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \rob.
+Performed a total of 0 changes.
+
+3.6.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rob'.
+Computing hashes of 689 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Removed a total of 0 cells.
+
+3.6.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.6.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rob..
+
+3.6.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rob.
+
+3.6.16. Finished fast OPT passes. (There is nothing left to do.)
+
+3.7. Executing FSM pass (extract and optimize FSM).
+
+3.7.1. Executing FSM_DETECT pass (finding FSMs in design).
+
+3.7.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+3.7.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+3.7.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rob..
+
+3.7.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+3.7.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+3.7.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+3.7.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+3.8. Executing OPT pass (performing simple optimizations).
+
+3.8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rob.
+
+3.8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rob'.
+Computing hashes of 689 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Removed a total of 0 cells.
+
+3.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \rob..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~321 debug messages>
+
+3.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \rob.
+Performed a total of 0 changes.
+
+3.8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rob'.
+Computing hashes of 689 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Removed a total of 0 cells.
+
+3.8.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $driver$head_q ($dff) from module rob (D = $617y, Q = \head_q, rval = 5'00000).
+Adding SRST signal on $driver$tail_q ($dff) from module rob (D = $procmux$101_Y, Q = \tail_q, rval = 5'00000).
+Adding SRST signal on $driver$count_q ($dff) from module rob (D = $995y, Q = \count_q, rval = 6'000000).
+
+3.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rob..
+Removed 7 unused cells and 7 unused wires.
+<suppressed ~8 debug messages>
+
+3.8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rob.
+
+3.8.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+3.8.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \rob..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~312 debug messages>
+
+3.8.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \rob.
+Performed a total of 0 changes.
+
+3.8.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rob'.
+Computing hashes of 685 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Computing hashes of 684 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+<suppressed ~3 debug messages>
+Removed a total of 1 cells.
+
+3.8.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.8.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rob..
+Removed 0 unused cells and 1 unused wires.
+<suppressed ~1 debug messages>
+
+3.8.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rob.
+
+3.8.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+3.8.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \rob..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~312 debug messages>
+
+3.8.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \rob.
+Performed a total of 0 changes.
+
+3.8.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rob'.
+Computing hashes of 684 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Removed a total of 0 cells.
+
+3.8.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.8.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rob..
+
+3.8.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rob.
+
+3.8.23. Finished fast OPT passes. (There is nothing left to do.)
+
+3.9. Executing WREDUCE pass (reducing word size of cells).
+Removed top 27 address bits (of 32) from memory init port rob.$936 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$930 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$926 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$920 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$916 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$910 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$906 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$900 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$896 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$890 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$886 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$880 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$876 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$870 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$866 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$860 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$856 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$850 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$846 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$840 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$836 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$830 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$826 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$820 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$816 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$810 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$806 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$800 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$796 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$790 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$786 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$780 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$776 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$770 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$766 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$760 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$756 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$750 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$746 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$740 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$736 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$730 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$726 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$720 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$716 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$710 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$706 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$700 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$696 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$690 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$686 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$680 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$676 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$670 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$666 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$660 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$656 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$650 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$646 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$640 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$636 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$630 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$626 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$620 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$608 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$605 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$602 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$599 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$596 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$593 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$590 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$587 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$584 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$581 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$578 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$575 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$572 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$569 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$566 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$563 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$560 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$557 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$554 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$551 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$548 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$545 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$542 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$539 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$536 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$533 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$530 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$527 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$524 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$521 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$518 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$515 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$512 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$509 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$506 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$503 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$500 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$497 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$494 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$491 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$488 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$485 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$482 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$479 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$476 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$473 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$470 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$467 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$464 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$461 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$458 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$455 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$452 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$449 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$446 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$443 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$440 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$437 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$434 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$431 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$428 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$425 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$422 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$419 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$416 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$413 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$410 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$407 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$404 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$401 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$398 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$395 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$392 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$389 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$386 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$383 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$380 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$377 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$374 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$371 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$368 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$365 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$362 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$359 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$356 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$353 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$350 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$347 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$344 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$341 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$338 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$335 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$332 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$329 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$326 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$323 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$320 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$317 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$314 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$311 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$308 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$305 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$302 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$299 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$296 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$293 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$290 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$287 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$284 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$281 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$278 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$275 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$272 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$269 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$266 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$263 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$260 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$257 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$254 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$251 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$248 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$245 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$242 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$239 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$236 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$233 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$230 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$227 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$224 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$221 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$218 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$215 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$212 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$209 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$206 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$203 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$200 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$197 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$194 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$191 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$188 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$185 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$182 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$179 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$176 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$173 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$170 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$167 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$164 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$161 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$158 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$155 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$152 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$149 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$146 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$143 (v_q).
+Removed top 27 address bits (of 32) from memory init port rob.$140 (mis_q).
+Removed top 27 address bits (of 32) from memory init port rob.$137 (exc_q).
+Removed top 27 address bits (of 32) from memory init port rob.$134 (done_q).
+Removed top 27 address bits (of 32) from memory init port rob.$131 (v_q).
+Removed top 4 bits (of 6) from port B of cell rob.$9 ($ge).
+Removed top 4 bits (of 5) from port B of cell rob.$15 ($add).
+Removed top 4 bits (of 5) from port B of cell rob.$19 ($add).
+Removed top 1 bits (of 2) from port B of cell rob.$117 ($add).
+Removed top 1 bits (of 2) from port B of cell rob.$122 ($add).
+Removed top 4 bits (of 5) from port B of cell rob.$618 ($add).
+Removed top 4 bits (of 5) from port A of cell rob.$619 ($sub).
+Removed top 1 bits (of 6) from port A of cell rob.$624 ($le).
+Removed top 4 bits (of 5) from port A of cell rob.$629 ($sub).
+Removed top 4 bits (of 5) from port A of cell rob.$632 ($ne).
+Removed top 1 bits (of 6) from port A of cell rob.$634 ($le).
+Removed top 3 bits (of 5) from port A of cell rob.$639 ($sub).
+Removed top 3 bits (of 5) from port A of cell rob.$642 ($ne).
+Removed top 1 bits (of 6) from port A of cell rob.$644 ($le).
+Removed top 3 bits (of 5) from port A of cell rob.$649 ($sub).
+Removed top 3 bits (of 5) from port A of cell rob.$652 ($ne).
+Removed top 1 bits (of 6) from port A of cell rob.$654 ($le).
+Removed top 2 bits (of 5) from port A of cell rob.$659 ($sub).
+Removed top 2 bits (of 5) from port A of cell rob.$662 ($ne).
+Removed top 1 bits (of 6) from port A of cell rob.$664 ($le).
+Removed top 2 bits (of 5) from port A of cell rob.$669 ($sub).
+Removed top 2 bits (of 5) from port A of cell rob.$672 ($ne).
+Removed top 1 bits (of 6) from port A of cell rob.$674 ($le).
+Removed top 2 bits (of 5) from port A of cell rob.$679 ($sub).
+Removed top 2 bits (of 5) from port A of cell rob.$682 ($ne).
+Removed top 1 bits (of 6) from port A of cell rob.$684 ($le).
+Removed top 2 bits (of 5) from port A of cell rob.$689 ($sub).
+Removed top 2 bits (of 5) from port A of cell rob.$692 ($ne).
+Removed top 1 bits (of 6) from port A of cell rob.$694 ($le).
+Removed top 1 bits (of 5) from port A of cell rob.$699 ($sub).
+Removed top 1 bits (of 5) from port A of cell rob.$702 ($ne).
+Removed top 1 bits (of 6) from port A of cell rob.$704 ($le).
+Removed top 1 bits (of 5) from port A of cell rob.$709 ($sub).
+Removed top 1 bits (of 5) from port A of cell rob.$712 ($ne).
+Removed top 1 bits (of 6) from port A of cell rob.$714 ($le).
+Removed top 1 bits (of 5) from port A of cell rob.$719 ($sub).
+Removed top 1 bits (of 5) from port A of cell rob.$722 ($ne).
+Removed top 1 bits (of 6) from port A of cell rob.$724 ($le).
+Removed top 1 bits (of 5) from port A of cell rob.$729 ($sub).
+Removed top 1 bits (of 5) from port A of cell rob.$732 ($ne).
+Removed top 1 bits (of 6) from port A of cell rob.$734 ($le).
+Removed top 1 bits (of 5) from port A of cell rob.$739 ($sub).
+Removed top 1 bits (of 5) from port A of cell rob.$742 ($ne).
+Removed top 1 bits (of 6) from port A of cell rob.$744 ($le).
+Removed top 1 bits (of 5) from port A of cell rob.$749 ($sub).
+Removed top 1 bits (of 5) from port A of cell rob.$752 ($ne).
+Removed top 1 bits (of 6) from port A of cell rob.$754 ($le).
+Removed top 1 bits (of 5) from port A of cell rob.$759 ($sub).
+Removed top 1 bits (of 5) from port A of cell rob.$762 ($ne).
+Removed top 1 bits (of 6) from port A of cell rob.$764 ($le).
+Removed top 1 bits (of 5) from port A of cell rob.$769 ($sub).
+Removed top 1 bits (of 5) from port A of cell rob.$772 ($ne).
+Removed top 1 bits (of 6) from port A of cell rob.$774 ($le).
+Removed top 1 bits (of 6) from port A of cell rob.$784 ($le).
+Removed top 1 bits (of 6) from port A of cell rob.$794 ($le).
+Removed top 1 bits (of 6) from port A of cell rob.$804 ($le).
+Removed top 1 bits (of 6) from port A of cell rob.$814 ($le).
+Removed top 1 bits (of 6) from port A of cell rob.$824 ($le).
+Removed top 1 bits (of 6) from port A of cell rob.$834 ($le).
+Removed top 1 bits (of 6) from port A of cell rob.$844 ($le).
+Removed top 1 bits (of 6) from port A of cell rob.$854 ($le).
+Removed top 1 bits (of 6) from port A of cell rob.$864 ($le).
+Removed top 1 bits (of 6) from port A of cell rob.$874 ($le).
+Removed top 1 bits (of 6) from port A of cell rob.$884 ($le).
+Removed top 1 bits (of 6) from port A of cell rob.$894 ($le).
+Removed top 1 bits (of 6) from port A of cell rob.$904 ($le).
+Removed top 1 bits (of 6) from port A of cell rob.$914 ($le).
+Removed top 1 bits (of 6) from port A of cell rob.$924 ($le).
+Removed top 1 bits (of 6) from port A of cell rob.$934 ($le).
+Removed top 5 bits (of 6) from mux cell rob.$procmux$6 ($mux).
+Removed top 5 bits (of 6) from mux cell rob.$procmux$16 ($mux).
+Removed top 5 bits (of 6) from wire rob.$procmux$6_Y.
+Removed top 5 bits (of 6) from wire rob.$n_commit$116.
+
+3.10. Executing PEEPOPT pass (run peephole optimizers).
+
+3.11. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rob..
+Removed 0 unused cells and 2 unused wires.
+<suppressed ~1 debug messages>
+
+3.12. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module rob:
+  creating $macc model for $993 ($add).
+  creating $macc model for $929 ($sub).
+  creating $macc model for $919 ($sub).
+  creating $macc model for $909 ($sub).
+  creating $macc model for $899 ($sub).
+  creating $macc model for $889 ($sub).
+  creating $macc model for $879 ($sub).
+  creating $macc model for $869 ($sub).
+  creating $macc model for $859 ($sub).
+  creating $macc model for $849 ($sub).
+  creating $macc model for $839 ($sub).
+  creating $macc model for $829 ($sub).
+  creating $macc model for $819 ($sub).
+  creating $macc model for $809 ($sub).
+  creating $macc model for $799 ($sub).
+  creating $macc model for $789 ($sub).
+  creating $macc model for $779 ($sub).
+  creating $macc model for $769 ($sub).
+  creating $macc model for $759 ($sub).
+  creating $macc model for $749 ($sub).
+  creating $macc model for $739 ($sub).
+  creating $macc model for $729 ($sub).
+  creating $macc model for $719 ($sub).
+  creating $macc model for $709 ($sub).
+  creating $macc model for $699 ($sub).
+  creating $macc model for $689 ($sub).
+  creating $macc model for $679 ($sub).
+  creating $macc model for $669 ($sub).
+  creating $macc model for $659 ($sub).
+  creating $macc model for $649 ($sub).
+  creating $macc model for $639 ($sub).
+  creating $macc model for $629 ($sub).
+  creating $macc model for $619 ($sub).
+  creating $macc model for $618 ($add).
+  creating $macc model for $617 ($add).
+  creating $macc model for $994 ($sub).
+  creating $macc model for $995 ($add).
+  creating $macc model for $122 ($add).
+  creating $macc model for $117 ($add).
+  creating $macc model for $19 ($add).
+  creating $macc model for $15 ($add).
+  creating $macc model for $14 ($add).
+  creating $macc model for $7 ($sub).
+  creating $alu model for $macc $7.
+  creating $alu model for $macc $14.
+  creating $alu model for $macc $15.
+  creating $alu model for $macc $19.
+  creating $alu model for $macc $117.
+  creating $alu model for $macc $122.
+  creating $alu model for $macc $995.
+  creating $alu model for $macc $994.
+  creating $alu model for $macc $617.
+  creating $alu model for $macc $618.
+  creating $alu model for $macc $619.
+  creating $alu model for $macc $629.
+  creating $alu model for $macc $639.
+  creating $alu model for $macc $649.
+  creating $alu model for $macc $659.
+  creating $alu model for $macc $669.
+  creating $alu model for $macc $679.
+  creating $alu model for $macc $689.
+  creating $alu model for $macc $699.
+  creating $alu model for $macc $709.
+  creating $alu model for $macc $719.
+  creating $alu model for $macc $729.
+  creating $alu model for $macc $739.
+  creating $alu model for $macc $749.
+  creating $alu model for $macc $759.
+  creating $alu model for $macc $769.
+  creating $alu model for $macc $779.
+  creating $alu model for $macc $789.
+  creating $alu model for $macc $799.
+  creating $alu model for $macc $809.
+  creating $alu model for $macc $819.
+  creating $alu model for $macc $829.
+  creating $alu model for $macc $839.
+  creating $alu model for $macc $849.
+  creating $alu model for $macc $859.
+  creating $alu model for $macc $869.
+  creating $alu model for $macc $879.
+  creating $alu model for $macc $889.
+  creating $alu model for $macc $899.
+  creating $alu model for $macc $909.
+  creating $alu model for $macc $919.
+  creating $alu model for $macc $929.
+  creating $alu model for $macc $993.
+  creating $alu model for $934 ($le): new $alu
+  creating $alu model for $924 ($le): new $alu
+  creating $alu model for $914 ($le): new $alu
+  creating $alu model for $904 ($le): new $alu
+  creating $alu model for $894 ($le): new $alu
+  creating $alu model for $884 ($le): new $alu
+  creating $alu model for $874 ($le): new $alu
+  creating $alu model for $864 ($le): new $alu
+  creating $alu model for $854 ($le): new $alu
+  creating $alu model for $844 ($le): new $alu
+  creating $alu model for $834 ($le): new $alu
+  creating $alu model for $824 ($le): new $alu
+  creating $alu model for $814 ($le): new $alu
+  creating $alu model for $804 ($le): new $alu
+  creating $alu model for $794 ($le): new $alu
+  creating $alu model for $784 ($le): new $alu
+  creating $alu model for $774 ($le): new $alu
+  creating $alu model for $764 ($le): new $alu
+  creating $alu model for $754 ($le): new $alu
+  creating $alu model for $744 ($le): new $alu
+  creating $alu model for $734 ($le): new $alu
+  creating $alu model for $724 ($le): new $alu
+  creating $alu model for $714 ($le): new $alu
+  creating $alu model for $704 ($le): new $alu
+  creating $alu model for $694 ($le): new $alu
+  creating $alu model for $684 ($le): new $alu
+  creating $alu model for $674 ($le): new $alu
+  creating $alu model for $664 ($le): new $alu
+  creating $alu model for $654 ($le): new $alu
+  creating $alu model for $644 ($le): new $alu
+  creating $alu model for $634 ($le): new $alu
+  creating $alu model for $624 ($le): new $alu
+  creating $alu model for $9 ($ge): new $alu
+  creating $alu model for $932 ($ne): merged with $929.
+  creating $alu model for $922 ($ne): merged with $919.
+  creating $alu model for $912 ($ne): merged with $909.
+  creating $alu model for $902 ($ne): merged with $899.
+  creating $alu model for $892 ($ne): merged with $889.
+  creating $alu model for $882 ($ne): merged with $879.
+  creating $alu model for $872 ($ne): merged with $869.
+  creating $alu model for $862 ($ne): merged with $859.
+  creating $alu model for $852 ($ne): merged with $849.
+  creating $alu model for $842 ($ne): merged with $839.
+  creating $alu model for $832 ($ne): merged with $829.
+  creating $alu model for $822 ($ne): merged with $819.
+  creating $alu model for $812 ($ne): merged with $809.
+  creating $alu model for $802 ($ne): merged with $799.
+  creating $alu model for $792 ($ne): merged with $789.
+  creating $alu model for $782 ($ne): merged with $779.
+  creating $alu model for $772 ($ne): merged with $769.
+  creating $alu model for $762 ($ne): merged with $759.
+  creating $alu model for $752 ($ne): merged with $749.
+  creating $alu model for $742 ($ne): merged with $739.
+  creating $alu model for $732 ($ne): merged with $729.
+  creating $alu model for $722 ($ne): merged with $719.
+  creating $alu model for $712 ($ne): merged with $709.
+  creating $alu model for $702 ($ne): merged with $699.
+  creating $alu model for $692 ($ne): merged with $689.
+  creating $alu model for $682 ($ne): merged with $679.
+  creating $alu model for $672 ($ne): merged with $669.
+  creating $alu model for $662 ($ne): merged with $659.
+  creating $alu model for $652 ($ne): merged with $649.
+  creating $alu model for $642 ($ne): merged with $639.
+  creating $alu model for $632 ($ne): merged with $629.
+  creating $alu model for $5 ($eq): merged with $7.
+  creating $alu cell for $9: $auto$alumacc.cc:548:replace_alu$1424
+  creating $alu cell for $624: $auto$alumacc.cc:548:replace_alu$1437
+  creating $alu cell for $634: $auto$alumacc.cc:548:replace_alu$1446
+  creating $alu cell for $644: $auto$alumacc.cc:548:replace_alu$1455
+  creating $alu cell for $654: $auto$alumacc.cc:548:replace_alu$1464
+  creating $alu cell for $664: $auto$alumacc.cc:548:replace_alu$1473
+  creating $alu cell for $674: $auto$alumacc.cc:548:replace_alu$1482
+  creating $alu cell for $684: $auto$alumacc.cc:548:replace_alu$1491
+  creating $alu cell for $694: $auto$alumacc.cc:548:replace_alu$1500
+  creating $alu cell for $704: $auto$alumacc.cc:548:replace_alu$1509
+  creating $alu cell for $714: $auto$alumacc.cc:548:replace_alu$1518
+  creating $alu cell for $724: $auto$alumacc.cc:548:replace_alu$1527
+  creating $alu cell for $734: $auto$alumacc.cc:548:replace_alu$1536
+  creating $alu cell for $744: $auto$alumacc.cc:548:replace_alu$1545
+  creating $alu cell for $754: $auto$alumacc.cc:548:replace_alu$1554
+  creating $alu cell for $764: $auto$alumacc.cc:548:replace_alu$1563
+  creating $alu cell for $774: $auto$alumacc.cc:548:replace_alu$1572
+  creating $alu cell for $784: $auto$alumacc.cc:548:replace_alu$1581
+  creating $alu cell for $794: $auto$alumacc.cc:548:replace_alu$1590
+  creating $alu cell for $804: $auto$alumacc.cc:548:replace_alu$1599
+  creating $alu cell for $814: $auto$alumacc.cc:548:replace_alu$1608
+  creating $alu cell for $824: $auto$alumacc.cc:548:replace_alu$1617
+  creating $alu cell for $834: $auto$alumacc.cc:548:replace_alu$1626
+  creating $alu cell for $844: $auto$alumacc.cc:548:replace_alu$1635
+  creating $alu cell for $854: $auto$alumacc.cc:548:replace_alu$1644
+  creating $alu cell for $864: $auto$alumacc.cc:548:replace_alu$1653
+  creating $alu cell for $874: $auto$alumacc.cc:548:replace_alu$1662
+  creating $alu cell for $884: $auto$alumacc.cc:548:replace_alu$1671
+  creating $alu cell for $894: $auto$alumacc.cc:548:replace_alu$1680
+  creating $alu cell for $904: $auto$alumacc.cc:548:replace_alu$1689
+  creating $alu cell for $914: $auto$alumacc.cc:548:replace_alu$1698
+  creating $alu cell for $924: $auto$alumacc.cc:548:replace_alu$1707
+  creating $alu cell for $934: $auto$alumacc.cc:548:replace_alu$1716
+  creating $alu cell for $993: $auto$alumacc.cc:548:replace_alu$1725
+  creating $alu cell for $929, $932: $auto$alumacc.cc:548:replace_alu$1728
+  creating $alu cell for $919, $922: $auto$alumacc.cc:548:replace_alu$1735
+  creating $alu cell for $909, $912: $auto$alumacc.cc:548:replace_alu$1742
+  creating $alu cell for $899, $902: $auto$alumacc.cc:548:replace_alu$1749
+  creating $alu cell for $889, $892: $auto$alumacc.cc:548:replace_alu$1756
+  creating $alu cell for $879, $882: $auto$alumacc.cc:548:replace_alu$1763
+  creating $alu cell for $869, $872: $auto$alumacc.cc:548:replace_alu$1770
+  creating $alu cell for $859, $862: $auto$alumacc.cc:548:replace_alu$1777
+  creating $alu cell for $849, $852: $auto$alumacc.cc:548:replace_alu$1784
+  creating $alu cell for $839, $842: $auto$alumacc.cc:548:replace_alu$1791
+  creating $alu cell for $829, $832: $auto$alumacc.cc:548:replace_alu$1798
+  creating $alu cell for $819, $822: $auto$alumacc.cc:548:replace_alu$1805
+  creating $alu cell for $809, $812: $auto$alumacc.cc:548:replace_alu$1812
+  creating $alu cell for $799, $802: $auto$alumacc.cc:548:replace_alu$1819
+  creating $alu cell for $789, $792: $auto$alumacc.cc:548:replace_alu$1826
+  creating $alu cell for $779, $782: $auto$alumacc.cc:548:replace_alu$1833
+  creating $alu cell for $769, $772: $auto$alumacc.cc:548:replace_alu$1840
+  creating $alu cell for $759, $762: $auto$alumacc.cc:548:replace_alu$1847
+  creating $alu cell for $749, $752: $auto$alumacc.cc:548:replace_alu$1854
+  creating $alu cell for $739, $742: $auto$alumacc.cc:548:replace_alu$1861
+  creating $alu cell for $729, $732: $auto$alumacc.cc:548:replace_alu$1868
+  creating $alu cell for $719, $722: $auto$alumacc.cc:548:replace_alu$1875
+  creating $alu cell for $709, $712: $auto$alumacc.cc:548:replace_alu$1882
+  creating $alu cell for $699, $702: $auto$alumacc.cc:548:replace_alu$1889
+  creating $alu cell for $689, $692: $auto$alumacc.cc:548:replace_alu$1896
+  creating $alu cell for $679, $682: $auto$alumacc.cc:548:replace_alu$1903
+  creating $alu cell for $669, $672: $auto$alumacc.cc:548:replace_alu$1910
+  creating $alu cell for $659, $662: $auto$alumacc.cc:548:replace_alu$1917
+  creating $alu cell for $649, $652: $auto$alumacc.cc:548:replace_alu$1924
+  creating $alu cell for $639, $642: $auto$alumacc.cc:548:replace_alu$1931
+  creating $alu cell for $619: $auto$alumacc.cc:548:replace_alu$1938
+  creating $alu cell for $629, $632: $auto$alumacc.cc:548:replace_alu$1941
+  creating $alu cell for $618: $auto$alumacc.cc:548:replace_alu$1948
+  creating $alu cell for $617: $auto$alumacc.cc:548:replace_alu$1951
+  creating $alu cell for $994: $auto$alumacc.cc:548:replace_alu$1954
+  creating $alu cell for $995: $auto$alumacc.cc:548:replace_alu$1957
+  creating $alu cell for $122: $auto$alumacc.cc:548:replace_alu$1960
+  creating $alu cell for $117: $auto$alumacc.cc:548:replace_alu$1963
+  creating $alu cell for $19: $auto$alumacc.cc:548:replace_alu$1966
+  creating $alu cell for $15: $auto$alumacc.cc:548:replace_alu$1969
+  creating $alu cell for $14: $auto$alumacc.cc:548:replace_alu$1972
+  creating $alu cell for $7, $5: $auto$alumacc.cc:548:replace_alu$1975
+  created 76 $alu and 0 $macc cells.
+
+3.13. Executing SHARE pass (SAT-based resource sharing).
+Found 3 cells in module rob that may be considered for resource sharing.
+  Analyzing resource sharing options for $75 ($memrd_v2):
+    Found 2 activation_patterns using ctrl signal { $99y $90y $72y $65y }.
+    Found 1 candidates: $100
+    Analyzing resource sharing with $100 ($memrd_v2):
+      Found 2 activation_patterns using ctrl signal { $99y $90y }.
+      Activation pattern for cell $75: { $99y $90y $65y } = 3'001
+      Activation pattern for cell $75: { $99y $90y $72y $65y } = 4'0010
+      Activation pattern for cell $100: $90y = 1'1
+      Activation pattern for cell $100: { $99y $90y } = 2'10
+      According to the SAT solver this pair of cells can be shared. (Pattern only case)
+      Simplified activation pattern for cell $75: { $99y $90y } = 2'00
+      Simplified activation pattern for cell $100: $99y = 1'1
+      Simplified activation pattern for cell $100: $90y = 1'1
+      Activation signal for $75: $auto$share.cc:1066:make_cell_activation_logic$1980
+      New cell: $auto$share.cc:711:make_supercell$1982 ($memrd_v2)
+  Analyzing resource sharing options for $auto$share.cc:711:make_supercell$1982 ($memrd_v2):
+    Found 4 activation_patterns using ctrl signal { $99y $90y $72y $65y }.
+    No candidates found.
+  Analyzing resource sharing options for $93 ($memrd_v2):
+    Found 1 activation_patterns using ctrl signal $90y.
+    No candidates found.
+Removing 2 cells in module rob:
+  Removing cell $100 ($memrd_v2).
+  Removing cell $75 ($memrd_v2).
+
+3.14. Executing OPT pass (performing simple optimizations).
+
+3.14.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rob.
+<suppressed ~1 debug messages>
+
+3.14.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rob'.
+Computing hashes of 818 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Removed a total of 0 cells.
+
+3.14.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \rob..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~314 debug messages>
+
+3.14.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \rob.
+Performed a total of 0 changes.
+
+3.14.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rob'.
+Computing hashes of 818 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Computing hashes of 816 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+<suppressed ~6 debug messages>
+Removed a total of 2 cells.
+
+3.14.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.14.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rob..
+Removed 0 unused cells and 68 unused wires.
+<suppressed ~2 debug messages>
+
+3.14.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rob.
+
+3.14.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+3.14.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \rob..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~315 debug messages>
+
+3.14.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \rob.
+Performed a total of 0 changes.
+
+3.14.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rob'.
+Computing hashes of 815 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Removed a total of 0 cells.
+
+3.14.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.14.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rob..
+
+3.14.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rob.
+
+3.14.16. Finished fast OPT passes. (There is nothing left to do.)
+
+3.15. Executing MEMORY pass.
+
+3.15.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+3.15.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 6794 transformations.
+
+3.15.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+  Analyzing rob.is_store_q write port 0.
+  Analyzing rob.is_store_q write port 1.
+  Analyzing rob.prev_prd_q write port 0.
+  Analyzing rob.prev_prd_q write port 1.
+  Analyzing rob.prd_q write port 0.
+  Analyzing rob.prd_q write port 1.
+  Analyzing rob.rd_arch_q write port 0.
+  Analyzing rob.rd_arch_q write port 1.
+  Analyzing rob.redir_q write port 0.
+  Analyzing rob.redir_q write port 1.
+  Analyzing rob.pc_q write port 0.
+  Analyzing rob.pc_q write port 1.
+  Analyzing rob.mis_q write port 0.
+  Analyzing rob.mis_q write port 1.
+  Analyzing rob.mis_q write port 2.
+  Analyzing rob.mis_q write port 3.
+  Analyzing rob.mis_q write port 4.
+  Analyzing rob.mis_q write port 5.
+  Analyzing rob.mis_q write port 6.
+  Analyzing rob.mis_q write port 7.
+  Analyzing rob.mis_q write port 8.
+  Analyzing rob.mis_q write port 9.
+  Analyzing rob.mis_q write port 10.
+  Analyzing rob.mis_q write port 11.
+  Analyzing rob.mis_q write port 12.
+  Analyzing rob.mis_q write port 13.
+  Analyzing rob.mis_q write port 14.
+  Analyzing rob.mis_q write port 15.
+  Analyzing rob.mis_q write port 16.
+  Analyzing rob.mis_q write port 17.
+  Analyzing rob.mis_q write port 18.
+  Analyzing rob.mis_q write port 19.
+  Analyzing rob.mis_q write port 20.
+  Analyzing rob.mis_q write port 21.
+  Analyzing rob.mis_q write port 22.
+  Analyzing rob.mis_q write port 23.
+  Analyzing rob.mis_q write port 24.
+  Analyzing rob.mis_q write port 25.
+  Analyzing rob.mis_q write port 26.
+  Analyzing rob.mis_q write port 27.
+  Analyzing rob.mis_q write port 28.
+  Analyzing rob.mis_q write port 29.
+  Analyzing rob.mis_q write port 30.
+  Analyzing rob.mis_q write port 31.
+  Analyzing rob.mis_q write port 32.
+  Analyzing rob.mis_q write port 33.
+  Analyzing rob.mis_q write port 34.
+  Analyzing rob.mis_q write port 35.
+  Analyzing rob.exc_q write port 0.
+  Analyzing rob.exc_q write port 1.
+  Analyzing rob.exc_q write port 2.
+  Analyzing rob.exc_q write port 3.
+  Analyzing rob.exc_q write port 4.
+  Analyzing rob.exc_q write port 5.
+  Analyzing rob.exc_q write port 6.
+  Analyzing rob.exc_q write port 7.
+  Analyzing rob.exc_q write port 8.
+  Analyzing rob.exc_q write port 9.
+  Analyzing rob.exc_q write port 10.
+  Analyzing rob.exc_q write port 11.
+  Analyzing rob.exc_q write port 12.
+  Analyzing rob.exc_q write port 13.
+  Analyzing rob.exc_q write port 14.
+  Analyzing rob.exc_q write port 15.
+  Analyzing rob.exc_q write port 16.
+  Analyzing rob.exc_q write port 17.
+  Analyzing rob.exc_q write port 18.
+  Analyzing rob.exc_q write port 19.
+  Analyzing rob.exc_q write port 20.
+  Analyzing rob.exc_q write port 21.
+  Analyzing rob.exc_q write port 22.
+  Analyzing rob.exc_q write port 23.
+  Analyzing rob.exc_q write port 24.
+  Analyzing rob.exc_q write port 25.
+  Analyzing rob.exc_q write port 26.
+  Analyzing rob.exc_q write port 27.
+  Analyzing rob.exc_q write port 28.
+  Analyzing rob.exc_q write port 29.
+  Analyzing rob.exc_q write port 30.
+  Analyzing rob.exc_q write port 31.
+  Analyzing rob.exc_q write port 32.
+  Analyzing rob.exc_q write port 33.
+  Analyzing rob.exc_q write port 34.
+  Analyzing rob.exc_q write port 35.
+  Analyzing rob.done_q write port 0.
+  Analyzing rob.done_q write port 1.
+  Analyzing rob.done_q write port 2.
+  Analyzing rob.done_q write port 3.
+  Analyzing rob.done_q write port 4.
+  Analyzing rob.done_q write port 5.
+  Analyzing rob.done_q write port 6.
+  Analyzing rob.done_q write port 7.
+  Analyzing rob.done_q write port 8.
+  Analyzing rob.done_q write port 9.
+  Analyzing rob.done_q write port 10.
+  Analyzing rob.done_q write port 11.
+  Analyzing rob.done_q write port 12.
+  Analyzing rob.done_q write port 13.
+  Analyzing rob.done_q write port 14.
+  Analyzing rob.done_q write port 15.
+  Analyzing rob.done_q write port 16.
+  Analyzing rob.done_q write port 17.
+  Analyzing rob.done_q write port 18.
+  Analyzing rob.done_q write port 19.
+  Analyzing rob.done_q write port 20.
+  Analyzing rob.done_q write port 21.
+  Analyzing rob.done_q write port 22.
+  Analyzing rob.done_q write port 23.
+  Analyzing rob.done_q write port 24.
+  Analyzing rob.done_q write port 25.
+  Analyzing rob.done_q write port 26.
+  Analyzing rob.done_q write port 27.
+  Analyzing rob.done_q write port 28.
+  Analyzing rob.done_q write port 29.
+  Analyzing rob.done_q write port 30.
+  Analyzing rob.done_q write port 31.
+  Analyzing rob.done_q write port 32.
+  Analyzing rob.done_q write port 33.
+  Analyzing rob.done_q write port 34.
+  Analyzing rob.done_q write port 35.
+  Analyzing rob.v_q write port 0.
+  Analyzing rob.v_q write port 1.
+  Analyzing rob.v_q write port 2.
+  Analyzing rob.v_q write port 3.
+  Analyzing rob.v_q write port 4.
+  Analyzing rob.v_q write port 5.
+  Analyzing rob.v_q write port 6.
+  Analyzing rob.v_q write port 7.
+  Analyzing rob.v_q write port 8.
+  Analyzing rob.v_q write port 9.
+  Analyzing rob.v_q write port 10.
+  Analyzing rob.v_q write port 11.
+  Analyzing rob.v_q write port 12.
+  Analyzing rob.v_q write port 13.
+  Analyzing rob.v_q write port 14.
+  Analyzing rob.v_q write port 15.
+  Analyzing rob.v_q write port 16.
+  Analyzing rob.v_q write port 17.
+  Analyzing rob.v_q write port 18.
+  Analyzing rob.v_q write port 19.
+  Analyzing rob.v_q write port 20.
+  Analyzing rob.v_q write port 21.
+  Analyzing rob.v_q write port 22.
+  Analyzing rob.v_q write port 23.
+  Analyzing rob.v_q write port 24.
+  Analyzing rob.v_q write port 25.
+  Analyzing rob.v_q write port 26.
+  Analyzing rob.v_q write port 27.
+  Analyzing rob.v_q write port 28.
+  Analyzing rob.v_q write port 29.
+  Analyzing rob.v_q write port 30.
+  Analyzing rob.v_q write port 31.
+  Analyzing rob.v_q write port 32.
+  Analyzing rob.v_q write port 33.
+  Analyzing rob.v_q write port 34.
+  Analyzing rob.v_q write port 35.
+  Analyzing rob.v_q write port 36.
+  Analyzing rob.v_q write port 37.
+  Analyzing rob.v_q write port 38.
+  Analyzing rob.v_q write port 39.
+  Analyzing rob.v_q write port 40.
+  Analyzing rob.v_q write port 41.
+  Analyzing rob.v_q write port 42.
+  Analyzing rob.v_q write port 43.
+  Analyzing rob.v_q write port 44.
+  Analyzing rob.v_q write port 45.
+  Analyzing rob.v_q write port 46.
+  Analyzing rob.v_q write port 47.
+  Analyzing rob.v_q write port 48.
+  Analyzing rob.v_q write port 49.
+  Analyzing rob.v_q write port 50.
+  Analyzing rob.v_q write port 51.
+  Analyzing rob.v_q write port 52.
+  Analyzing rob.v_q write port 53.
+  Analyzing rob.v_q write port 54.
+  Analyzing rob.v_q write port 55.
+  Analyzing rob.v_q write port 56.
+  Analyzing rob.v_q write port 57.
+  Analyzing rob.v_q write port 58.
+  Analyzing rob.v_q write port 59.
+  Analyzing rob.v_q write port 60.
+  Analyzing rob.v_q write port 61.
+  Analyzing rob.v_q write port 62.
+  Analyzing rob.v_q write port 63.
+  Analyzing rob.v_q write port 64.
+  Analyzing rob.v_q write port 65.
+  Analyzing rob.v_q write port 66.
+  Analyzing rob.v_q write port 67.
+  Analyzing rob.v_q write port 68.
+  Analyzing rob.v_q write port 69.
+  Analyzing rob.v_q write port 70.
+  Analyzing rob.v_q write port 71.
+  Analyzing rob.v_q write port 72.
+  Analyzing rob.v_q write port 73.
+  Analyzing rob.v_q write port 74.
+  Analyzing rob.v_q write port 75.
+  Analyzing rob.v_q write port 76.
+  Analyzing rob.v_q write port 77.
+  Analyzing rob.v_q write port 78.
+  Analyzing rob.v_q write port 79.
+  Analyzing rob.v_q write port 80.
+  Analyzing rob.v_q write port 81.
+  Analyzing rob.v_q write port 82.
+  Analyzing rob.v_q write port 83.
+  Analyzing rob.v_q write port 84.
+  Analyzing rob.v_q write port 85.
+  Analyzing rob.v_q write port 86.
+  Analyzing rob.v_q write port 87.
+  Analyzing rob.v_q write port 88.
+  Analyzing rob.v_q write port 89.
+  Analyzing rob.v_q write port 90.
+  Analyzing rob.v_q write port 91.
+  Analyzing rob.v_q write port 92.
+  Analyzing rob.v_q write port 93.
+  Analyzing rob.v_q write port 94.
+  Analyzing rob.v_q write port 95.
+  Analyzing rob.v_q write port 96.
+  Analyzing rob.v_q write port 97.
+  Analyzing rob.v_q write port 98.
+  Analyzing rob.v_q write port 99.
+
+3.15.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+3.15.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+Checking read port `\is_store_q'[0] in module `\rob': no output FF found.
+Checking read port `\is_store_q'[1] in module `\rob': no output FF found.
+Checking read port `\prev_prd_q'[0] in module `\rob': no output FF found.
+Checking read port `\prev_prd_q'[1] in module `\rob': no output FF found.
+Checking read port `\prd_q'[0] in module `\rob': no output FF found.
+Checking read port `\prd_q'[1] in module `\rob': no output FF found.
+Checking read port `\rd_arch_q'[0] in module `\rob': no output FF found.
+Checking read port `\rd_arch_q'[1] in module `\rob': no output FF found.
+Checking read port `\redir_q'[0] in module `\rob': no output FF found.
+Checking read port `\pc_q'[0] in module `\rob': no output FF found.
+Checking read port `\pc_q'[1] in module `\rob': no output FF found.
+Checking read port `\mis_q'[0] in module `\rob': no output FF found.
+Checking read port `\mis_q'[1] in module `\rob': no output FF found.
+Checking read port `\exc_q'[0] in module `\rob': no output FF found.
+Checking read port `\exc_q'[1] in module `\rob': no output FF found.
+Checking read port `\done_q'[0] in module `\rob': no output FF found.
+Checking read port `\done_q'[1] in module `\rob': no output FF found.
+Checking read port `\v_q'[0] in module `\rob': no output FF found.
+Checking read port `\v_q'[1] in module `\rob': no output FF found.
+Checking read port `\v_q'[2] in module `\rob': no output FF found.
+Checking read port `\v_q'[3] in module `\rob': no output FF found.
+Checking read port `\v_q'[4] in module `\rob': no output FF found.
+Checking read port `\v_q'[5] in module `\rob': no output FF found.
+Checking read port `\v_q'[6] in module `\rob': no output FF found.
+Checking read port `\v_q'[7] in module `\rob': no output FF found.
+Checking read port `\v_q'[8] in module `\rob': no output FF found.
+Checking read port `\v_q'[9] in module `\rob': no output FF found.
+Checking read port `\v_q'[10] in module `\rob': no output FF found.
+Checking read port `\v_q'[11] in module `\rob': no output FF found.
+Checking read port `\v_q'[12] in module `\rob': no output FF found.
+Checking read port `\v_q'[13] in module `\rob': no output FF found.
+Checking read port `\v_q'[14] in module `\rob': no output FF found.
+Checking read port `\v_q'[15] in module `\rob': no output FF found.
+Checking read port `\v_q'[16] in module `\rob': no output FF found.
+Checking read port `\v_q'[17] in module `\rob': no output FF found.
+Checking read port `\v_q'[18] in module `\rob': no output FF found.
+Checking read port `\v_q'[19] in module `\rob': no output FF found.
+Checking read port `\v_q'[20] in module `\rob': no output FF found.
+Checking read port `\v_q'[21] in module `\rob': no output FF found.
+Checking read port `\v_q'[22] in module `\rob': no output FF found.
+Checking read port `\v_q'[23] in module `\rob': no output FF found.
+Checking read port `\v_q'[24] in module `\rob': no output FF found.
+Checking read port `\v_q'[25] in module `\rob': no output FF found.
+Checking read port `\v_q'[26] in module `\rob': no output FF found.
+Checking read port `\v_q'[27] in module `\rob': no output FF found.
+Checking read port `\v_q'[28] in module `\rob': no output FF found.
+Checking read port `\v_q'[29] in module `\rob': no output FF found.
+Checking read port `\v_q'[30] in module `\rob': no output FF found.
+Checking read port `\v_q'[31] in module `\rob': no output FF found.
+Checking read port `\v_q'[32] in module `\rob': no output FF found.
+Checking read port `\v_q'[33] in module `\rob': no output FF found.
+Checking read port address `\is_store_q'[0] in module `\rob': merged address FF to cell.
+Checking read port address `\is_store_q'[1] in module `\rob': no address FF found.
+Checking read port address `\prev_prd_q'[0] in module `\rob': merged address FF to cell.
+Checking read port address `\prev_prd_q'[1] in module `\rob': no address FF found.
+Checking read port address `\prd_q'[0] in module `\rob': merged address FF to cell.
+Checking read port address `\prd_q'[1] in module `\rob': no address FF found.
+Checking read port address `\rd_arch_q'[0] in module `\rob': merged address FF to cell.
+Checking read port address `\rd_arch_q'[1] in module `\rob': no address FF found.
+Checking read port address `\redir_q'[0] in module `\rob': no address FF found.
+Checking read port address `\pc_q'[0] in module `\rob': merged address FF to cell.
+Checking read port address `\pc_q'[1] in module `\rob': no address FF found.
+Checking read port address `\mis_q'[0] in module `\rob': merged address FF to cell.
+Checking read port address `\mis_q'[1] in module `\rob': no address FF found.
+Checking read port address `\exc_q'[0] in module `\rob': merged address FF to cell.
+Checking read port address `\exc_q'[1] in module `\rob': no address FF found.
+Checking read port address `\done_q'[0] in module `\rob': merged address FF to cell.
+Checking read port address `\done_q'[1] in module `\rob': no address FF found.
+Checking read port address `\v_q'[0] in module `\rob': merged address FF to cell.
+Checking read port address `\v_q'[1] in module `\rob': no address FF found.
+Checking read port address `\v_q'[2] in module `\rob': no address FF found.
+Checking read port address `\v_q'[3] in module `\rob': no address FF found.
+Checking read port address `\v_q'[4] in module `\rob': no address FF found.
+Checking read port address `\v_q'[5] in module `\rob': no address FF found.
+Checking read port address `\v_q'[6] in module `\rob': no address FF found.
+Checking read port address `\v_q'[7] in module `\rob': no address FF found.
+Checking read port address `\v_q'[8] in module `\rob': no address FF found.
+Checking read port address `\v_q'[9] in module `\rob': no address FF found.
+Checking read port address `\v_q'[10] in module `\rob': no address FF found.
+Checking read port address `\v_q'[11] in module `\rob': no address FF found.
+Checking read port address `\v_q'[12] in module `\rob': no address FF found.
+Checking read port address `\v_q'[13] in module `\rob': no address FF found.
+Checking read port address `\v_q'[14] in module `\rob': no address FF found.
+Checking read port address `\v_q'[15] in module `\rob': no address FF found.
+Checking read port address `\v_q'[16] in module `\rob': no address FF found.
+Checking read port address `\v_q'[17] in module `\rob': no address FF found.
+Checking read port address `\v_q'[18] in module `\rob': no address FF found.
+Checking read port address `\v_q'[19] in module `\rob': no address FF found.
+Checking read port address `\v_q'[20] in module `\rob': no address FF found.
+Checking read port address `\v_q'[21] in module `\rob': no address FF found.
+Checking read port address `\v_q'[22] in module `\rob': no address FF found.
+Checking read port address `\v_q'[23] in module `\rob': no address FF found.
+Checking read port address `\v_q'[24] in module `\rob': no address FF found.
+Checking read port address `\v_q'[25] in module `\rob': no address FF found.
+Checking read port address `\v_q'[26] in module `\rob': no address FF found.
+Checking read port address `\v_q'[27] in module `\rob': no address FF found.
+Checking read port address `\v_q'[28] in module `\rob': no address FF found.
+Checking read port address `\v_q'[29] in module `\rob': no address FF found.
+Checking read port address `\v_q'[30] in module `\rob': no address FF found.
+Checking read port address `\v_q'[31] in module `\rob': no address FF found.
+Checking read port address `\v_q'[32] in module `\rob': no address FF found.
+Checking read port address `\v_q'[33] in module `\rob': no address FF found.
+
+3.15.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rob..
+
+3.15.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+Consolidating read ports of memory rob.is_store_q by address:
+Consolidating write ports of memory rob.is_store_q by address:
+Consolidating read ports of memory rob.prev_prd_q by address:
+Consolidating write ports of memory rob.prev_prd_q by address:
+Consolidating read ports of memory rob.prd_q by address:
+Consolidating write ports of memory rob.prd_q by address:
+Consolidating read ports of memory rob.rd_arch_q by address:
+Consolidating write ports of memory rob.rd_arch_q by address:
+Consolidating write ports of memory rob.redir_q by address:
+Consolidating read ports of memory rob.pc_q by address:
+Consolidating write ports of memory rob.pc_q by address:
+Consolidating read ports of memory rob.mis_q by address:
+Consolidating write ports of memory rob.mis_q by address:
+  Merging ports 0, 1 (address 5'00000).
+  Merging ports 0, 2 (address 5'00000).
+  Merging ports 0, 3 (address 5'00000).
+  Merging ports 0, 4 (address 5'00000).
+  Merging ports 0, 5 (address 5'00000).
+  Merging ports 0, 6 (address 5'00000).
+  Merging ports 0, 7 (address 5'00000).
+  Merging ports 0, 8 (address 5'00000).
+  Merging ports 0, 9 (address 5'00000).
+  Merging ports 0, 10 (address 5'00000).
+  Merging ports 0, 11 (address 5'00000).
+  Merging ports 0, 12 (address 5'00000).
+  Merging ports 0, 13 (address 5'00000).
+  Merging ports 0, 14 (address 5'00000).
+  Merging ports 0, 15 (address 5'00000).
+  Merging ports 0, 16 (address 5'00000).
+  Merging ports 18, 19 (address 5'10010).
+  Merging ports 20, 21 (address 5'10100).
+  Merging ports 20, 22 (address 5'10100).
+  Merging ports 20, 23 (address 5'10100).
+  Merging ports 24, 25 (address 5'11000).
+  Merging ports 24, 26 (address 5'11000).
+  Merging ports 24, 27 (address 5'11000).
+  Merging ports 24, 28 (address 5'11000).
+  Merging ports 24, 29 (address 5'11000).
+  Merging ports 24, 30 (address 5'11000).
+  Merging ports 24, 31 (address 5'11000).
+Consolidating write ports of memory rob.mis_q by address:
+  Merging ports 1, 2 (address 5'10001).
+  Merging ports 1, 3 (address 5'10000).
+  Merging ports 1, 4 (address 5'10000).
+Consolidating write ports of memory rob.mis_q by address:
+Consolidating read ports of memory rob.exc_q by address:
+Consolidating write ports of memory rob.exc_q by address:
+  Merging ports 0, 1 (address 5'00000).
+  Merging ports 0, 2 (address 5'00000).
+  Merging ports 0, 3 (address 5'00000).
+  Merging ports 0, 4 (address 5'00000).
+  Merging ports 0, 5 (address 5'00000).
+  Merging ports 0, 6 (address 5'00000).
+  Merging ports 0, 7 (address 5'00000).
+  Merging ports 0, 8 (address 5'00000).
+  Merging ports 0, 9 (address 5'00000).
+  Merging ports 0, 10 (address 5'00000).
+  Merging ports 0, 11 (address 5'00000).
+  Merging ports 0, 12 (address 5'00000).
+  Merging ports 0, 13 (address 5'00000).
+  Merging ports 0, 14 (address 5'00000).
+  Merging ports 0, 15 (address 5'00000).
+  Merging ports 0, 16 (address 5'00000).
+  Merging ports 18, 19 (address 5'10010).
+  Merging ports 20, 21 (address 5'10100).
+  Merging ports 20, 22 (address 5'10100).
+  Merging ports 20, 23 (address 5'10100).
+  Merging ports 24, 25 (address 5'11000).
+  Merging ports 24, 26 (address 5'11000).
+  Merging ports 24, 27 (address 5'11000).
+  Merging ports 24, 28 (address 5'11000).
+  Merging ports 24, 29 (address 5'11000).
+  Merging ports 24, 30 (address 5'11000).
+  Merging ports 24, 31 (address 5'11000).
+Consolidating write ports of memory rob.exc_q by address:
+  Merging ports 1, 2 (address 5'10001).
+  Merging ports 1, 3 (address 5'10000).
+  Merging ports 1, 4 (address 5'10000).
+Consolidating write ports of memory rob.exc_q by address:
+Consolidating read ports of memory rob.done_q by address:
+Consolidating write ports of memory rob.done_q by address:
+  Merging ports 0, 1 (address 5'00000).
+  Merging ports 0, 2 (address 5'00000).
+  Merging ports 0, 3 (address 5'00000).
+  Merging ports 0, 4 (address 5'00000).
+  Merging ports 0, 5 (address 5'00000).
+  Merging ports 0, 6 (address 5'00000).
+  Merging ports 0, 7 (address 5'00000).
+  Merging ports 0, 8 (address 5'00000).
+  Merging ports 0, 9 (address 5'00000).
+  Merging ports 0, 10 (address 5'00000).
+  Merging ports 0, 11 (address 5'00000).
+  Merging ports 0, 12 (address 5'00000).
+  Merging ports 0, 13 (address 5'00000).
+  Merging ports 0, 14 (address 5'00000).
+  Merging ports 0, 15 (address 5'00000).
+  Merging ports 0, 16 (address 5'00000).
+  Merging ports 18, 19 (address 5'10010).
+  Merging ports 20, 21 (address 5'10100).
+  Merging ports 20, 22 (address 5'10100).
+  Merging ports 20, 23 (address 5'10100).
+  Merging ports 24, 25 (address 5'11000).
+  Merging ports 24, 26 (address 5'11000).
+  Merging ports 24, 27 (address 5'11000).
+  Merging ports 24, 28 (address 5'11000).
+  Merging ports 24, 29 (address 5'11000).
+  Merging ports 24, 30 (address 5'11000).
+  Merging ports 24, 31 (address 5'11000).
+Consolidating write ports of memory rob.done_q by address:
+  Merging ports 1, 2 (address 5'10001).
+  Merging ports 1, 3 (address 5'10000).
+  Merging ports 1, 4 (address 5'10000).
+Consolidating write ports of memory rob.done_q by address:
+Consolidating read ports of memory rob.v_q by address:
+  Merging ports 2, 3 (address 5'00000).
+  Merging ports 2, 4 (address 5'00000).
+  Merging ports 2, 5 (address 5'00000).
+  Merging ports 2, 6 (address 5'00000).
+  Merging ports 2, 7 (address 5'00000).
+  Merging ports 2, 8 (address 5'00000).
+  Merging ports 2, 9 (address 5'00000).
+  Merging ports 2, 10 (address 5'00000).
+  Merging ports 2, 11 (address 5'00000).
+  Merging ports 2, 12 (address 5'00000).
+  Merging ports 2, 13 (address 5'00000).
+  Merging ports 2, 14 (address 5'00000).
+  Merging ports 2, 15 (address 5'00000).
+  Merging ports 2, 16 (address 5'00000).
+  Merging ports 2, 17 (address 5'00000).
+  Merging ports 2, 18 (address 5'00000).
+  Merging ports 20, 21 (address 5'10010).
+  Merging ports 22, 23 (address 5'10100).
+  Merging ports 22, 24 (address 5'10100).
+  Merging ports 22, 25 (address 5'10100).
+  Merging ports 26, 27 (address 5'11000).
+  Merging ports 26, 28 (address 5'11000).
+  Merging ports 26, 29 (address 5'11000).
+  Merging ports 26, 30 (address 5'11000).
+  Merging ports 26, 31 (address 5'11000).
+  Merging ports 26, 32 (address 5'11000).
+  Merging ports 26, 33 (address 5'11000).
+Consolidating read ports of memory rob.v_q by address:
+  Merging ports 3, 4 (address 5'10001).
+  Merging ports 3, 5 (address 5'10000).
+  Merging ports 3, 6 (address 5'10000).
+Consolidating read ports of memory rob.v_q by address:
+Consolidating write ports of memory rob.v_q by address:
+  Merging ports 0, 1 (address 5'00000).
+  Merging ports 0, 2 (address 5'00000).
+  Merging ports 0, 3 (address 5'00000).
+  Merging ports 0, 4 (address 5'00000).
+  Merging ports 0, 5 (address 5'00000).
+  Merging ports 0, 6 (address 5'00000).
+  Merging ports 0, 7 (address 5'00000).
+  Merging ports 0, 8 (address 5'00000).
+  Merging ports 0, 9 (address 5'00000).
+  Merging ports 0, 10 (address 5'00000).
+  Merging ports 0, 11 (address 5'00000).
+  Merging ports 0, 12 (address 5'00000).
+  Merging ports 0, 13 (address 5'00000).
+  Merging ports 0, 14 (address 5'00000).
+  Merging ports 0, 15 (address 5'00000).
+  Merging ports 0, 16 (address 5'00000).
+  Merging ports 17, 48 (address 5'10001).
+  Merging ports 17, 49 (address 5'10000).
+  Merging ports 17, 50 (address 5'10000).
+  Merging ports 17, 51 (address 5'10000).
+  Merging ports 17, 52 (address 5'10000).
+  Merging ports 17, 53 (address 5'10000).
+  Merging ports 17, 54 (address 5'10000).
+  Merging ports 17, 55 (address 5'10000).
+  Merging ports 17, 56 (address 5'10000).
+  Merging ports 17, 57 (address 5'10000).
+  Merging ports 17, 58 (address 5'10000).
+  Merging ports 17, 59 (address 5'10000).
+  Merging ports 17, 60 (address 5'10000).
+  Merging ports 17, 61 (address 5'10000).
+  Merging ports 17, 62 (address 5'10000).
+  Merging ports 17, 63 (address 5'10000).
+  Merging ports 17, 66 (address 5'10000).
+  Merging ports 18, 19 (address 5'10010).
+  Merging ports 18, 82 (address 5'10010).
+  Merging ports 18, 83 (address 5'10000).
+  Merging ports 18, 84 (address 5'10000).
+  Merging ports 18, 85 (address 5'10000).
+  Merging ports 18, 86 (address 5'10000).
+  Merging ports 18, 87 (address 5'10000).
+  Merging ports 18, 88 (address 5'10000).
+  Merging ports 18, 89 (address 5'10000).
+  Merging ports 18, 90 (address 5'10000).
+  Merging ports 18, 91 (address 5'10000).
+  Merging ports 18, 92 (address 5'10000).
+  Merging ports 18, 93 (address 5'10000).
+  Merging ports 18, 94 (address 5'10000).
+  Merging ports 18, 95 (address 5'10000).
+  Merging ports 18, 96 (address 5'10000).
+  Merging ports 18, 97 (address 5'10000).
+  Merging ports 20, 21 (address 5'10100).
+  Merging ports 20, 22 (address 5'10100).
+  Merging ports 20, 23 (address 5'10100).
+  Merging ports 24, 25 (address 5'11000).
+  Merging ports 24, 26 (address 5'11000).
+  Merging ports 24, 27 (address 5'11000).
+  Merging ports 24, 28 (address 5'11000).
+  Merging ports 24, 29 (address 5'11000).
+  Merging ports 24, 30 (address 5'11000).
+  Merging ports 24, 31 (address 5'11000).
+  Merging ports 32, 33 (address 5'00000).
+  Merging ports 32, 34 (address 5'00000).
+  Merging ports 32, 35 (address 5'00000).
+  Merging ports 32, 36 (address 5'00000).
+  Merging ports 32, 37 (address 5'00000).
+  Merging ports 32, 38 (address 5'00000).
+  Merging ports 32, 39 (address 5'00000).
+  Merging ports 32, 40 (address 5'00000).
+  Merging ports 32, 41 (address 5'00000).
+  Merging ports 32, 42 (address 5'00000).
+  Merging ports 32, 43 (address 5'00000).
+  Merging ports 32, 44 (address 5'00000).
+  Merging ports 32, 45 (address 5'00000).
+  Merging ports 32, 46 (address 5'00000).
+  Merging ports 32, 47 (address 5'00000).
+  Merging ports 32, 67 (address 5'00000).
+  Merging ports 32, 68 (address 5'00000).
+  Merging ports 32, 69 (address 5'00000).
+  Merging ports 32, 70 (address 5'00000).
+  Merging ports 32, 71 (address 5'00000).
+  Merging ports 32, 72 (address 5'00000).
+  Merging ports 32, 73 (address 5'00000).
+  Merging ports 32, 74 (address 5'00000).
+  Merging ports 32, 75 (address 5'00000).
+  Merging ports 32, 76 (address 5'00000).
+  Merging ports 32, 77 (address 5'00000).
+  Merging ports 32, 78 (address 5'00000).
+  Merging ports 32, 79 (address 5'00000).
+  Merging ports 32, 80 (address 5'00000).
+  Merging ports 32, 81 (address 5'00000).
+Consolidating write ports of memory rob.v_q by address:
+  Merging ports 2, 3 (address 5'10000).
+  Merging ports 2, 4 (address 5'10000).
+  Merging ports 2, 5 (address 5'10000).
+Consolidating write ports of memory rob.v_q by address:
+Consolidating write ports of memory rob.is_store_q using sat-based resource sharing:
+  Checking group clocked with posedge \clk, width 1: ports 0, 1.
+  Common input cone for all EN signals: 42 cells.
+  Size of unconstrained SAT problem: 444 variables, 1139 clauses
+  According to SAT solver sharing of port 0 with port 1 is not possible.
+Consolidating write ports of memory rob.prev_prd_q using sat-based resource sharing:
+  Checking group clocked with posedge \clk, width 7: ports 0, 1.
+  Common input cone for all EN signals: 42 cells.
+  Size of unconstrained SAT problem: 444 variables, 1139 clauses
+  According to SAT solver sharing of port 0 with port 1 is not possible.
+Consolidating write ports of memory rob.prd_q using sat-based resource sharing:
+  Checking group clocked with posedge \clk, width 7: ports 0, 1.
+  Common input cone for all EN signals: 42 cells.
+  Size of unconstrained SAT problem: 444 variables, 1139 clauses
+  According to SAT solver sharing of port 0 with port 1 is not possible.
+Consolidating write ports of memory rob.rd_arch_q using sat-based resource sharing:
+  Checking group clocked with posedge \clk, width 5: ports 0, 1.
+  Common input cone for all EN signals: 42 cells.
+  Size of unconstrained SAT problem: 444 variables, 1139 clauses
+  According to SAT solver sharing of port 0 with port 1 is not possible.
+Consolidating write ports of memory rob.redir_q using sat-based resource sharing:
+  Checking group clocked with posedge \clk, width 64: ports 0, 1.
+  Common input cone for all EN signals: 26 cells.
+  Size of unconstrained SAT problem: 153 variables, 373 clauses
+  According to SAT solver sharing of port 0 with port 1 is not possible.
+Consolidating write ports of memory rob.pc_q using sat-based resource sharing:
+  Checking group clocked with posedge \clk, width 64: ports 0, 1.
+  Common input cone for all EN signals: 42 cells.
+  Size of unconstrained SAT problem: 444 variables, 1139 clauses
+  According to SAT solver sharing of port 0 with port 1 is not possible.
+Consolidating write ports of memory rob.mis_q using sat-based resource sharing:
+  Checking group clocked with posedge \clk, width 1: ports 2, 3, 4, 5.
+  Common input cone for all EN signals: 50 cells.
+  Size of unconstrained SAT problem: 494 variables, 1267 clauses
+  According to SAT solver sharing of port 2 with port 3 is not possible.
+  According to SAT solver sharing of port 2 with port 4 is not possible.
+  According to SAT solver sharing of port 2 with port 5 is not possible.
+  According to SAT solver sharing of port 3 with port 4 is not possible.
+  According to SAT solver sharing of port 3 with port 5 is not possible.
+  According to SAT solver sharing of port 4 with port 5 is not possible.
+Consolidating write ports of memory rob.exc_q using sat-based resource sharing:
+  Checking group clocked with posedge \clk, width 1: ports 2, 3, 4, 5.
+  Common input cone for all EN signals: 50 cells.
+  Size of unconstrained SAT problem: 494 variables, 1267 clauses
+  According to SAT solver sharing of port 2 with port 3 is not possible.
+  According to SAT solver sharing of port 2 with port 4 is not possible.
+  According to SAT solver sharing of port 2 with port 5 is not possible.
+  According to SAT solver sharing of port 3 with port 4 is not possible.
+  According to SAT solver sharing of port 3 with port 5 is not possible.
+  According to SAT solver sharing of port 4 with port 5 is not possible.
+Consolidating write ports of memory rob.done_q using sat-based resource sharing:
+  Checking group clocked with posedge \clk, width 1: ports 2, 3, 4, 5.
+  Common input cone for all EN signals: 50 cells.
+  Size of unconstrained SAT problem: 494 variables, 1267 clauses
+  According to SAT solver sharing of port 2 with port 3 is not possible.
+  According to SAT solver sharing of port 2 with port 4 is not possible.
+  According to SAT solver sharing of port 2 with port 5 is not possible.
+  According to SAT solver sharing of port 3 with port 4 is not possible.
+  According to SAT solver sharing of port 3 with port 5 is not possible.
+  According to SAT solver sharing of port 4 with port 5 is not possible.
+Consolidating write ports of memory rob.v_q using sat-based resource sharing:
+  Checking group clocked with posedge \clk, width 32: ports 0, 1, 2.
+  Common input cone for all EN signals: 515 cells.
+  Size of unconstrained SAT problem: 9452 variables, 25588 clauses
+  According to SAT solver sharing of port 0 with port 1 is not possible.
+  According to SAT solver sharing of port 0 with port 2 is not possible.
+  According to SAT solver sharing of port 1 with port 2 is not possible.
+  Checking group clocked with posedge \clk, width 1: ports 3, 4, 5, 6.
+  Common input cone for all EN signals: 634 cells.
+  Size of unconstrained SAT problem: 10242 variables, 27756 clauses
+  According to SAT solver sharing of port 3 with port 4 is not possible.
+  According to SAT solver sharing of port 3 with port 5 is not possible.
+  According to SAT solver sharing of port 3 with port 6 is not possible.
+  According to SAT solver sharing of port 4 with port 5 is not possible.
+  According to SAT solver sharing of port 4 with port 6 is not possible.
+  According to SAT solver sharing of port 5 with port 6 is not possible.
+
+3.15.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+3.15.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rob..
+Removed 0 unused cells and 28 unused wires.
+<suppressed ~1 debug messages>
+
+3.15.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+3.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rob..
+
+3.17. Executing OPT pass (performing simple optimizations).
+
+3.17.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rob.
+<suppressed ~204 debug messages>
+
+3.17.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rob'.
+Computing hashes of 669 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Computing hashes of 635 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+<suppressed ~102 debug messages>
+Removed a total of 34 cells.
+
+3.17.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.17.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rob..
+Removed 0 unused cells and 164 unused wires.
+<suppressed ~1 debug messages>
+
+3.17.5. Finished fast OPT passes.
+
+3.18. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+Mapping memory \redir_q in module \rob:
+  created 32 $dff cells and 0 static cells of width 64.
+  read interface: 0 $dff and 31 $mux cells.
+  write interface: 64 write mux blocks.
+Mapping memory \mis_q in module \rob:
+  created 32 $dff cells and 0 static cells of width 1.
+Extracted addr FF from read port 0 of rob.mis_q: $\mis_q$rdreg[0]
+  read interface: 1 $dff and 62 $mux cells.
+  write interface: 192 write mux blocks.
+Mapping memory \exc_q in module \rob:
+  created 32 $dff cells and 0 static cells of width 1.
+Extracted addr FF from read port 0 of rob.exc_q: $\exc_q$rdreg[0]
+  read interface: 1 $dff and 62 $mux cells.
+  write interface: 192 write mux blocks.
+Mapping memory \is_store_q in module \rob:
+  created 32 $dff cells and 0 static cells of width 1.
+Extracted addr FF from read port 0 of rob.is_store_q: $\is_store_q$rdreg[0]
+  read interface: 1 $dff and 62 $mux cells.
+  write interface: 64 write mux blocks.
+Mapping memory \prev_prd_q in module \rob:
+  created 32 $dff cells and 0 static cells of width 7.
+Extracted addr FF from read port 0 of rob.prev_prd_q: $\prev_prd_q$rdreg[0]
+  read interface: 1 $dff and 62 $mux cells.
+  write interface: 64 write mux blocks.
+Mapping memory \prd_q in module \rob:
+  created 32 $dff cells and 0 static cells of width 7.
+Extracted addr FF from read port 0 of rob.prd_q: $\prd_q$rdreg[0]
+  read interface: 1 $dff and 62 $mux cells.
+  write interface: 64 write mux blocks.
+Mapping memory \rd_arch_q in module \rob:
+  created 32 $dff cells and 0 static cells of width 5.
+Extracted addr FF from read port 0 of rob.rd_arch_q: $\rd_arch_q$rdreg[0]
+  read interface: 1 $dff and 62 $mux cells.
+  write interface: 64 write mux blocks.
+Mapping memory \pc_q in module \rob:
+  created 32 $dff cells and 0 static cells of width 64.
+Extracted addr FF from read port 0 of rob.pc_q: $\pc_q$rdreg[0]
+  read interface: 1 $dff and 62 $mux cells.
+  write interface: 64 write mux blocks.
+Mapping memory \done_q in module \rob:
+  created 32 $dff cells and 0 static cells of width 1.
+Extracted addr FF from read port 0 of rob.done_q: $\done_q$rdreg[0]
+  read interface: 1 $dff and 62 $mux cells.
+  write interface: 192 write mux blocks.
+Mapping memory \v_q in module \rob:
+  created 32 $dff cells and 0 static cells of width 1.
+Extracted addr FF from read port 0 of rob.v_q: $\v_q$rdreg[0]
+  read interface: 1 $dff and 63 $mux cells.
+  write interface: 224 write mux blocks.
+
+3.19. Executing OPT pass (performing simple optimizations).
+
+3.19.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rob.
+<suppressed ~606 debug messages>
+
+3.19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rob'.
+Computing hashes of 3815 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Computing hashes of 3103 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+<suppressed ~2136 debug messages>
+Removed a total of 712 cells.
+
+3.19.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \rob..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~2132 debug messages>
+
+3.19.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \rob.
+    Consolidated identical input bits for $mux cell $procmux$14:
+      Old ports: A={ 5'00000 \can_commit [1] }, B={ 4'0000 $117y [1:0] }, Y=\n_commit
+      New ports: A={ 1'0 \can_commit [1] }, B=$117y [1:0], Y=\n_commit [1:0]
+      New connections: \n_commit [5:2] = 4'0000
+    Consolidated identical input bits for $mux cell $procmux$2:
+      Old ports: A={ 5'00000 \alloc_valid [1] }, B={ 4'0000 $122y [1:0] }, Y=$n_alloc$123
+      New ports: A={ 1'0 \alloc_valid [1] }, B=$122y [1:0], Y=$n_alloc$123 [1:0]
+      New connections: $n_alloc$123 [5:2] = 4'0000
+  Optimizing cells in module \rob.
+    Consolidated identical input bits for $mux cell $procmux$11:
+      Old ports: A=6'000000, B=$n_alloc$123, Y=\n_alloc
+      New ports: A=2'00, B=$n_alloc$123 [1:0], Y=\n_alloc [1:0]
+      New connections: \n_alloc [5:2] = 4'0000
+  Optimizing cells in module \rob.
+Performed a total of 3 changes.
+
+3.19.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rob'.
+Computing hashes of 3103 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Removed a total of 0 cells.
+
+3.19.6. Executing OPT_SHARE pass.
+
+3.19.7. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $\v_q$rdreg[0] ($dff) from module rob (D = $617y, Q = $\v_q$rdreg[0]$q, rval = 5'00000).
+
+3.19.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rob..
+Removed 1 unused cells and 2124 unused wires.
+<suppressed ~2 debug messages>
+
+3.19.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rob.
+
+3.19.10. Rerunning OPT passes. (Maybe there is more to do..)
+
+3.19.11. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \rob..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~2130 debug messages>
+
+3.19.12. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \rob.
+Performed a total of 0 changes.
+
+3.19.13. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rob'.
+Computing hashes of 3102 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Computing hashes of 3101 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+<suppressed ~3 debug messages>
+Removed a total of 1 cells.
+
+3.19.14. Executing OPT_SHARE pass.
+
+3.19.15. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $memory\redir_q[0]$2598 ($dff) from module rob (D = $memory\redir_q$wrmux[0][1][0]$y$2798, Q = \redir_q[0]).
+Adding EN signal on $memory\redir_q[1]$2600 ($dff) from module rob (D = $memory\redir_q$wrmux[1][1][0]$y$2818, Q = \redir_q[1]).
+Adding EN signal on $memory\redir_q[2]$2602 ($dff) from module rob (D = $memory\redir_q$wrmux[2][1][0]$y$2838, Q = \redir_q[2]).
+Adding EN signal on $memory\redir_q[3]$2604 ($dff) from module rob (D = $memory\redir_q$wrmux[3][1][0]$y$2854, Q = \redir_q[3]).
+Adding EN signal on $memory\redir_q[4]$2606 ($dff) from module rob (D = $memory\redir_q$wrmux[4][1][0]$y$2874, Q = \redir_q[4]).
+Adding EN signal on $memory\redir_q[5]$2608 ($dff) from module rob (D = $memory\redir_q$wrmux[5][1][0]$y$2886, Q = \redir_q[5]).
+Adding EN signal on $memory\redir_q[6]$2610 ($dff) from module rob (D = $memory\redir_q$wrmux[6][1][0]$y$2898, Q = \redir_q[6]).
+Adding EN signal on $memory\redir_q[7]$2612 ($dff) from module rob (D = $memory\redir_q$wrmux[7][1][0]$y$2910, Q = \redir_q[7]).
+Adding EN signal on $memory\redir_q[8]$2614 ($dff) from module rob (D = $memory\redir_q$wrmux[8][1][0]$y$2934, Q = \redir_q[8]).
+Adding EN signal on $memory\redir_q[9]$2616 ($dff) from module rob (D = $memory\redir_q$wrmux[9][1][0]$y$2946, Q = \redir_q[9]).
+Adding EN signal on $memory\redir_q[10]$2618 ($dff) from module rob (D = $memory\redir_q$wrmux[10][1][0]$y$2958, Q = \redir_q[10]).
+Adding EN signal on $memory\redir_q[11]$2620 ($dff) from module rob (D = $memory\redir_q$wrmux[11][1][0]$y$2970, Q = \redir_q[11]).
+Adding EN signal on $memory\redir_q[12]$2622 ($dff) from module rob (D = $memory\redir_q$wrmux[12][1][0]$y$2986, Q = \redir_q[12]).
+Adding EN signal on $memory\redir_q[13]$2624 ($dff) from module rob (D = $memory\redir_q$wrmux[13][1][0]$y$2998, Q = \redir_q[13]).
+Adding EN signal on $memory\redir_q[14]$2626 ($dff) from module rob (D = $memory\redir_q$wrmux[14][1][0]$y$3010, Q = \redir_q[14]).
+Adding EN signal on $memory\redir_q[15]$2628 ($dff) from module rob (D = $memory\redir_q$wrmux[15][1][0]$y$3022, Q = \redir_q[15]).
+Adding EN signal on $memory\redir_q[16]$2630 ($dff) from module rob (D = $memory\redir_q$wrmux[16][1][0]$y$3046, Q = \redir_q[16]).
+Adding EN signal on $memory\redir_q[17]$2632 ($dff) from module rob (D = $memory\redir_q$wrmux[17][1][0]$y$3058, Q = \redir_q[17]).
+Adding EN signal on $memory\redir_q[18]$2634 ($dff) from module rob (D = $memory\redir_q$wrmux[18][1][0]$y$3070, Q = \redir_q[18]).
+Adding EN signal on $memory\redir_q[19]$2636 ($dff) from module rob (D = $memory\redir_q$wrmux[19][1][0]$y$3082, Q = \redir_q[19]).
+Adding EN signal on $memory\redir_q[20]$2638 ($dff) from module rob (D = $memory\redir_q$wrmux[20][1][0]$y$3098, Q = \redir_q[20]).
+Adding EN signal on $memory\redir_q[21]$2640 ($dff) from module rob (D = $memory\redir_q$wrmux[21][1][0]$y$3110, Q = \redir_q[21]).
+Adding EN signal on $memory\redir_q[22]$2642 ($dff) from module rob (D = $memory\redir_q$wrmux[22][1][0]$y$3122, Q = \redir_q[22]).
+Adding EN signal on $memory\redir_q[23]$2644 ($dff) from module rob (D = $memory\redir_q$wrmux[23][1][0]$y$3134, Q = \redir_q[23]).
+Adding EN signal on $memory\redir_q[24]$2646 ($dff) from module rob (D = $memory\redir_q$wrmux[24][1][0]$y$3154, Q = \redir_q[24]).
+Adding EN signal on $memory\redir_q[25]$2648 ($dff) from module rob (D = $memory\redir_q$wrmux[25][1][0]$y$3166, Q = \redir_q[25]).
+Adding EN signal on $memory\redir_q[26]$2650 ($dff) from module rob (D = $memory\redir_q$wrmux[26][1][0]$y$3178, Q = \redir_q[26]).
+Adding EN signal on $memory\redir_q[27]$2652 ($dff) from module rob (D = $memory\redir_q$wrmux[27][1][0]$y$3190, Q = \redir_q[27]).
+Adding EN signal on $memory\redir_q[28]$2654 ($dff) from module rob (D = $memory\redir_q$wrmux[28][1][0]$y$3206, Q = \redir_q[28]).
+Adding EN signal on $memory\redir_q[29]$2656 ($dff) from module rob (D = $memory\redir_q$wrmux[29][1][0]$y$3218, Q = \redir_q[29]).
+Adding EN signal on $memory\redir_q[30]$2658 ($dff) from module rob (D = $memory\redir_q$wrmux[30][1][0]$y$3230, Q = \redir_q[30]).
+Adding EN signal on $memory\redir_q[31]$2660 ($dff) from module rob (D = $memory\redir_q$wrmux[31][1][0]$y$3242, Q = \redir_q[31]).
+Adding EN signal on $memory\mis_q[0]$3243 ($dff) from module rob (D = $memory\mis_q$wrmux[0][5][0]$y$3556, Q = \mis_q[0]).
+Adding EN signal on $memory\mis_q[1]$3245 ($dff) from module rob (D = $memory\mis_q$wrmux[1][5][0]$y$3592, Q = \mis_q[1]).
+Adding EN signal on $memory\mis_q[2]$3247 ($dff) from module rob (D = $memory\mis_q$wrmux[2][5][0]$y$3628, Q = \mis_q[2]).
+Adding EN signal on $memory\mis_q[3]$3249 ($dff) from module rob (D = $memory\mis_q$wrmux[3][5][0]$y$3660, Q = \mis_q[3]).
+Adding EN signal on $memory\mis_q[4]$3251 ($dff) from module rob (D = $memory\mis_q$wrmux[4][5][0]$y$3696, Q = \mis_q[4]).
+Adding EN signal on $memory\mis_q[5]$3253 ($dff) from module rob (D = $memory\mis_q$wrmux[5][5][0]$y$3724, Q = \mis_q[5]).
+Adding EN signal on $memory\mis_q[6]$3255 ($dff) from module rob (D = $memory\mis_q$wrmux[6][5][0]$y$3752, Q = \mis_q[6]).
+Adding EN signal on $memory\mis_q[7]$3257 ($dff) from module rob (D = $memory\mis_q$wrmux[7][5][0]$y$3780, Q = \mis_q[7]).
+Adding EN signal on $memory\mis_q[8]$3259 ($dff) from module rob (D = $memory\mis_q$wrmux[8][5][0]$y$3820, Q = \mis_q[8]).
+Adding EN signal on $memory\mis_q[9]$3261 ($dff) from module rob (D = $memory\mis_q$wrmux[9][5][0]$y$3848, Q = \mis_q[9]).
+Adding EN signal on $memory\mis_q[10]$3263 ($dff) from module rob (D = $memory\mis_q$wrmux[10][5][0]$y$3876, Q = \mis_q[10]).
+Adding EN signal on $memory\mis_q[11]$3265 ($dff) from module rob (D = $memory\mis_q$wrmux[11][5][0]$y$3904, Q = \mis_q[11]).
+Adding EN signal on $memory\mis_q[12]$3267 ($dff) from module rob (D = $memory\mis_q$wrmux[12][5][0]$y$3936, Q = \mis_q[12]).
+Adding EN signal on $memory\mis_q[13]$3269 ($dff) from module rob (D = $memory\mis_q$wrmux[13][5][0]$y$3964, Q = \mis_q[13]).
+Adding EN signal on $memory\mis_q[14]$3271 ($dff) from module rob (D = $memory\mis_q$wrmux[14][5][0]$y$3992, Q = \mis_q[14]).
+Adding EN signal on $memory\mis_q[15]$3273 ($dff) from module rob (D = $memory\mis_q$wrmux[15][5][0]$y$4020, Q = \mis_q[15]).
+Adding EN signal on $memory\mis_q[16]$3275 ($dff) from module rob (D = $memory\mis_q$wrmux[16][5][0]$y$4062, Q = \mis_q[16]).
+Adding EN signal on $memory\mis_q[17]$3277 ($dff) from module rob (D = $memory\mis_q$wrmux[17][5][0]$y$4090, Q = \mis_q[17]).
+Adding EN signal on $memory\mis_q[18]$3279 ($dff) from module rob (D = $memory\mis_q$wrmux[18][5][0]$y$4118, Q = \mis_q[18]).
+Adding EN signal on $memory\mis_q[19]$3281 ($dff) from module rob (D = $memory\mis_q$wrmux[19][5][0]$y$4146, Q = \mis_q[19]).
+Adding EN signal on $memory\mis_q[20]$3283 ($dff) from module rob (D = $memory\mis_q$wrmux[20][5][0]$y$4178, Q = \mis_q[20]).
+Adding EN signal on $memory\mis_q[21]$3285 ($dff) from module rob (D = $memory\mis_q$wrmux[21][5][0]$y$4206, Q = \mis_q[21]).
+Adding EN signal on $memory\mis_q[22]$3287 ($dff) from module rob (D = $memory\mis_q$wrmux[22][5][0]$y$4234, Q = \mis_q[22]).
+Adding EN signal on $memory\mis_q[23]$3289 ($dff) from module rob (D = $memory\mis_q$wrmux[23][5][0]$y$4262, Q = \mis_q[23]).
+Adding EN signal on $memory\mis_q[24]$3291 ($dff) from module rob (D = $memory\mis_q$wrmux[24][5][0]$y$4298, Q = \mis_q[24]).
+Adding EN signal on $memory\mis_q[25]$3293 ($dff) from module rob (D = $memory\mis_q$wrmux[25][5][0]$y$4326, Q = \mis_q[25]).
+Adding EN signal on $memory\mis_q[26]$3295 ($dff) from module rob (D = $memory\mis_q$wrmux[26][5][0]$y$4354, Q = \mis_q[26]).
+Adding EN signal on $memory\mis_q[27]$3297 ($dff) from module rob (D = $memory\mis_q$wrmux[27][5][0]$y$4382, Q = \mis_q[27]).
+Adding EN signal on $memory\mis_q[28]$3299 ($dff) from module rob (D = $memory\mis_q$wrmux[28][5][0]$y$4414, Q = \mis_q[28]).
+Adding EN signal on $memory\mis_q[29]$3301 ($dff) from module rob (D = $memory\mis_q$wrmux[29][5][0]$y$4442, Q = \mis_q[29]).
+Adding EN signal on $memory\mis_q[30]$3303 ($dff) from module rob (D = $memory\mis_q$wrmux[30][5][0]$y$4470, Q = \mis_q[30]).
+Adding EN signal on $memory\mis_q[31]$3305 ($dff) from module rob (D = $memory\mis_q$wrmux[31][5][0]$y$4498, Q = \mis_q[31]).
+Adding EN signal on $memory\exc_q[0]$4499 ($dff) from module rob (D = $memory\exc_q$wrmux[0][5][0]$y$4772, Q = \exc_q[0]).
+Adding EN signal on $memory\exc_q[1]$4501 ($dff) from module rob (D = $memory\exc_q$wrmux[1][5][0]$y$4796, Q = \exc_q[1]).
+Adding EN signal on $memory\exc_q[2]$4503 ($dff) from module rob (D = $memory\exc_q$wrmux[2][5][0]$y$4820, Q = \exc_q[2]).
+Adding EN signal on $memory\exc_q[3]$4505 ($dff) from module rob (D = $memory\exc_q$wrmux[3][5][0]$y$4844, Q = \exc_q[3]).
+Adding EN signal on $memory\exc_q[4]$4507 ($dff) from module rob (D = $memory\exc_q$wrmux[4][5][0]$y$4868, Q = \exc_q[4]).
+Adding EN signal on $memory\exc_q[5]$4509 ($dff) from module rob (D = $memory\exc_q$wrmux[5][5][0]$y$4892, Q = \exc_q[5]).
+Adding EN signal on $memory\exc_q[6]$4511 ($dff) from module rob (D = $memory\exc_q$wrmux[6][5][0]$y$4916, Q = \exc_q[6]).
+Adding EN signal on $memory\exc_q[7]$4513 ($dff) from module rob (D = $memory\exc_q$wrmux[7][5][0]$y$4940, Q = \exc_q[7]).
+Adding EN signal on $memory\exc_q[8]$4515 ($dff) from module rob (D = $memory\exc_q$wrmux[8][5][0]$y$4964, Q = \exc_q[8]).
+Adding EN signal on $memory\exc_q[9]$4517 ($dff) from module rob (D = $memory\exc_q$wrmux[9][5][0]$y$4988, Q = \exc_q[9]).
+Adding EN signal on $memory\exc_q[10]$4519 ($dff) from module rob (D = $memory\exc_q$wrmux[10][5][0]$y$5012, Q = \exc_q[10]).
+Adding EN signal on $memory\exc_q[11]$4521 ($dff) from module rob (D = $memory\exc_q$wrmux[11][5][0]$y$5036, Q = \exc_q[11]).
+Adding EN signal on $memory\exc_q[12]$4523 ($dff) from module rob (D = $memory\exc_q$wrmux[12][5][0]$y$5060, Q = \exc_q[12]).
+Adding EN signal on $memory\exc_q[13]$4525 ($dff) from module rob (D = $memory\exc_q$wrmux[13][5][0]$y$5084, Q = \exc_q[13]).
+Adding EN signal on $memory\exc_q[14]$4527 ($dff) from module rob (D = $memory\exc_q$wrmux[14][5][0]$y$5108, Q = \exc_q[14]).
+Adding EN signal on $memory\exc_q[15]$4529 ($dff) from module rob (D = $memory\exc_q$wrmux[15][5][0]$y$5132, Q = \exc_q[15]).
+Adding EN signal on $memory\exc_q[16]$4531 ($dff) from module rob (D = $memory\exc_q$wrmux[16][5][0]$y$5156, Q = \exc_q[16]).
+Adding EN signal on $memory\exc_q[17]$4533 ($dff) from module rob (D = $memory\exc_q$wrmux[17][5][0]$y$5180, Q = \exc_q[17]).
+Adding EN signal on $memory\exc_q[18]$4535 ($dff) from module rob (D = $memory\exc_q$wrmux[18][5][0]$y$5204, Q = \exc_q[18]).
+Adding EN signal on $memory\exc_q[19]$4537 ($dff) from module rob (D = $memory\exc_q$wrmux[19][5][0]$y$5228, Q = \exc_q[19]).
+Adding EN signal on $memory\exc_q[20]$4539 ($dff) from module rob (D = $memory\exc_q$wrmux[20][5][0]$y$5252, Q = \exc_q[20]).
+Adding EN signal on $memory\exc_q[21]$4541 ($dff) from module rob (D = $memory\exc_q$wrmux[21][5][0]$y$5276, Q = \exc_q[21]).
+Adding EN signal on $memory\exc_q[22]$4543 ($dff) from module rob (D = $memory\exc_q$wrmux[22][5][0]$y$5300, Q = \exc_q[22]).
+Adding EN signal on $memory\exc_q[23]$4545 ($dff) from module rob (D = $memory\exc_q$wrmux[23][5][0]$y$5324, Q = \exc_q[23]).
+Adding EN signal on $memory\exc_q[24]$4547 ($dff) from module rob (D = $memory\exc_q$wrmux[24][5][0]$y$5348, Q = \exc_q[24]).
+Adding EN signal on $memory\exc_q[25]$4549 ($dff) from module rob (D = $memory\exc_q$wrmux[25][5][0]$y$5372, Q = \exc_q[25]).
+Adding EN signal on $memory\exc_q[26]$4551 ($dff) from module rob (D = $memory\exc_q$wrmux[26][5][0]$y$5396, Q = \exc_q[26]).
+Adding EN signal on $memory\exc_q[27]$4553 ($dff) from module rob (D = $memory\exc_q$wrmux[27][5][0]$y$5420, Q = \exc_q[27]).
+Adding EN signal on $memory\exc_q[28]$4555 ($dff) from module rob (D = $memory\exc_q$wrmux[28][5][0]$y$5444, Q = \exc_q[28]).
+Adding EN signal on $memory\exc_q[29]$4557 ($dff) from module rob (D = $memory\exc_q$wrmux[29][5][0]$y$5468, Q = \exc_q[29]).
+Adding EN signal on $memory\exc_q[30]$4559 ($dff) from module rob (D = $memory\exc_q$wrmux[30][5][0]$y$5492, Q = \exc_q[30]).
+Adding EN signal on $memory\exc_q[31]$4561 ($dff) from module rob (D = $memory\exc_q$wrmux[31][5][0]$y$5516, Q = \exc_q[31]).
+Adding EN signal on $memory\is_store_q[0]$5517 ($dff) from module rob (D = $memory\is_store_q$wrmux[0][1][0]$y$5774, Q = \is_store_q[0]).
+Adding EN signal on $memory\is_store_q[1]$5519 ($dff) from module rob (D = $memory\is_store_q$wrmux[1][1][0]$y$5782, Q = \is_store_q[1]).
+Adding EN signal on $memory\is_store_q[2]$5521 ($dff) from module rob (D = $memory\is_store_q$wrmux[2][1][0]$y$5790, Q = \is_store_q[2]).
+Adding EN signal on $memory\is_store_q[3]$5523 ($dff) from module rob (D = $memory\is_store_q$wrmux[3][1][0]$y$5798, Q = \is_store_q[3]).
+Adding EN signal on $memory\is_store_q[4]$5525 ($dff) from module rob (D = $memory\is_store_q$wrmux[4][1][0]$y$5806, Q = \is_store_q[4]).
+Adding EN signal on $memory\is_store_q[5]$5527 ($dff) from module rob (D = $memory\is_store_q$wrmux[5][1][0]$y$5814, Q = \is_store_q[5]).
+Adding EN signal on $memory\is_store_q[6]$5529 ($dff) from module rob (D = $memory\is_store_q$wrmux[6][1][0]$y$5822, Q = \is_store_q[6]).
+Adding EN signal on $memory\is_store_q[7]$5531 ($dff) from module rob (D = $memory\is_store_q$wrmux[7][1][0]$y$5830, Q = \is_store_q[7]).
+Adding EN signal on $memory\is_store_q[8]$5533 ($dff) from module rob (D = $memory\is_store_q$wrmux[8][1][0]$y$5838, Q = \is_store_q[8]).
+Adding EN signal on $memory\is_store_q[9]$5535 ($dff) from module rob (D = $memory\is_store_q$wrmux[9][1][0]$y$5846, Q = \is_store_q[9]).
+Adding EN signal on $memory\is_store_q[10]$5537 ($dff) from module rob (D = $memory\is_store_q$wrmux[10][1][0]$y$5854, Q = \is_store_q[10]).
+Adding EN signal on $memory\is_store_q[11]$5539 ($dff) from module rob (D = $memory\is_store_q$wrmux[11][1][0]$y$5862, Q = \is_store_q[11]).
+Adding EN signal on $memory\is_store_q[12]$5541 ($dff) from module rob (D = $memory\is_store_q$wrmux[12][1][0]$y$5870, Q = \is_store_q[12]).
+Adding EN signal on $memory\is_store_q[13]$5543 ($dff) from module rob (D = $memory\is_store_q$wrmux[13][1][0]$y$5878, Q = \is_store_q[13]).
+Adding EN signal on $memory\is_store_q[14]$5545 ($dff) from module rob (D = $memory\is_store_q$wrmux[14][1][0]$y$5886, Q = \is_store_q[14]).
+Adding EN signal on $memory\is_store_q[15]$5547 ($dff) from module rob (D = $memory\is_store_q$wrmux[15][1][0]$y$5894, Q = \is_store_q[15]).
+Adding EN signal on $memory\is_store_q[16]$5549 ($dff) from module rob (D = $memory\is_store_q$wrmux[16][1][0]$y$5902, Q = \is_store_q[16]).
+Adding EN signal on $memory\is_store_q[17]$5551 ($dff) from module rob (D = $memory\is_store_q$wrmux[17][1][0]$y$5910, Q = \is_store_q[17]).
+Adding EN signal on $memory\is_store_q[18]$5553 ($dff) from module rob (D = $memory\is_store_q$wrmux[18][1][0]$y$5918, Q = \is_store_q[18]).
+Adding EN signal on $memory\is_store_q[19]$5555 ($dff) from module rob (D = $memory\is_store_q$wrmux[19][1][0]$y$5926, Q = \is_store_q[19]).
+Adding EN signal on $memory\is_store_q[20]$5557 ($dff) from module rob (D = $memory\is_store_q$wrmux[20][1][0]$y$5934, Q = \is_store_q[20]).
+Adding EN signal on $memory\is_store_q[21]$5559 ($dff) from module rob (D = $memory\is_store_q$wrmux[21][1][0]$y$5942, Q = \is_store_q[21]).
+Adding EN signal on $memory\is_store_q[22]$5561 ($dff) from module rob (D = $memory\is_store_q$wrmux[22][1][0]$y$5950, Q = \is_store_q[22]).
+Adding EN signal on $memory\is_store_q[23]$5563 ($dff) from module rob (D = $memory\is_store_q$wrmux[23][1][0]$y$5958, Q = \is_store_q[23]).
+Adding EN signal on $memory\is_store_q[24]$5565 ($dff) from module rob (D = $memory\is_store_q$wrmux[24][1][0]$y$5966, Q = \is_store_q[24]).
+Adding EN signal on $memory\is_store_q[25]$5567 ($dff) from module rob (D = $memory\is_store_q$wrmux[25][1][0]$y$5974, Q = \is_store_q[25]).
+Adding EN signal on $memory\is_store_q[26]$5569 ($dff) from module rob (D = $memory\is_store_q$wrmux[26][1][0]$y$5982, Q = \is_store_q[26]).
+Adding EN signal on $memory\is_store_q[27]$5571 ($dff) from module rob (D = $memory\is_store_q$wrmux[27][1][0]$y$5990, Q = \is_store_q[27]).
+Adding EN signal on $memory\is_store_q[28]$5573 ($dff) from module rob (D = $memory\is_store_q$wrmux[28][1][0]$y$5998, Q = \is_store_q[28]).
+Adding EN signal on $memory\is_store_q[29]$5575 ($dff) from module rob (D = $memory\is_store_q$wrmux[29][1][0]$y$6006, Q = \is_store_q[29]).
+Adding EN signal on $memory\is_store_q[30]$5577 ($dff) from module rob (D = $memory\is_store_q$wrmux[30][1][0]$y$6014, Q = \is_store_q[30]).
+Adding EN signal on $memory\is_store_q[31]$5579 ($dff) from module rob (D = $memory\is_store_q$wrmux[31][1][0]$y$6022, Q = \is_store_q[31]).
+Adding EN signal on $memory\prev_prd_q[0]$6023 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[0][1][0]$y$6280, Q = \prev_prd_q[0]).
+Adding EN signal on $memory\prev_prd_q[1]$6025 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[1][1][0]$y$6288, Q = \prev_prd_q[1]).
+Adding EN signal on $memory\prev_prd_q[2]$6027 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[2][1][0]$y$6296, Q = \prev_prd_q[2]).
+Adding EN signal on $memory\prev_prd_q[3]$6029 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[3][1][0]$y$6304, Q = \prev_prd_q[3]).
+Adding EN signal on $memory\prev_prd_q[4]$6031 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[4][1][0]$y$6312, Q = \prev_prd_q[4]).
+Adding EN signal on $memory\prev_prd_q[5]$6033 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[5][1][0]$y$6320, Q = \prev_prd_q[5]).
+Adding EN signal on $memory\prev_prd_q[6]$6035 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[6][1][0]$y$6328, Q = \prev_prd_q[6]).
+Adding EN signal on $memory\prev_prd_q[7]$6037 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[7][1][0]$y$6336, Q = \prev_prd_q[7]).
+Adding EN signal on $memory\prev_prd_q[8]$6039 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[8][1][0]$y$6344, Q = \prev_prd_q[8]).
+Adding EN signal on $memory\prev_prd_q[9]$6041 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[9][1][0]$y$6352, Q = \prev_prd_q[9]).
+Adding EN signal on $memory\prev_prd_q[10]$6043 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[10][1][0]$y$6360, Q = \prev_prd_q[10]).
+Adding EN signal on $memory\prev_prd_q[11]$6045 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[11][1][0]$y$6368, Q = \prev_prd_q[11]).
+Adding EN signal on $memory\prev_prd_q[12]$6047 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[12][1][0]$y$6376, Q = \prev_prd_q[12]).
+Adding EN signal on $memory\prev_prd_q[13]$6049 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[13][1][0]$y$6384, Q = \prev_prd_q[13]).
+Adding EN signal on $memory\prev_prd_q[14]$6051 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[14][1][0]$y$6392, Q = \prev_prd_q[14]).
+Adding EN signal on $memory\prev_prd_q[15]$6053 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[15][1][0]$y$6400, Q = \prev_prd_q[15]).
+Adding EN signal on $memory\prev_prd_q[16]$6055 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[16][1][0]$y$6408, Q = \prev_prd_q[16]).
+Adding EN signal on $memory\prev_prd_q[17]$6057 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[17][1][0]$y$6416, Q = \prev_prd_q[17]).
+Adding EN signal on $memory\prev_prd_q[18]$6059 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[18][1][0]$y$6424, Q = \prev_prd_q[18]).
+Adding EN signal on $memory\prev_prd_q[19]$6061 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[19][1][0]$y$6432, Q = \prev_prd_q[19]).
+Adding EN signal on $memory\prev_prd_q[20]$6063 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[20][1][0]$y$6440, Q = \prev_prd_q[20]).
+Adding EN signal on $memory\prev_prd_q[21]$6065 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[21][1][0]$y$6448, Q = \prev_prd_q[21]).
+Adding EN signal on $memory\prev_prd_q[22]$6067 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[22][1][0]$y$6456, Q = \prev_prd_q[22]).
+Adding EN signal on $memory\prev_prd_q[23]$6069 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[23][1][0]$y$6464, Q = \prev_prd_q[23]).
+Adding EN signal on $memory\prev_prd_q[24]$6071 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[24][1][0]$y$6472, Q = \prev_prd_q[24]).
+Adding EN signal on $memory\prev_prd_q[25]$6073 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[25][1][0]$y$6480, Q = \prev_prd_q[25]).
+Adding EN signal on $memory\prev_prd_q[26]$6075 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[26][1][0]$y$6488, Q = \prev_prd_q[26]).
+Adding EN signal on $memory\prev_prd_q[27]$6077 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[27][1][0]$y$6496, Q = \prev_prd_q[27]).
+Adding EN signal on $memory\prev_prd_q[28]$6079 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[28][1][0]$y$6504, Q = \prev_prd_q[28]).
+Adding EN signal on $memory\prev_prd_q[29]$6081 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[29][1][0]$y$6512, Q = \prev_prd_q[29]).
+Adding EN signal on $memory\prev_prd_q[30]$6083 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[30][1][0]$y$6520, Q = \prev_prd_q[30]).
+Adding EN signal on $memory\prev_prd_q[31]$6085 ($dff) from module rob (D = $memory\prev_prd_q$wrmux[31][1][0]$y$6528, Q = \prev_prd_q[31]).
+Adding EN signal on $memory\prd_q[0]$6529 ($dff) from module rob (D = $memory\prd_q$wrmux[0][1][0]$y$6786, Q = \prd_q[0]).
+Adding EN signal on $memory\prd_q[1]$6531 ($dff) from module rob (D = $memory\prd_q$wrmux[1][1][0]$y$6794, Q = \prd_q[1]).
+Adding EN signal on $memory\prd_q[2]$6533 ($dff) from module rob (D = $memory\prd_q$wrmux[2][1][0]$y$6802, Q = \prd_q[2]).
+Adding EN signal on $memory\prd_q[3]$6535 ($dff) from module rob (D = $memory\prd_q$wrmux[3][1][0]$y$6810, Q = \prd_q[3]).
+Adding EN signal on $memory\prd_q[4]$6537 ($dff) from module rob (D = $memory\prd_q$wrmux[4][1][0]$y$6818, Q = \prd_q[4]).
+Adding EN signal on $memory\prd_q[5]$6539 ($dff) from module rob (D = $memory\prd_q$wrmux[5][1][0]$y$6826, Q = \prd_q[5]).
+Adding EN signal on $memory\prd_q[6]$6541 ($dff) from module rob (D = $memory\prd_q$wrmux[6][1][0]$y$6834, Q = \prd_q[6]).
+Adding EN signal on $memory\prd_q[7]$6543 ($dff) from module rob (D = $memory\prd_q$wrmux[7][1][0]$y$6842, Q = \prd_q[7]).
+Adding EN signal on $memory\prd_q[8]$6545 ($dff) from module rob (D = $memory\prd_q$wrmux[8][1][0]$y$6850, Q = \prd_q[8]).
+Adding EN signal on $memory\prd_q[9]$6547 ($dff) from module rob (D = $memory\prd_q$wrmux[9][1][0]$y$6858, Q = \prd_q[9]).
+Adding EN signal on $memory\prd_q[10]$6549 ($dff) from module rob (D = $memory\prd_q$wrmux[10][1][0]$y$6866, Q = \prd_q[10]).
+Adding EN signal on $memory\prd_q[11]$6551 ($dff) from module rob (D = $memory\prd_q$wrmux[11][1][0]$y$6874, Q = \prd_q[11]).
+Adding EN signal on $memory\prd_q[12]$6553 ($dff) from module rob (D = $memory\prd_q$wrmux[12][1][0]$y$6882, Q = \prd_q[12]).
+Adding EN signal on $memory\prd_q[13]$6555 ($dff) from module rob (D = $memory\prd_q$wrmux[13][1][0]$y$6890, Q = \prd_q[13]).
+Adding EN signal on $memory\prd_q[14]$6557 ($dff) from module rob (D = $memory\prd_q$wrmux[14][1][0]$y$6898, Q = \prd_q[14]).
+Adding EN signal on $memory\prd_q[15]$6559 ($dff) from module rob (D = $memory\prd_q$wrmux[15][1][0]$y$6906, Q = \prd_q[15]).
+Adding EN signal on $memory\prd_q[16]$6561 ($dff) from module rob (D = $memory\prd_q$wrmux[16][1][0]$y$6914, Q = \prd_q[16]).
+Adding EN signal on $memory\prd_q[17]$6563 ($dff) from module rob (D = $memory\prd_q$wrmux[17][1][0]$y$6922, Q = \prd_q[17]).
+Adding EN signal on $memory\prd_q[18]$6565 ($dff) from module rob (D = $memory\prd_q$wrmux[18][1][0]$y$6930, Q = \prd_q[18]).
+Adding EN signal on $memory\prd_q[19]$6567 ($dff) from module rob (D = $memory\prd_q$wrmux[19][1][0]$y$6938, Q = \prd_q[19]).
+Adding EN signal on $memory\prd_q[20]$6569 ($dff) from module rob (D = $memory\prd_q$wrmux[20][1][0]$y$6946, Q = \prd_q[20]).
+Adding EN signal on $memory\prd_q[21]$6571 ($dff) from module rob (D = $memory\prd_q$wrmux[21][1][0]$y$6954, Q = \prd_q[21]).
+Adding EN signal on $memory\prd_q[22]$6573 ($dff) from module rob (D = $memory\prd_q$wrmux[22][1][0]$y$6962, Q = \prd_q[22]).
+Adding EN signal on $memory\prd_q[23]$6575 ($dff) from module rob (D = $memory\prd_q$wrmux[23][1][0]$y$6970, Q = \prd_q[23]).
+Adding EN signal on $memory\prd_q[24]$6577 ($dff) from module rob (D = $memory\prd_q$wrmux[24][1][0]$y$6978, Q = \prd_q[24]).
+Adding EN signal on $memory\prd_q[25]$6579 ($dff) from module rob (D = $memory\prd_q$wrmux[25][1][0]$y$6986, Q = \prd_q[25]).
+Adding EN signal on $memory\prd_q[26]$6581 ($dff) from module rob (D = $memory\prd_q$wrmux[26][1][0]$y$6994, Q = \prd_q[26]).
+Adding EN signal on $memory\prd_q[27]$6583 ($dff) from module rob (D = $memory\prd_q$wrmux[27][1][0]$y$7002, Q = \prd_q[27]).
+Adding EN signal on $memory\prd_q[28]$6585 ($dff) from module rob (D = $memory\prd_q$wrmux[28][1][0]$y$7010, Q = \prd_q[28]).
+Adding EN signal on $memory\prd_q[29]$6587 ($dff) from module rob (D = $memory\prd_q$wrmux[29][1][0]$y$7018, Q = \prd_q[29]).
+Adding EN signal on $memory\prd_q[30]$6589 ($dff) from module rob (D = $memory\prd_q$wrmux[30][1][0]$y$7026, Q = \prd_q[30]).
+Adding EN signal on $memory\prd_q[31]$6591 ($dff) from module rob (D = $memory\prd_q$wrmux[31][1][0]$y$7034, Q = \prd_q[31]).
+Adding EN signal on $memory\rd_arch_q[0]$7035 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[0][1][0]$y$7292, Q = \rd_arch_q[0]).
+Adding EN signal on $memory\rd_arch_q[1]$7037 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[1][1][0]$y$7300, Q = \rd_arch_q[1]).
+Adding EN signal on $memory\rd_arch_q[2]$7039 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[2][1][0]$y$7308, Q = \rd_arch_q[2]).
+Adding EN signal on $memory\rd_arch_q[3]$7041 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[3][1][0]$y$7316, Q = \rd_arch_q[3]).
+Adding EN signal on $memory\rd_arch_q[4]$7043 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[4][1][0]$y$7324, Q = \rd_arch_q[4]).
+Adding EN signal on $memory\rd_arch_q[5]$7045 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[5][1][0]$y$7332, Q = \rd_arch_q[5]).
+Adding EN signal on $memory\rd_arch_q[6]$7047 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[6][1][0]$y$7340, Q = \rd_arch_q[6]).
+Adding EN signal on $memory\rd_arch_q[7]$7049 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[7][1][0]$y$7348, Q = \rd_arch_q[7]).
+Adding EN signal on $memory\rd_arch_q[8]$7051 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[8][1][0]$y$7356, Q = \rd_arch_q[8]).
+Adding EN signal on $memory\rd_arch_q[9]$7053 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[9][1][0]$y$7364, Q = \rd_arch_q[9]).
+Adding EN signal on $memory\rd_arch_q[10]$7055 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[10][1][0]$y$7372, Q = \rd_arch_q[10]).
+Adding EN signal on $memory\rd_arch_q[11]$7057 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[11][1][0]$y$7380, Q = \rd_arch_q[11]).
+Adding EN signal on $memory\rd_arch_q[12]$7059 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[12][1][0]$y$7388, Q = \rd_arch_q[12]).
+Adding EN signal on $memory\rd_arch_q[13]$7061 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[13][1][0]$y$7396, Q = \rd_arch_q[13]).
+Adding EN signal on $memory\rd_arch_q[14]$7063 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[14][1][0]$y$7404, Q = \rd_arch_q[14]).
+Adding EN signal on $memory\rd_arch_q[15]$7065 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[15][1][0]$y$7412, Q = \rd_arch_q[15]).
+Adding EN signal on $memory\rd_arch_q[16]$7067 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[16][1][0]$y$7420, Q = \rd_arch_q[16]).
+Adding EN signal on $memory\rd_arch_q[17]$7069 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[17][1][0]$y$7428, Q = \rd_arch_q[17]).
+Adding EN signal on $memory\rd_arch_q[18]$7071 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[18][1][0]$y$7436, Q = \rd_arch_q[18]).
+Adding EN signal on $memory\rd_arch_q[19]$7073 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[19][1][0]$y$7444, Q = \rd_arch_q[19]).
+Adding EN signal on $memory\rd_arch_q[20]$7075 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[20][1][0]$y$7452, Q = \rd_arch_q[20]).
+Adding EN signal on $memory\rd_arch_q[21]$7077 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[21][1][0]$y$7460, Q = \rd_arch_q[21]).
+Adding EN signal on $memory\rd_arch_q[22]$7079 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[22][1][0]$y$7468, Q = \rd_arch_q[22]).
+Adding EN signal on $memory\rd_arch_q[23]$7081 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[23][1][0]$y$7476, Q = \rd_arch_q[23]).
+Adding EN signal on $memory\rd_arch_q[24]$7083 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[24][1][0]$y$7484, Q = \rd_arch_q[24]).
+Adding EN signal on $memory\rd_arch_q[25]$7085 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[25][1][0]$y$7492, Q = \rd_arch_q[25]).
+Adding EN signal on $memory\rd_arch_q[26]$7087 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[26][1][0]$y$7500, Q = \rd_arch_q[26]).
+Adding EN signal on $memory\rd_arch_q[27]$7089 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[27][1][0]$y$7508, Q = \rd_arch_q[27]).
+Adding EN signal on $memory\rd_arch_q[28]$7091 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[28][1][0]$y$7516, Q = \rd_arch_q[28]).
+Adding EN signal on $memory\rd_arch_q[29]$7093 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[29][1][0]$y$7524, Q = \rd_arch_q[29]).
+Adding EN signal on $memory\rd_arch_q[30]$7095 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[30][1][0]$y$7532, Q = \rd_arch_q[30]).
+Adding EN signal on $memory\rd_arch_q[31]$7097 ($dff) from module rob (D = $memory\rd_arch_q$wrmux[31][1][0]$y$7540, Q = \rd_arch_q[31]).
+Adding EN signal on $memory\pc_q[0]$7541 ($dff) from module rob (D = $memory\pc_q$wrmux[0][1][0]$y$7798, Q = \pc_q[0]).
+Adding EN signal on $memory\pc_q[1]$7543 ($dff) from module rob (D = $memory\pc_q$wrmux[1][1][0]$y$7806, Q = \pc_q[1]).
+Adding EN signal on $memory\pc_q[2]$7545 ($dff) from module rob (D = $memory\pc_q$wrmux[2][1][0]$y$7814, Q = \pc_q[2]).
+Adding EN signal on $memory\pc_q[3]$7547 ($dff) from module rob (D = $memory\pc_q$wrmux[3][1][0]$y$7822, Q = \pc_q[3]).
+Adding EN signal on $memory\pc_q[4]$7549 ($dff) from module rob (D = $memory\pc_q$wrmux[4][1][0]$y$7830, Q = \pc_q[4]).
+Adding EN signal on $memory\pc_q[5]$7551 ($dff) from module rob (D = $memory\pc_q$wrmux[5][1][0]$y$7838, Q = \pc_q[5]).
+Adding EN signal on $memory\pc_q[6]$7553 ($dff) from module rob (D = $memory\pc_q$wrmux[6][1][0]$y$7846, Q = \pc_q[6]).
+Adding EN signal on $memory\pc_q[7]$7555 ($dff) from module rob (D = $memory\pc_q$wrmux[7][1][0]$y$7854, Q = \pc_q[7]).
+Adding EN signal on $memory\pc_q[8]$7557 ($dff) from module rob (D = $memory\pc_q$wrmux[8][1][0]$y$7862, Q = \pc_q[8]).
+Adding EN signal on $memory\pc_q[9]$7559 ($dff) from module rob (D = $memory\pc_q$wrmux[9][1][0]$y$7870, Q = \pc_q[9]).
+Adding EN signal on $memory\pc_q[10]$7561 ($dff) from module rob (D = $memory\pc_q$wrmux[10][1][0]$y$7878, Q = \pc_q[10]).
+Adding EN signal on $memory\pc_q[11]$7563 ($dff) from module rob (D = $memory\pc_q$wrmux[11][1][0]$y$7886, Q = \pc_q[11]).
+Adding EN signal on $memory\pc_q[12]$7565 ($dff) from module rob (D = $memory\pc_q$wrmux[12][1][0]$y$7894, Q = \pc_q[12]).
+Adding EN signal on $memory\pc_q[13]$7567 ($dff) from module rob (D = $memory\pc_q$wrmux[13][1][0]$y$7902, Q = \pc_q[13]).
+Adding EN signal on $memory\pc_q[14]$7569 ($dff) from module rob (D = $memory\pc_q$wrmux[14][1][0]$y$7910, Q = \pc_q[14]).
+Adding EN signal on $memory\pc_q[15]$7571 ($dff) from module rob (D = $memory\pc_q$wrmux[15][1][0]$y$7918, Q = \pc_q[15]).
+Adding EN signal on $memory\pc_q[16]$7573 ($dff) from module rob (D = $memory\pc_q$wrmux[16][1][0]$y$7926, Q = \pc_q[16]).
+Adding EN signal on $memory\pc_q[17]$7575 ($dff) from module rob (D = $memory\pc_q$wrmux[17][1][0]$y$7934, Q = \pc_q[17]).
+Adding EN signal on $memory\pc_q[18]$7577 ($dff) from module rob (D = $memory\pc_q$wrmux[18][1][0]$y$7942, Q = \pc_q[18]).
+Adding EN signal on $memory\pc_q[19]$7579 ($dff) from module rob (D = $memory\pc_q$wrmux[19][1][0]$y$7950, Q = \pc_q[19]).
+Adding EN signal on $memory\pc_q[20]$7581 ($dff) from module rob (D = $memory\pc_q$wrmux[20][1][0]$y$7958, Q = \pc_q[20]).
+Adding EN signal on $memory\pc_q[21]$7583 ($dff) from module rob (D = $memory\pc_q$wrmux[21][1][0]$y$7966, Q = \pc_q[21]).
+Adding EN signal on $memory\pc_q[22]$7585 ($dff) from module rob (D = $memory\pc_q$wrmux[22][1][0]$y$7974, Q = \pc_q[22]).
+Adding EN signal on $memory\pc_q[23]$7587 ($dff) from module rob (D = $memory\pc_q$wrmux[23][1][0]$y$7982, Q = \pc_q[23]).
+Adding EN signal on $memory\pc_q[24]$7589 ($dff) from module rob (D = $memory\pc_q$wrmux[24][1][0]$y$7990, Q = \pc_q[24]).
+Adding EN signal on $memory\pc_q[25]$7591 ($dff) from module rob (D = $memory\pc_q$wrmux[25][1][0]$y$7998, Q = \pc_q[25]).
+Adding EN signal on $memory\pc_q[26]$7593 ($dff) from module rob (D = $memory\pc_q$wrmux[26][1][0]$y$8006, Q = \pc_q[26]).
+Adding EN signal on $memory\pc_q[27]$7595 ($dff) from module rob (D = $memory\pc_q$wrmux[27][1][0]$y$8014, Q = \pc_q[27]).
+Adding EN signal on $memory\pc_q[28]$7597 ($dff) from module rob (D = $memory\pc_q$wrmux[28][1][0]$y$8022, Q = \pc_q[28]).
+Adding EN signal on $memory\pc_q[29]$7599 ($dff) from module rob (D = $memory\pc_q$wrmux[29][1][0]$y$8030, Q = \pc_q[29]).
+Adding EN signal on $memory\pc_q[30]$7601 ($dff) from module rob (D = $memory\pc_q$wrmux[30][1][0]$y$8038, Q = \pc_q[30]).
+Adding EN signal on $memory\pc_q[31]$7603 ($dff) from module rob (D = $memory\pc_q$wrmux[31][1][0]$y$8046, Q = \pc_q[31]).
+
+3.19.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rob..
+Removed 0 unused cells and 1 unused wires.
+<suppressed ~1 debug messages>
+
+3.19.17. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rob.
+<suppressed ~640 debug messages>
+
+3.19.18. Rerunning OPT passes. (Maybe there is more to do..)
+
+3.19.19. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \rob..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~1746 debug messages>
+
+3.19.20. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \rob.
+Performed a total of 0 changes.
+
+3.19.21. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rob'.
+Computing hashes of 2973 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Computing hashes of 2813 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+<suppressed ~480 debug messages>
+Removed a total of 160 cells.
+
+3.19.22. Executing OPT_SHARE pass.
+
+3.19.23. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.19.24. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rob..
+Removed 0 unused cells and 544 unused wires.
+<suppressed ~1 debug messages>
+
+3.19.25. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rob.
+<suppressed ~64 debug messages>
+
+3.19.26. Rerunning OPT passes. (Maybe there is more to do..)
+
+3.19.27. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \rob..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~1682 debug messages>
+
+3.19.28. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \rob.
+Performed a total of 0 changes.
+
+3.19.29. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rob'.
+Computing hashes of 2813 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Removed a total of 0 cells.
+
+3.19.30. Executing OPT_SHARE pass.
+
+3.19.31. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.19.32. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rob..
+
+3.19.33. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rob.
+
+3.19.34. Finished fast OPT passes. (There is nothing left to do.)
+
+3.20. Executing TECHMAP pass (map to technology primitives).
+
+3.20.1. Executing Verilog-2005 frontend: /home/bomma/oss-cad-suite/lib/../share/yosys/techmap.v
+Parsing Verilog input from `/home/bomma/oss-cad-suite/lib/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `$__div_mod_u'.
+Generating RTLIL representation for module `$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Generating RTLIL representation for module `$connect'.
+Generating RTLIL representation for module `$input_port'.
+Successfully finished Verilog frontend.
+
+3.20.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using extmapper simplemap for cells of type $dffe.
+Using extmapper simplemap for cells of type $sdff.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $not.
+Using template $paramod$7e708ae28ab761f11d0fb59d3ffc72f6a4baf5d9\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $or.
+Using extmapper simplemap for cells of type $eq.
+Using extmapper simplemap for cells of type $logic_not.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $reduce_and.
+Using template $paramod$00298f3f8094950cb9a5ff2fda48d0d8bde8806c\_90_alu for cells of type $alu.
+Using template $paramod$b18e16801adf491a64caa0542270798e5d4ac6b6\_90_alu for cells of type $alu.
+Using template $paramod$672a140277c71df8314410f22acc08d55222c3c7\_90_alu for cells of type $alu.
+Using template $paramod$6b90a16b6f3b57b9c9d958838204f952a01dc262\_90_alu for cells of type $alu.
+Using template $paramod$3ac6e4268d0279df14823f25676acf685165517e\_90_alu for cells of type $alu.
+Using template $paramod$7af24cf7f572852703f08ef7a936c59efa2c57af\_90_alu for cells of type $alu.
+Using template $paramod$03eba0cdd46566f6651a3011e0b5671fa6b5e494\_90_alu for cells of type $alu.
+Using template $paramod$f85408ed1aa3d09e465edae8a7bf590332ae9f7b\_90_alu for cells of type $alu.
+Using template $paramod$d1615bf4e5e328245ffd1550e5fe105901cda77b\_90_alu for cells of type $alu.
+Using template $paramod$83dd457849c736323edf2edb15923eb27f99c683\_90_alu for cells of type $alu.
+Using template $paramod$1a3a0c35c4a4896fbfd612699525c057298e72d2\_90_alu for cells of type $alu.
+Using template $paramod$79fc7abbb3333dbd5736999d565fd903198fb1eb\_90_alu for cells of type $alu.
+Using template $paramod$adbaf76fa5a3091a329503792521395f8ff4d1a4\_90_alu for cells of type $alu.
+Using template $paramod$740b056ede97228d3eae64ea2fdc81f0a33e0fe7\_90_alu for cells of type $alu.
+Using template $paramod$78e969f2586efcf3a5b0b0440bcca0db83d5cca2\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $reduce_or.
+Using template $paramod$e04283ca12514baf3d204c6994bec8f178dd89f8\_90_alu for cells of type $alu.
+Using template $paramod$dc04b7d98e503a7bab16fce2df70e6e2c5ca34d6\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $logic_and.
+Using extmapper simplemap for cells of type $dff.
+Using extmapper simplemap for cells of type $pos.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000101 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000101 for cells of type $lcu.
+Using extmapper simplemap for cells of type $xor.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000110 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000110 for cells of type $lcu.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000100 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000100 for cells of type $lcu.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000011 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000011 for cells of type $lcu.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000010 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000010 for cells of type $lcu.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000001 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000001 for cells of type $lcu.
+No more expansions possible.
+<suppressed ~5746 debug messages>
+
+3.21. Executing OPT pass (performing simple optimizations).
+
+3.21.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rob.
+<suppressed ~4014 debug messages>
+
+3.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rob'.
+Computing hashes of 21358 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Computing hashes of 20784 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Computing hashes of 20549 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Computing hashes of 20368 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Computing hashes of 20245 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Computing hashes of 20178 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Computing hashes of 20102 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Computing hashes of 20048 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Computing hashes of 20012 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Computing hashes of 20002 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Computing hashes of 20000 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+<suppressed ~4074 debug messages>
+Removed a total of 1358 cells.
+
+3.21.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.21.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rob..
+Removed 244 unused cells and 4071 unused wires.
+<suppressed ~245 debug messages>
+
+3.21.5. Finished fast OPT passes.
+
+3.22. Executing ABC pass (technology mapping using ABC).
+
+3.22.1. Extracting gate netlist of module `\rob' to `<abc-temp-dir>/input.blif'..
+
+3.22.1.1. Executed ABC.
+Extracted 14876 gates and 20072 wires to a netlist network with 5195 inputs and 5232 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+3.22.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:     4465
+ABC RESULTS:            ANDNOT cells:      717
+ABC RESULTS:               MUX cells:     6225
+ABC RESULTS:              NAND cells:     9881
+ABC RESULTS:               NOR cells:      224
+ABC RESULTS:               NOT cells:       76
+ABC RESULTS:                OR cells:      574
+ABC RESULTS:             ORNOT cells:      560
+ABC RESULTS:              XNOR cells:       50
+ABC RESULTS:               XOR cells:       26
+ABC RESULTS:        internal signals:     9645
+ABC RESULTS:           input signals:     5195
+ABC RESULTS:          output signals:     5232
+Removing temp directory.
+Removing global temp directory.
+
+3.23. Executing OPT pass (performing simple optimizations).
+
+3.23.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rob.
+<suppressed ~1 debug messages>
+
+3.23.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rob'.
+Computing hashes of 27678 cells of `\rob'.
+Finding duplicate cells in `\rob'.
+Removed a total of 0 cells.
+
+3.23.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rob..
+Removed 0 unused cells and 8367 unused wires.
+<suppressed ~3 debug messages>
+
+3.23.5. Finished fast OPT passes.
+
+3.24. Executing HIERARCHY pass (managing design hierarchy).
+Attribute `top' found on module `rob'. Setting top module to rob.
+
+3.24.1. Analyzing design hierarchy..
+Top module:  \rob
+
+3.24.2. Analyzing design hierarchy..
+Top module:  \rob
+Removed 0 unused modules.
+
+3.25. Printing statistics.
+
+=== rob ===
+
+        +----------Local Count, excluding submodules.
+        | 
+    22899 wires
+    28123 wire bits
+      362 public wires
+     5568 public wire bits
+       31 ports
+      588 port bits
+    27678 cells
+      717   $_ANDNOT_
+     4465   $_AND_
+     4800   $_DFFE_PP_
+       64   $_DFF_P_
+     6225   $_MUX_
+     9881   $_NAND_
+      224   $_NOR_
+       76   $_NOT_
+      560   $_ORNOT_
+      574   $_OR_
+       16   $_SDFF_PP0_
+       50   $_XNOR_
+       26   $_XOR_
+
+3.26. Executing CHECK pass (checking for obvious problems).
+Checking module rob...
+Found and reported 0 problems.
+
+4. Executing DFFLIBMAP pass (mapping DFF/DLATCH cells to sequential cells from liberty file).
+  cell sg13g2_dfrbpq_1 (noninv, pins=4, area=48.99) is a direct match for cell type $_DFF_PN0_.
+  cell sg13g2_dlhq_1 (noninv, pins=3, area=30.84) is a direct match for cell type $_DLATCH_P_.
+  cell sg13g2_dllrq_1 (noninv, pins=4, area=29.03) is a direct match for cell type $_DLATCH_NN0_.
+  cell sg13g2_dlhrq_1 (noninv, pins=4, area=27.22) is a direct match for cell type $_DLATCH_PN0_.
+  final dff/dlatch cell mappings:
+    unmapped dff/dlatch cell: $_DFF_N_
+    unmapped dff/dlatch cell: $_DFF_P_
+    unmapped dff/dlatch cell: $_DFF_NN0_
+    unmapped dff/dlatch cell: $_DFF_NN1_
+    unmapped dff/dlatch cell: $_DFF_NP0_
+    unmapped dff/dlatch cell: $_DFF_NP1_
+    \sg13g2_dfrbpq_1 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DFF_PN1_
+    unmapped dff/dlatch cell: $_DFF_PP0_
+    unmapped dff/dlatch cell: $_DFF_PP1_
+    unmapped dff/dlatch cell: $_DFFE_NN_
+    unmapped dff/dlatch cell: $_DFFE_NP_
+    unmapped dff/dlatch cell: $_DFFE_PN_
+    unmapped dff/dlatch cell: $_DFFE_PP_
+    unmapped dff/dlatch cell: $_DFFSR_NNN_
+    unmapped dff/dlatch cell: $_DFFSR_NNP_
+    unmapped dff/dlatch cell: $_DFFSR_NPN_
+    unmapped dff/dlatch cell: $_DFFSR_NPP_
+    unmapped dff/dlatch cell: $_DFFSR_PNN_
+    unmapped dff/dlatch cell: $_DFFSR_PNP_
+    unmapped dff/dlatch cell: $_DFFSR_PPN_
+    unmapped dff/dlatch cell: $_DFFSR_PPP_
+    unmapped dff/dlatch cell: $_DLATCH_N_
+    \sg13g2_dlhq_1 _DLATCH_P_ (.D( D), .GATE( E), .Q( Q));
+    \sg13g2_dllrq_1 _DLATCH_NN0_ (.D( D), .GATE_N( E), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DLATCH_NN1_
+    unmapped dff/dlatch cell: $_DLATCH_NP0_
+    unmapped dff/dlatch cell: $_DLATCH_NP1_
+    \sg13g2_dlhrq_1 _DLATCH_PN0_ (.D( D), .GATE( E), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DLATCH_PN1_
+    unmapped dff/dlatch cell: $_DLATCH_PP0_
+    unmapped dff/dlatch cell: $_DLATCH_PP1_
+    unmapped dff/dlatch cell: $_DLATCHSR_NNN_
+    unmapped dff/dlatch cell: $_DLATCHSR_NNP_
+    unmapped dff/dlatch cell: $_DLATCHSR_NPN_
+    unmapped dff/dlatch cell: $_DLATCHSR_NPP_
+    unmapped dff/dlatch cell: $_DLATCHSR_PNN_
+    unmapped dff/dlatch cell: $_DLATCHSR_PNP_
+    unmapped dff/dlatch cell: $_DLATCHSR_PPN_
+    unmapped dff/dlatch cell: $_DLATCHSR_PPP_
+
+4.1. Executing DFFLEGALIZE pass (convert FFs and LATCHes to types supported by the target).
+<suppressed ~4 debug messages>
+Mapping DFF/DLATCH cells in module `\rob':
+  mapped 4880 $_DFF_PN0_ cells to \sg13g2_dfrbpq_1 cells.
+
+5. Executing ABC pass (technology mapping using ABC).
+
+5.1. Extracting gate netlist of module `\rob' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: /tmp/yosys-liberty-scl-cache-1000/yosys_merged_0a0e92c0.scl (1 files)
+
+5.1.1. Executed ABC.
+Extracted 27614 gates and 32810 wires to a netlist network with 5195 inputs and 5134 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl /tmp/yosys-liberty-scl-cache-1000/yosys_merged_0a0e92c0.scl 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+5.1.2. Re-integrating ABC results.
+ABC RESULTS:     sg13g2_a21o_1 cells:      147
+ABC RESULTS:    sg13g2_a21oi_1 cells:     2962
+ABC RESULTS:   sg13g2_a221oi_1 cells:      398
+ABC RESULTS:    sg13g2_a22oi_1 cells:     6775
+ABC RESULTS:     sg13g2_and2_1 cells:      177
+ABC RESULTS:     sg13g2_and3_1 cells:       38
+ABC RESULTS:     sg13g2_and4_1 cells:        5
+ABC RESULTS:      sg13g2_inv_1 cells:     3479
+ABC RESULTS:     sg13g2_mux2_1 cells:       66
+ABC RESULTS:     sg13g2_mux4_1 cells:      394
+ABC RESULTS:    sg13g2_nand2_1 cells:     4693
+ABC RESULTS:   sg13g2_nand2b_1 cells:       60
+ABC RESULTS:    sg13g2_nand3_1 cells:      778
+ABC RESULTS:   sg13g2_nand3b_1 cells:        7
+ABC RESULTS:    sg13g2_nand4_1 cells:       16
+ABC RESULTS:     sg13g2_nor2_1 cells:     2942
+ABC RESULTS:    sg13g2_nor2b_1 cells:       52
+ABC RESULTS:     sg13g2_nor3_1 cells:     1023
+ABC RESULTS:     sg13g2_nor4_1 cells:      157
+ABC RESULTS:    sg13g2_o21ai_1 cells:     2170
+ABC RESULTS:      sg13g2_or2_1 cells:       29
+ABC RESULTS:      sg13g2_or3_1 cells:       15
+ABC RESULTS:      sg13g2_or4_1 cells:        2
+ABC RESULTS:    sg13g2_xnor2_1 cells:       73
+ABC RESULTS:     sg13g2_xor2_1 cells:       13
+ABC RESULTS:        internal signals:    22481
+ABC RESULTS:           input signals:     5195
+ABC RESULTS:          output signals:     5134
+Removing temp directory.
+Removing global temp directory.
+
+6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rob..
+Removed 0 unused cells and 32802 unused wires.
+<suppressed ~1 debug messages>
+
+7. Printing statistics.
+
+=== rob ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+    26579        - wires
+    31785        - wire bits
+      362        - public wires
+     5568        - public wire bits
+       31        - ports
+      588        - port bits
+    31351 4.81E+05 cells
+      147 1.87E+03   sg13g2_a21o_1
+     2962 2.69E+04   sg13g2_a21oi_1
+      398  5777.05   sg13g2_a221oi_1
+     6775 7.35E+04   sg13g2_a22oi_1
+      177 1.61E+03   sg13g2_and2_1
+       38   482.63   sg13g2_and3_1
+        5   72.576   sg13g2_and4_1
+     4880 2.39E+05   sg13g2_dfrbpq_1
+     3479 1.89E+04   sg13g2_inv_1
+       66  1.2E+03   sg13g2_mux2_1
+      394  1.5E+04   sg13g2_mux4_1
+     4693 3.41E+04   sg13g2_nand2_1
+       60   544.32   sg13g2_nand2b_1
+      778 7.06E+03   sg13g2_nand3_1
+        7   88.906   sg13g2_nand3b_1
+       16  174.182   sg13g2_nand4_1
+     2942 2.14E+04   sg13g2_nor2_1
+       52  471.744   sg13g2_nor2b_1
+     1023 9.28E+03   sg13g2_nor3_1
+      157 1.71E+03   sg13g2_nor4_1
+     2170 1.97E+04   sg13g2_o21ai_1
+       29  263.088   sg13g2_or2_1
+       15  190.512   sg13g2_or3_1
+        2    29.03   sg13g2_or4_1
+       73  1059.61   sg13g2_xnor2_1
+       13  188.698   sg13g2_xor2_1
+
+   Chip area for module '\rob': 480543.575400
+     of which used for sequential elements: 239065.344000 (49.75%)
+
+8. Executing Verilog backend.
+
+8.1. Executing BMUXMAP pass.
+
+8.2. Executing DEMUXMAP pass.
+Dumping module `\rob'.
+
+9. Executing JSON backend.
+
+End of script. Logfile hash: 02033abd5e, time: 6.76s, user: 2.00s, system: 0.14s, MEM: 132.65 MB peak
+Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)
+Time spent: 73% 2x abc (4 sec), 6% 27x opt_clean (0 sec), ...

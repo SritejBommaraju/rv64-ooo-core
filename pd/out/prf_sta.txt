@@ -1,0 +1,38 @@
+OpenSTA 3.1.0 d97587f669 Copyright (c) 2026, Parallax Software, Inc.
+License GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>
+
+This is free software, and you are free to change and redistribute it
+under certain conditions; type `show_copying' for details. 
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show_warranty'.
+Startpoint: _58479_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: _58479_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ _58479_/CLK (sg13g2_dfrbpq_1)
+   0.19    0.19 ^ _58479_/Q (sg13g2_dfrbpq_1)
+   0.08    0.27 ^ _51357_/Y (sg13g2_nand2b_1)
+   0.10    0.37 v _51358_/Y (sg13g2_o21ai_1)
+   0.11    0.48 ^ _51360_/Y (sg13g2_a21oi_1)
+   0.00    0.48 ^ _58479_/D (sg13g2_dfrbpq_1)
+           0.48   data arrival time
+
+  10.00   10.00   clock clk (rise edge)
+   0.00   10.00   clock network delay (ideal)
+   0.00   10.00   clock reconvergence pessimism
+          10.00 ^ _58479_/CLK (sg13g2_dfrbpq_1)
+  -0.24    9.76   library setup time
+           9.76   data required time
+---------------------------------------------------------
+           9.76   data required time
+          -0.48   data arrival time
+---------------------------------------------------------
+           9.28   slack (MET)
+
+
+tns max 0.00
+wns max 0.00

@@ -9,8 +9,10 @@ RTL = ../out/core_syn_gl.v ../../rtl/regfile.sv ../../rtl/mem.sv ../../rtl/top.s
 
 .PHONY: run clean
 
+# alu_imm.bin passes on the in-order RTL (see sw/run_tests.py), unlike sw/test1.bin, so this is
+# a meaningful PASS/FAIL against the synthesized netlist.
 run: obj_dir/V$(TOP)
-	./obj_dir/V$(TOP) ../../sw/test1.bin
+	./obj_dir/V$(TOP) ../../sw/build/alu_imm.bin
 
 obj_dir/V$(TOP): $(RTL) tb_gl.cpp
 	verilator --cc --exe --build -Wall -Wno-fatal --timing --top-module $(TOP) $(RTL) tb_gl.cpp

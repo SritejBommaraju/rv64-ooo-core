@@ -1,11 +1,9 @@
-# Yosys synthesis script for IHP sg13g2. TOP/OUT/LIBERTY are substituted by the Makefile (sed) before
-# this is run, since plain yosys script syntax (not -c/tcl mode) has no env-var substitution.
+# Yosys synthesis script for IHP sg13g2. The FILES placeholder token below, plus TOP/OUT/LIBERTY,
+# are substituted by the Makefile (sed/awk) before this is run, since plain yosys script syntax
+# (not -c/tcl mode) has no env-var substitution. The placeholder expands to one read_verilog line
+# per file in blocks.mk's FILES_<block>.
 
-read_verilog -sv ../rtl/alu.sv
 read_verilog -sv ../rtl/muldiv.sv
-read_verilog -sv ../rtl/regfile.sv
-read_verilog -sv ../rtl/decode.sv
-read_verilog -sv ../rtl/core.sv
 
 hierarchy -top muldiv
 synth -top muldiv

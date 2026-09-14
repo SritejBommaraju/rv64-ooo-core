@@ -124,12 +124,13 @@ bool Iss::step() {
         case 6: wb((uint64_t)(a | i_imm)); break;                          // ORI
         case 7: wb((uint64_t)(a & i_imm)); break;                          // ANDI
         case 1:
-            if (funct7 != 0) { exit_reason = Exit::ILLEGAL; return false; }
+            // RV64 shamt is 6 bits (insn[25:20]); only insn[31:26] is the real funct6.
+            if ((funct7 & 0xFE) != 0x00) { exit_reason = Exit::ILLEGAL; return false; }
             wb(x[rs1] << shamt);                                          // SLLI
             break;
         case 5:
-            if (funct7 == 0x00) wb(x[rs1] >> shamt);                      // SRLI
-            else if (funct7 == 0x20) wb((uint64_t)(a >> shamt));          // SRAI
+            if ((funct7 & 0xFE) == 0x00) wb(x[rs1] >> shamt);             // SRLI
+            else if ((funct7 & 0xFE) == 0x20) wb((uint64_t)(a >> shamt)); // SRAI
             else { exit_reason = Exit::ILLEGAL; return false; }
             break;
         }

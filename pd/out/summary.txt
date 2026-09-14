@@ -1,0 +1,24 @@
+block             status         cells     area um^2   seq%path                                               arr ns   WNS ns  fmax MHz  wall s
+------------------------------------------------------------------------------------------------------------------------------------------------
+core              SYN-OK(no STA)  n/a      763137.43    15.30 n/a                                                n/a      n/a       n/a       1
+muldiv            OK            49893     538523.14      3.06_99365_ -> _99365_                                 11.07    -1.23     89.05     281
+alu               OK             2514      24435.92      0.00 n/a                                                n/a     0.00       n/a       1
+rob               SYN-OK(no STA)  n/a      480543.58    49.75 n/a                                                n/a      n/a       n/a       0
+rename            SYN-OK(no STA)  n/a      224125.65    50.34 n/a                                                n/a      n/a       n/a       1
+prf               OK            31420     552719.76     36.30_58479_ -> _58479_                                  0.48     0.00    100.00       7
+lsq               SYN-OK(no STA)  n/a      866036.10     9.62 n/a                                                n/a      n/a       n/a       0
+l1d               SYN-OK(no STA)  n/a     8200526.67    47.73 n/a                                                n/a      n/a       n/a       0
+bp_bimodal_btb    OK            25554     636106.83     57.67_36970_ -> _36101_                                 50.04   -40.45     19.82       9
+
+NOTE (fixed post-hoc): the original run of this summary mislabeled core/rob/rename/lsq/l1d as "ERROR". Their
+yosys synthesis actually succeeded (see <block>_synth.status == OK, and <block>_syn.v/.json exist) with real
+area numbers above (recomputed via `yosys -p "read_verilog out/<block>_syn.v; stat -top <block> -liberty <lib>"`
+where summarize.py's own stat parse failed to run). What is genuinely missing for these five blocks is a
+completed OpenSTA timing run (no <block>_sta.txt was produced) -- summarize.py's ERROR label conflated
+"no STA yet" with "synthesis failed". Only muldiv, alu, prf, and bp_bimodal_btb got the full synth+STA pass
+in this session; core/rob/rename/lsq/l1d have area-only numbers until STA is run on them too.
+
+Headline result from this session: replacing rtl/muldiv.sv's single-cycle combinational divider with an
+iterative multi-cycle divider (see rtl/muldiv.sv, verified against model/iss.cpp over 3.4M random cycles,
+0 mismatches) took muldiv's own WNS from -361.40 ns (pre-existing baseline, see pd/results.txt) to -1.23 ns,
+i.e. estimated fmax from ~2.7 MHz to ~89 MHz -- the fix the original PD run's own analysis called for.

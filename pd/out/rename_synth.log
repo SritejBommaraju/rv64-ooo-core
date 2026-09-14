@@ -1,0 +1,300 @@
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl /tmp/yosys-liberty-scl-cache-1000/yosys_merged_0a0e92c0.scl 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+7.2.2. Re-integrating ABC results.
+ABC RESULTS:     sg13g2_a21o_1 cells:        7
+ABC RESULTS:    sg13g2_a21oi_1 cells:       57
+ABC RESULTS:   sg13g2_a221oi_1 cells:      127
+ABC RESULTS:    sg13g2_a22oi_1 cells:      152
+ABC RESULTS:     sg13g2_and2_1 cells:       32
+ABC RESULTS:      sg13g2_inv_1 cells:       66
+ABC RESULTS:     sg13g2_mux2_1 cells:       23
+ABC RESULTS:     sg13g2_mux4_1 cells:      123
+ABC RESULTS:    sg13g2_nand2_1 cells:      225
+ABC RESULTS:   sg13g2_nand2b_1 cells:       19
+ABC RESULTS:    sg13g2_nand3_1 cells:       14
+ABC RESULTS:    sg13g2_nand4_1 cells:        1
+ABC RESULTS:     sg13g2_nor2_1 cells:      155
+ABC RESULTS:    sg13g2_nor2b_1 cells:       67
+ABC RESULTS:     sg13g2_nor3_1 cells:       43
+ABC RESULTS:     sg13g2_nor4_1 cells:        1
+ABC RESULTS:    sg13g2_o21ai_1 cells:      110
+ABC RESULTS:      sg13g2_or2_1 cells:       15
+ABC RESULTS:      sg13g2_or3_1 cells:       13
+ABC RESULTS:      sg13g2_or4_1 cells:        1
+ABC RESULTS:    sg13g2_xnor2_1 cells:       32
+ABC RESULTS:     sg13g2_xor2_1 cells:        7
+ABC RESULTS:        internal signals:     1878
+ABC RESULTS:           input signals:      311
+ABC RESULTS:          output signals:      294
+Removing temp directory.
+
+7.3. Extracting gate netlist of module `$paramod\rename_map\N_CKPT=s32'00000000000000000000000000001000' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: /tmp/yosys-liberty-scl-cache-1000/yosys_merged_0a0e92c0.scl (1 files)
+
+7.3.1. Executed ABC.
+Extracted 9135 gates and 11222 wires to a netlist network with 2085 inputs and 2058 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl /tmp/yosys-liberty-scl-cache-1000/yosys_merged_0a0e92c0.scl 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+7.3.2. Re-integrating ABC results.
+ABC RESULTS:     sg13g2_a21o_1 cells:        4
+ABC RESULTS:    sg13g2_a21oi_1 cells:      207
+ABC RESULTS:   sg13g2_a221oi_1 cells:     1753
+ABC RESULTS:    sg13g2_a22oi_1 cells:       36
+ABC RESULTS:     sg13g2_and2_1 cells:       54
+ABC RESULTS:     sg13g2_and3_1 cells:       24
+ABC RESULTS:     sg13g2_and4_1 cells:       54
+ABC RESULTS:      sg13g2_inv_1 cells:      342
+ABC RESULTS:     sg13g2_mux2_1 cells:      578
+ABC RESULTS:     sg13g2_mux4_1 cells:      448
+ABC RESULTS:    sg13g2_nand2_1 cells:       78
+ABC RESULTS:   sg13g2_nand2b_1 cells:       11
+ABC RESULTS:    sg13g2_nand3_1 cells:      327
+ABC RESULTS:    sg13g2_nand4_1 cells:     1219
+ABC RESULTS:     sg13g2_nor2_1 cells:     1793
+ABC RESULTS:    sg13g2_nor2b_1 cells:       41
+ABC RESULTS:     sg13g2_nor3_1 cells:       35
+ABC RESULTS:     sg13g2_nor4_1 cells:       85
+ABC RESULTS:    sg13g2_o21ai_1 cells:      365
+ABC RESULTS:      sg13g2_or2_1 cells:        4
+ABC RESULTS:        internal signals:     7079
+ABC RESULTS:           input signals:     2085
+ABC RESULTS:          output signals:     2058
+Removing temp directory.
+Removing global temp directory.
+
+8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rename..
+Finding unused cells or wires in module $paramod$7a9c93ef556ab733d78c737e48b554af5759dabc\free_list..
+Finding unused cells or wires in module $paramod\rename_map\N_CKPT=s32'00000000000000000000000000001000..
+Removed 0 unused cells and 13990 unused wires.
+<suppressed ~3 debug messages>
+
+9. Printing statistics.
+
+=== rename ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      168        - wires
+      321        - wire bits
+       52        - public wires
+      205        - public wire bits
+       36        - ports
+      134        - port bits
+      169  2.2E+03 cells
+        1   12.701   sg13g2_a21o_1
+       10    90.72   sg13g2_a21oi_1
+        2    29.03   sg13g2_a221oi_1
+        2   21.697   sg13g2_a22oi_1
+       17  154.224   sg13g2_and2_1
+        3   38.102   sg13g2_and3_1
+        1   14.515   sg13g2_and4_1
+        7  342.922   sg13g2_dfrbpq_1
+        9   48.989   sg13g2_inv_1
+       22  399.168   sg13g2_mux2_1
+        4    29.03   sg13g2_nand2_1
+        5    45.36   sg13g2_nand2b_1
+        5    45.36   sg13g2_nand3_1
+        3   32.659   sg13g2_nand4_1
+        8   58.061   sg13g2_nor2_1
+        8   72.576   sg13g2_nor2b_1
+        8   72.576   sg13g2_nor3_1
+        8   87.091   sg13g2_nor4_1
+        7   63.504   sg13g2_o21ai_1
+        4   36.288   sg13g2_or2_1
+        2   25.402   sg13g2_or3_1
+        1   14.515   sg13g2_or4_1
+       19  275.789   sg13g2_xnor2_1
+       13  188.698   sg13g2_xor2_1
+        2        - submodules
+        1        -   $paramod$7a9c93ef556ab733d78c737e48b554af5759dabc\free_list
+        1        -   $paramod\rename_map\N_CKPT=s32'00000000000000000000000000001000
+
+   Chip area for module '\rename': 2198.977200
+     of which used for sequential elements: 342.921600 (15.59%)
+
+=== $paramod$7a9c93ef556ab733d78c737e48b554af5759dabc\free_list ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     1340        - wires
+     1620        - wire bits
+       64        - public wires
+      344        - public wire bits
+       17        - ports
+       52        - port bits
+     1570 2.95E+04 cells
+        7   88.906   sg13g2_a21o_1
+       57  517.104   sg13g2_a21oi_1
+      127  1843.43   sg13g2_a221oi_1
+      152 1.65E+03   sg13g2_a22oi_1
+       32  290.304   sg13g2_and2_1
+      280 1.37E+04   sg13g2_dfrbpq_1
+       66  359.251   sg13g2_inv_1
+       23  417.312   sg13g2_mux2_1
+      123 4.69E+03   sg13g2_mux4_1
+      225  1632.96   sg13g2_nand2_1
+       19  172.368   sg13g2_nand2b_1
+       14  127.008   sg13g2_nand3_1
+        1   10.886   sg13g2_nand4_1
+      155 1.12E+03   sg13g2_nor2_1
+       67  607.824   sg13g2_nor2b_1
+       43  390.096   sg13g2_nor3_1
+        1   10.886   sg13g2_nor4_1
+      110   997.92   sg13g2_o21ai_1
+       15   136.08   sg13g2_or2_1
+       13   165.11   sg13g2_or3_1
+        1   14.515   sg13g2_or4_1
+       32  464.486   sg13g2_xnor2_1
+        7  101.606   sg13g2_xor2_1
+
+   Chip area for module '$paramod$7a9c93ef556ab733d78c737e48b554af5759dabc\free_list': 29525.428800
+     of which used for sequential elements: 13716.864000 (46.46%)
+
+=== $paramod\rename_map\N_CKPT=s32'00000000000000000000000000001000 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     7730        - wires
+     9544        - wire bits
+      314        - public wires
+     2128        - public wire bits
+       26        - ports
+      112        - port bits
+     9474 1.92E+05 cells
+        4   50.803   sg13g2_a21o_1
+      207 1.88E+03   sg13g2_a21oi_1
+     1753 2.54E+04   sg13g2_a221oi_1
+       36   390.55   sg13g2_a22oi_1
+       54  489.888   sg13g2_and2_1
+       24  304.819   sg13g2_and3_1
+       54  783.821   sg13g2_and4_1
+     2016 9.88E+04   sg13g2_dfrbpq_1
+      342 1.86E+03   sg13g2_inv_1
+      578 1.05E+04   sg13g2_mux2_1
+      448 1.71E+04   sg13g2_mux4_1
+       78  566.093   sg13g2_nand2_1
+       11   99.792   sg13g2_nand2b_1
+      327 2.97E+03   sg13g2_nand3_1
+     1219 1.33E+04   sg13g2_nand4_1
+     1793  1.3E+04   sg13g2_nor2_1
+       41  371.952   sg13g2_nor2b_1
+       35   317.52   sg13g2_nor3_1
+       85  925.344   sg13g2_nor4_1
+      365  3311.28   sg13g2_o21ai_1
+        4   36.288   sg13g2_or2_1
+
+   Chip area for module '$paramod\rename_map\N_CKPT=s32'00000000000000000000000000001000': 192401.244000
+     of which used for sequential elements: 98761.420800 (51.33%)
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        |        +-Area including submodules.
+        |        | 
+    11213 2.24E+05 rename
+     1570 2.95E+04 $paramod$7a9c93ef556ab733d78c737e48b554af5759dabc\free_list
+     9474 1.92E+05 $paramod\rename_map\N_CKPT=s32'00000000000000000000000000001000
+
+        +----------Count including submodules.
+        |        +-Area including submodules.
+        |        | 
+     9238        - wires
+    11485        - wire bits
+      430        - public wires
+     2677        - public wire bits
+       79        - ports
+      298        - port bits
+        -        - memories
+        -        - memory bits
+        -        - processes
+    11213 2.24E+05 cells
+       12   152.41   sg13g2_a21o_1
+      274 2.49E+03   sg13g2_a21oi_1
+     1882 2.73E+04   sg13g2_a221oi_1
+      190 2.06E+03   sg13g2_a22oi_1
+      103  934.416   sg13g2_and2_1
+       27  342.922   sg13g2_and3_1
+       55  798.336   sg13g2_and4_1
+     2303 1.13E+05   sg13g2_dfrbpq_1
+      417 2.27E+03   sg13g2_inv_1
+      623 1.13E+04   sg13g2_mux2_1
+      571 2.18E+04   sg13g2_mux4_1
+      307 2.23E+03   sg13g2_nand2_1
+       35   317.52   sg13g2_nand2b_1
+      346 3.14E+03   sg13g2_nand3_1
+     1223 1.33E+04   sg13g2_nand4_1
+     1956 1.42E+04   sg13g2_nor2_1
+      116 1.05E+03   sg13g2_nor2b_1
+       86  780.192   sg13g2_nor3_1
+       94 1.02E+03   sg13g2_nor4_1
+      482 4.37E+03   sg13g2_o21ai_1
+       23  208.656   sg13g2_or2_1
+       15  190.512   sg13g2_or3_1
+        2    29.03   sg13g2_or4_1
+       51  740.275   sg13g2_xnor2_1
+       20  290.304   sg13g2_xor2_1
+        2 2.22E+05 submodules
+        1 2.95E+04   $paramod$7a9c93ef556ab733d78c737e48b554af5759dabc\free_list
+        1 1.92E+05   $paramod\rename_map\N_CKPT=s32'00000000000000000000000000001000
+
+   Chip area for top module '\rename': 224125.650000
+     of which used for sequential elements: 112821.206400 (50.34%)
+
+10. Executing Verilog backend.
+
+10.1. Executing BMUXMAP pass.
+
+10.2. Executing DEMUXMAP pass.
+Dumping module `$paramod$7a9c93ef556ab733d78c737e48b554af5759dabc\free_list'.
+Dumping module `$paramod\rename_map\N_CKPT=s32'00000000000000000000000000001000'.
+Dumping module `\rename'.
+
+11. Executing JSON backend.
+
+Warnings: 3 unique messages, 6 total
+End of script. Logfile hash: a63f63a7b2, time: 6.23s, user: 3.42s, system: 0.14s, MEM: 156.12 MB peak
+Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)
+Time spent: 42% 2x abc (2 sec), 10% 29x opt_expr (0 sec), ...

@@ -4,7 +4,8 @@ module core_sva (
     input logic [63:0] pc, pc_next, imem_addr, dmem_addr,
     input logic        dmem_wen,
     input logic        is_store, is_load, is_jal, is_jalr, is_branch,
-    input logic [63:0] imm
+    input logic [63:0] imm,
+    input logic        is_muldiv, muldiv_done
 );
     assert property (@(posedge clk) imem_addr == pc)
         else $fatal(1, "imem_addr_follows_pc");
@@ -15,8 +16,9 @@ module core_sva (
     assert property (@(posedge clk) $past(rst) |-> pc == 64'd0)
         else $fatal(1, "pc_zero_after_reset");
 
+    // muldiv stalls hold pc_next == pc for multiple cycles until done fires; excluded here
     assert property (@(posedge clk) disable iff (rst)
-        !(is_jal || is_jalr || is_branch) |-> pc_next == pc + 64'd4)
+        !(is_jal || is_jalr || is_branch) && !(is_muldiv && !muldiv_done) |-> pc_next == pc + 64'd4)
         else $fatal(1, "pc_next_sequential");
 
     assert property (@(posedge clk) disable iff (rst)

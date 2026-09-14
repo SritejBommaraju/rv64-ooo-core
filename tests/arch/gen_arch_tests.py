@@ -288,13 +288,11 @@ def gen_lui_auipc(b):
     for imm in imms:
         b.emit(f"lui x10, {imm}")
         b.check64("x10", u64(s32((imm & 0xFFFFF) << 12)))
-    # AUIPC coverage is restricted to imm=0: decode.sv never sets alu_src_imm for the AUIPC case
-    # (rtl/decode.sv line 40), so the ALU adds pc + rdata2 (whatever register instr[24:20] aliases)
-    # instead of pc + imm for any nonzero immediate -- a real RTL bug, not something a test can fudge.
-    # imm=0 aliases rs2=x0=0, so it's the one corner where pc-passthrough is still checkable.
-    for _ in range(9):
-        pc = b.emit("auipc x10, 0")
-        b.check64("x10", u64(pc))
+    # AUIPC = pc + sext(imm<<12); check both positive and negative immediates (decode.sv now
+    # sets alu_src_imm for AUIPC, so the ALU adds pc + imm rather than pc + a stray register value).
+    for imm in imms:
+        pc = b.emit(f"auipc x10, {imm}")
+        b.check64("x10", u64(pc + s32((imm & 0xFFFFF) << 12)))
 
 
 def gen_loads(b):
@@ -452,6 +450,213 @@ def gen_expect_fail_ref(b):
         b.check64("x1", 0xCAFE0000 + i)
 
 
+def gen_raw_chain(b):
+    # >=20 back-to-back dependent ALU ops (each reads the previous result), checked every step
+    lbl = b.const(1)
+    b.emit(f"ld x1, {lbl}(x0)")
+    v = 1
+    imms = [3, -5, 100, -2048, 2047, 7, -1, 42, 1000, -333, 9, -9, 55, -55, 123, -123, 8, -8, 256, -256, 17, -17]
+    for imm in imms:
+        v = s64(v + imm)
+        b.emit(f"addi x1, x1, {imm}")
+        b.check64("x1", v)
+
+
+def gen_waw_same_rd(b):
+    # consecutive writes to the same rd; only the last write is architecturally visible, with a
+    # read interleaved right after so the reader must see the final value, not an in-flight one
+    for i in range(8):
+        l1, l2 = b.const(i * 10 + 1), b.const(i * 10 + 2)
+        b.emit(f"ld x1, {l1}(x0)")           # write x1
+        b.emit(f"ld x1, {l2}(x0)")           # overwrite x1 (WAW)
+        b.emit(f"addi x1, x0, {i * 10 + 3}")  # overwrite x1 again (WAW)
+        b.check64("x1", i * 10 + 3)
+        b.emit("addi x2, x1, 1")             # interleaved read right after the last write
+        b.check64("x2", s64(i * 10 + 3 + 1))
+
+
+def gen_load_use(b):
+    # ld immediately consumed by the next instruction, plus ld-ld-add chains
+    for i in range(10):
+        a, c = i * 7 + 1, i * 7 + 2
+        la, lc = b.const(a), b.const(c)
+        b.emit(f"ld x1, {la}(x0)")
+        b.emit("addi x2, x1, 5")  # consume loaded value immediately
+        b.check64("x2", s64(a + 5))
+        b.emit(f"ld x3, {lc}(x0)")
+        b.emit(f"ld x4, {la}(x0)")
+        b.emit("add x5, x3, x4")  # ld-ld-add chain
+        b.check64("x5", s64(c + a))
+
+
+def gen_st_ld_forward(b):
+    # store-then-load-same-address for every size pair, partial-overlap cases (LSQ stall path),
+    # and a store-then-load-different-address case
+    scratch = b.const(0, size=8)
+    pats = [0x1122334455667788, 0xFFFFFFFFFFFFFFFF, 0x8000000000000001, 0xDEADBEEFCAFEBABE, 0x0102030405060708]
+    for pat in pats:
+        src = b.const(pat)
+        b.emit(f"ld x1, {src}(x0)")
+        b.emit(f"sd x1, {scratch}(x0)")
+        b.emit(f"ld x10, {scratch}(x0)")
+        b.check64("x10", pat)
+        b.emit(f"sw x1, {scratch}(x0)")
+        b.emit(f"lw x10, {scratch}(x0)")
+        b.check64("x10", u64(s32(u32(pat))))
+        b.emit(f"sh x1, {scratch}(x0)")
+        b.emit(f"lh x10, {scratch}(x0)")
+        h = pat & 0xFFFF
+        b.check64("x10", u64(h - 0x10000 if h & 0x8000 else h))
+        b.emit(f"sb x1, {scratch}(x0)")
+        b.emit(f"lb x10, {scratch}(x0)")
+        byte = pat & 0xFF
+        b.check64("x10", u64(byte - 0x100 if byte & 0x80 else byte))
+
+    # partial overlap: sb writes the low byte of a dword already in memory, then ld reads the dword
+    full = b.const(0x1122334455667700)
+    b.emit(f"ld x1, {full}(x0)")
+    b.emit(f"sd x1, {scratch}(x0)")
+    bpat = b.const(0xAB)
+    b.emit(f"ld x2, {bpat}(x0)")
+    b.emit(f"sb x2, {scratch}(x0)")
+    b.emit(f"ld x10, {scratch}(x0)")
+    b.check64("x10", (0x1122334455667700 & ~0xFF) | 0xAB)
+
+    # partial overlap: sw writes the low word of a dword already in memory, then ld reads the dword
+    full2 = b.const(0x99AABBCCDDEEFF00)
+    b.emit(f"ld x1, {full2}(x0)")
+    b.emit(f"sd x1, {scratch}(x0)")
+    wpat = b.const(0x11223344, size=4)
+    b.emit(f"lw x2, {wpat}(x0)")
+    b.emit(f"sw x2, {scratch}(x0)")
+    b.emit(f"ld x10, {scratch}(x0)")
+    b.check64("x10", (0x99AABBCCDDEEFF00 & ~0xFFFFFFFF) | 0x11223344)
+
+    # store then load a different address: the load must not see the unrelated store's value
+    scratch2 = b.const(0, size=8)
+    src3 = b.const(0x1234567890ABCDEF)
+    b.emit(f"ld x1, {src3}(x0)")
+    b.emit(f"sd x1, {scratch}(x0)")
+    b.emit(f"ld x10, {scratch2}(x0)")
+    b.check64("x10", 0)
+
+
+def gen_x0_sink(b):
+    # writes to x0 via every rd-writing opcode family; x0 must still read 0 afterward
+    def zero_check():
+        b.check64("x0", 0)
+
+    la = b.const(0x42)
+    imms = [5, -5, 0, 2047, -2048, 1, -1, 999, -999, 8]
+    for imm in imms:
+        b.emit(f"addi x0, x0, {imm}")  # OP-IMM
+        zero_check()
+    for _ in range(3):
+        b.emit("lui x0, 0x12345")      # LUI
+        zero_check()
+        b.emit("auipc x0, 0x111")      # AUIPC
+        zero_check()
+        b.emit(f"ld x0, {la}(x0)")     # LOAD
+        zero_check()
+    b.emit(f"ld x1, {la}(x0)")
+    for _ in range(3):
+        b.emit("add x0, x1, x1")                       # OP
+        zero_check()
+        b.emit(f".word {mul(0, 1, 1):#010x}")           # M-extension
+        zero_check()
+        b.emit(f".word {addw(0, 1, 1):#010x}")          # OP-32
+        zero_check()
+        b.emit(f".word {addiw(0, 1, 3):#010x}")         # OP-IMM-32
+        zero_check()
+    j = b.new_label("jx0")
+    b.emit(f"jal x0, {j}")            # JAL rd=x0
+    b.emit("addi x9, x0, -1")         # skipped if the jump works
+    b.emit("addi x9, x0, 1", label=j)
+    zero_check()
+    auipc_pc = b.emit("auipc x3, 0")
+    b.emit("jalr x0, 8(x3)")          # JALR rd=x0 (target = the instruction right after this one)
+    zero_check()
+    b.check64("x9", 1)
+
+
+def gen_loop_wrap(b):
+    # a straight-line preamble (padding to >=32 signature words on its own), then a counted
+    # backward loop with 48 iterations and a body of 3 loads + 3 stores, to wrap ROB (32),
+    # LQ/SQ (8) and checkpoint pointers many times over
+    lbl = b.const(1)
+    b.emit(f"ld x1, {lbl}(x0)")
+    v = 1
+    for imm in (3, -5, 100, -2048, 2047, 7, -1, 42, 1000, -333, 9, -9):
+        v = s64(v + imm)
+        b.emit(f"addi x1, x1, {imm}")
+        b.check64("x1", v)
+
+    n = 48
+    scratch = [b.const(0, size=8) for _ in range(3)]
+    counter = b.const(n)
+    b.emit(f"ld x5, {counter}(x0)")
+    b.emit("addi x6, x0, 0")
+    top = b.new_label("loopw")
+    b.emit("addi x0, x0, 0", label=top)
+    b.emit(f"sd x5, {scratch[0]}(x0)")
+    b.emit(f"sd x6, {scratch[1]}(x0)")
+    b.emit("add x7, x5, x6")
+    b.emit(f"sd x7, {scratch[2]}(x0)")
+    b.emit(f"ld x8, {scratch[0]}(x0)")
+    b.emit(f"ld x9, {scratch[1]}(x0)")
+    b.emit(f"ld x10, {scratch[2]}(x0)")
+    b.emit("add x6, x9, x10")
+    b.emit("addi x5, x5, -1")
+    b.emit(f"bne x5, x0, {top}")
+
+    x5, x6 = n, 0
+    last_v5 = last_v6 = last_x7 = None
+    for _ in range(n):
+        v5, v6 = x5, x6
+        x7 = s64(v5 + v6)
+        last_v5, last_v6, last_x7 = v5, v6, x7
+        x6 = s64(v6 + x7)
+        x5 = s64(v5 - 1)
+    b.check64("x5", x5)
+    b.check64("x6", x6)
+    b.emit(f"ld x11, {scratch[0]}(x0)")
+    b.check64("x11", last_v5)
+    b.emit(f"ld x12, {scratch[1]}(x0)")
+    b.check64("x12", last_v6)
+    b.emit(f"ld x13, {scratch[2]}(x0)")
+    b.check64("x13", last_x7)
+
+
+def gen_jalr_indirect(b):
+    # jalr through a register computed with auipc + addi, several distinct offsets
+    for i in range(8):
+        auipc_pc = b.emit("auipc x5, 0")
+        k = 4 + i
+        b.emit(f"addi x5, x5, {k}")
+        link_pc = b.pc
+        target = link_pc + 8  # land just past one padding instruction after the jalr
+        m = target - (auipc_pc + k)
+        b.emit(f"jalr x6, {m}(x5)")
+        b.emit("addi x20, x0, -1")  # skipped if the indirect jump works
+        b.emit(f"addi x21, x0, {300 + i}")
+        b.check64("x6", link_pc + 4)
+        b.check64("x21", 300 + i)
+
+
+def gen_mixed_pressure(b):
+    # straight-line block of >64 instructions, rd values touching all 31 registers,
+    # forcing full free-list turnover (every physical register recycled at least once).
+    # x29 is skipped: the harness itself pins it as the fixed signature-base pointer.
+    regs = [i for i in range(1, 32) if i != 29]
+    for i in regs:
+        c = b.const(i * 0x1000 + i)
+        b.emit(f"ld x{i}, {c}(x0)")
+    for i in regs:
+        b.emit(f"addi x{i}, x{i}, {i}")
+    for i in regs:
+        b.check64(f"x{i}", s64((i * 0x1000 + i) + i))
+
+
 TESTS = {
     "i_alu": gen_i_alu,
     "r_alu": gen_r_alu,
@@ -464,6 +669,14 @@ TESTS = {
     "mul": gen_mul,
     "div": gen_div,
     "layout": gen_layout,
+    "raw_chain": gen_raw_chain,
+    "waw_same_rd": gen_waw_same_rd,
+    "load_use": gen_load_use,
+    "st_ld_forward": gen_st_ld_forward,
+    "x0_sink": gen_x0_sink,
+    "loop_wrap": gen_loop_wrap,
+    "jalr_indirect": gen_jalr_indirect,
+    "mixed_pressure": gen_mixed_pressure,
     "expect_fail_ref": gen_expect_fail_ref,
 }
 

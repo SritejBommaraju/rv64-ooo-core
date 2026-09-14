@@ -1,0 +1,300 @@
+Optimizing module bp_bimodal_btb.
+<suppressed ~18 debug messages>
+
+3.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\bp_bimodal_btb'.
+Computing hashes of 20455 cells of `\bp_bimodal_btb'.
+Finding duplicate cells in `\bp_bimodal_btb'.
+Computing hashes of 20454 cells of `\bp_bimodal_btb'.
+Finding duplicate cells in `\bp_bimodal_btb'.
+<suppressed ~3 debug messages>
+Removed a total of 1 cells.
+
+3.21.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.21.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \bp_bimodal_btb..
+Removed 1027 unused cells and 1073 unused wires.
+<suppressed ~1028 debug messages>
+
+3.21.5. Finished fast OPT passes.
+
+3.22. Executing ABC pass (technology mapping using ABC).
+
+3.22.1. Extracting gate netlist of module `\bp_bimodal_btb' to `<abc-temp-dir>/input.blif'..
+
+3.22.1.1. Executed ABC.
+Extracted 11939 gates and 19467 wires to a netlist network with 7527 inputs and 2244 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+3.22.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:     4799
+ABC RESULTS:            ANDNOT cells:      325
+ABC RESULTS:               MUX cells:     3311
+ABC RESULTS:              NAND cells:     5971
+ABC RESULTS:               NOR cells:      551
+ABC RESULTS:               NOT cells:        6
+ABC RESULTS:                OR cells:     2625
+ABC RESULTS:             ORNOT cells:     2068
+ABC RESULTS:              XNOR cells:       10
+ABC RESULTS:        internal signals:     9696
+ABC RESULTS:           input signals:     7527
+ABC RESULTS:          output signals:     2244
+Removing temp directory.
+Removing global temp directory.
+
+3.23. Executing OPT pass (performing simple optimizations).
+
+3.23.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module bp_bimodal_btb.
+
+3.23.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\bp_bimodal_btb'.
+Computing hashes of 27154 cells of `\bp_bimodal_btb'.
+Finding duplicate cells in `\bp_bimodal_btb'.
+Removed a total of 0 cells.
+
+3.23.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \bp_bimodal_btb..
+Removed 0 unused cells and 13307 unused wires.
+<suppressed ~1 debug messages>
+
+3.23.5. Finished fast OPT passes.
+
+3.24. Executing HIERARCHY pass (managing design hierarchy).
+Attribute `top' found on module `bp_bimodal_btb'. Setting top module to bp_bimodal_btb.
+
+3.24.1. Analyzing design hierarchy..
+Top module:  \bp_bimodal_btb
+
+3.24.2. Analyzing design hierarchy..
+Top module:  \bp_bimodal_btb
+Removed 0 unused modules.
+
+3.25. Printing statistics.
+
+=== bp_bimodal_btb ===
+
+        +----------Local Count, excluding submodules.
+        | 
+    20831 wires
+    27422 wire bits
+     1232 public wires
+     7822 public wire bits
+       10 ports
+      262 port bits
+    27154 cells
+      325   $_ANDNOT_
+     4799   $_AND_
+     5376   $_DFFE_PP_
+       64   $_DFF_P_
+     3311   $_MUX_
+     5971   $_NAND_
+      551   $_NOR_
+        6   $_NOT_
+     2068   $_ORNOT_
+     2625   $_OR_
+     1024   $_SDFFCE_PN0P_
+     1024   $_SDFFCE_PN1P_
+       10   $_XNOR_
+
+3.26. Executing CHECK pass (checking for obvious problems).
+Checking module bp_bimodal_btb...
+Found and reported 0 problems.
+
+4. Executing DFFLIBMAP pass (mapping DFF/DLATCH cells to sequential cells from liberty file).
+  cell sg13g2_dfrbpq_1 (noninv, pins=4, area=48.99) is a direct match for cell type $_DFF_PN0_.
+  cell sg13g2_dlhq_1 (noninv, pins=3, area=30.84) is a direct match for cell type $_DLATCH_P_.
+  cell sg13g2_dllrq_1 (noninv, pins=4, area=29.03) is a direct match for cell type $_DLATCH_NN0_.
+  cell sg13g2_dlhrq_1 (noninv, pins=4, area=27.22) is a direct match for cell type $_DLATCH_PN0_.
+  final dff/dlatch cell mappings:
+    unmapped dff/dlatch cell: $_DFF_N_
+    unmapped dff/dlatch cell: $_DFF_P_
+    unmapped dff/dlatch cell: $_DFF_NN0_
+    unmapped dff/dlatch cell: $_DFF_NN1_
+    unmapped dff/dlatch cell: $_DFF_NP0_
+    unmapped dff/dlatch cell: $_DFF_NP1_
+    \sg13g2_dfrbpq_1 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DFF_PN1_
+    unmapped dff/dlatch cell: $_DFF_PP0_
+    unmapped dff/dlatch cell: $_DFF_PP1_
+    unmapped dff/dlatch cell: $_DFFE_NN_
+    unmapped dff/dlatch cell: $_DFFE_NP_
+    unmapped dff/dlatch cell: $_DFFE_PN_
+    unmapped dff/dlatch cell: $_DFFE_PP_
+    unmapped dff/dlatch cell: $_DFFSR_NNN_
+    unmapped dff/dlatch cell: $_DFFSR_NNP_
+    unmapped dff/dlatch cell: $_DFFSR_NPN_
+    unmapped dff/dlatch cell: $_DFFSR_NPP_
+    unmapped dff/dlatch cell: $_DFFSR_PNN_
+    unmapped dff/dlatch cell: $_DFFSR_PNP_
+    unmapped dff/dlatch cell: $_DFFSR_PPN_
+    unmapped dff/dlatch cell: $_DFFSR_PPP_
+    unmapped dff/dlatch cell: $_DLATCH_N_
+    \sg13g2_dlhq_1 _DLATCH_P_ (.D( D), .GATE( E), .Q( Q));
+    \sg13g2_dllrq_1 _DLATCH_NN0_ (.D( D), .GATE_N( E), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DLATCH_NN1_
+    unmapped dff/dlatch cell: $_DLATCH_NP0_
+    unmapped dff/dlatch cell: $_DLATCH_NP1_
+    \sg13g2_dlhrq_1 _DLATCH_PN0_ (.D( D), .GATE( E), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DLATCH_PN1_
+    unmapped dff/dlatch cell: $_DLATCH_PP0_
+    unmapped dff/dlatch cell: $_DLATCH_PP1_
+    unmapped dff/dlatch cell: $_DLATCHSR_NNN_
+    unmapped dff/dlatch cell: $_DLATCHSR_NNP_
+    unmapped dff/dlatch cell: $_DLATCHSR_NPN_
+    unmapped dff/dlatch cell: $_DLATCHSR_NPP_
+    unmapped dff/dlatch cell: $_DLATCHSR_PNN_
+    unmapped dff/dlatch cell: $_DLATCHSR_PNP_
+    unmapped dff/dlatch cell: $_DLATCHSR_PPN_
+    unmapped dff/dlatch cell: $_DLATCHSR_PPP_
+
+4.1. Executing DFFLEGALIZE pass (convert FFs and LATCHes to types supported by the target).
+<suppressed ~4 debug messages>
+Mapping DFF/DLATCH cells in module `\bp_bimodal_btb':
+  mapped 7488 $_DFF_PN0_ cells to \sg13g2_dfrbpq_1 cells.
+
+5. Executing ABC pass (technology mapping using ABC).
+
+5.1. Extracting gate netlist of module `\bp_bimodal_btb' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: /tmp/yosys-liberty-scl-cache-1000/yosys_merged_0a0e92c0.scl (1 files)
+
+5.1.1. Executed ABC.
+Extracted 29138 gates and 36747 wires to a netlist network with 7607 inputs and 7554 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl /tmp/yosys-liberty-scl-cache-1000/yosys_merged_0a0e92c0.scl 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+5.1.2. Re-integrating ABC results.
+ABC RESULTS:     sg13g2_a21o_1 cells:     1124
+ABC RESULTS:    sg13g2_a21oi_1 cells:     1977
+ABC RESULTS:   sg13g2_a221oi_1 cells:      222
+ABC RESULTS:    sg13g2_a22oi_1 cells:     1249
+ABC RESULTS:     sg13g2_and2_1 cells:      155
+ABC RESULTS:     sg13g2_and3_1 cells:        5
+ABC RESULTS:     sg13g2_and4_1 cells:        9
+ABC RESULTS:      sg13g2_inv_1 cells:     1202
+ABC RESULTS:     sg13g2_mux2_1 cells:     5569
+ABC RESULTS:     sg13g2_mux4_1 cells:     1900
+ABC RESULTS:    sg13g2_nand2_1 cells:      704
+ABC RESULTS:   sg13g2_nand2b_1 cells:      199
+ABC RESULTS:    sg13g2_nand3_1 cells:      231
+ABC RESULTS:   sg13g2_nand3b_1 cells:       10
+ABC RESULTS:    sg13g2_nand4_1 cells:       98
+ABC RESULTS:     sg13g2_nor2_1 cells:     1374
+ABC RESULTS:    sg13g2_nor2b_1 cells:       84
+ABC RESULTS:     sg13g2_nor3_1 cells:     1065
+ABC RESULTS:     sg13g2_nor4_1 cells:        8
+ABC RESULTS:    sg13g2_o21ai_1 cells:      837
+ABC RESULTS:      sg13g2_or2_1 cells:       36
+ABC RESULTS:      sg13g2_or3_1 cells:        5
+ABC RESULTS:    sg13g2_xnor2_1 cells:        1
+ABC RESULTS:     sg13g2_xor2_1 cells:        2
+ABC RESULTS:        internal signals:    21586
+ABC RESULTS:           input signals:     7607
+ABC RESULTS:          output signals:     7554
+Removing temp directory.
+Removing global temp directory.
+
+6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \bp_bimodal_btb..
+Removed 0 unused cells and 36744 unused wires.
+<suppressed ~1 debug messages>
+
+7. Printing statistics.
+
+=== bp_bimodal_btb ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+    19232        - wires
+    25822        - wire bits
+     1232        - public wires
+     7822        - public wire bits
+       10        - ports
+      262        - port bits
+    25554 6.36E+05 cells
+     1124 1.43E+04   sg13g2_a21o_1
+     1977 1.79E+04   sg13g2_a21oi_1
+      222 3.22E+03   sg13g2_a221oi_1
+     1249 1.35E+04   sg13g2_a22oi_1
+      155  1406.16   sg13g2_and2_1
+        5   63.504   sg13g2_and3_1
+        9  130.637   sg13g2_and4_1
+     7488 3.67E+05   sg13g2_dfrbpq_1
+     1202 6.54E+03   sg13g2_inv_1
+     5569 1.01E+05   sg13g2_mux2_1
+     1900 7.24E+04   sg13g2_mux4_1
+      704  5109.35   sg13g2_nand2_1
+      199 1.81E+03   sg13g2_nand2b_1
+      231  2.1E+03   sg13g2_nand3_1
+       10  127.008   sg13g2_nand3b_1
+       98 1.07E+03   sg13g2_nand4_1
+     1374 9.97E+03   sg13g2_nor2_1
+       84  762.048   sg13g2_nor2b_1
+     1065  9661.68   sg13g2_nor3_1
+        8   87.091   sg13g2_nor4_1
+      837 7.59E+03   sg13g2_o21ai_1
+       36  326.592   sg13g2_or2_1
+        5   63.504   sg13g2_or3_1
+        1   14.515   sg13g2_xnor2_1
+        2    29.03   sg13g2_xor2_1
+
+   Chip area for module '\bp_bimodal_btb': 636106.829400
+     of which used for sequential elements: 366828.134400 (57.67%)
+
+8. Executing Verilog backend.
+
+8.1. Executing BMUXMAP pass.
+
+8.2. Executing DEMUXMAP pass.
+Dumping module `\bp_bimodal_btb'.
+
+9. Executing JSON backend.
+
+End of script. Logfile hash: bd12a9d840, time: 9.36s, user: 3.31s, system: 0.14s, MEM: 109.73 MB peak
+Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)
+Time spent: 66% 2x abc (5 sec), 7% 1x opt_mem_priority (0 sec), ...

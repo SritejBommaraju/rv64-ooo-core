@@ -1,0 +1,19 @@
+# Yosys synthesis script for IHP sg13g2. The FILES placeholder token below, plus TOP/OUT/LIBERTY,
+# are substituted by the Makefile (sed/awk) before this is run, since plain yosys script syntax
+# (not -c/tcl mode) has no env-var substitution. The placeholder expands to one read_verilog line
+# per file in blocks.mk's FILES_<block>.
+
+read_slang --allow-use-before-declare ../rtl/lsq/lsq.sv --top lsq
+
+hierarchy -top lsq
+synth -top lsq
+
+dfflibmap -liberty /home/bomma/pdk/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_stdcell/lib/sg13g2_stdcell_typ_1p20V_25C.lib
+abc -liberty /home/bomma/pdk/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_stdcell/lib/sg13g2_stdcell_typ_1p20V_25C.lib
+
+opt_clean
+
+stat -liberty /home/bomma/pdk/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_stdcell/lib/sg13g2_stdcell_typ_1p20V_25C.lib
+
+write_verilog -noattr out/lsq_syn.v
+write_json out/lsq_syn.json

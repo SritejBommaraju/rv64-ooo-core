@@ -37,7 +37,7 @@ module decode (
 
         unique case (opcode)
             7'b0110111: begin is_lui = 1; reg_write = 1; imm = imm_u; end
-            7'b0010111: begin is_auipc = 1; reg_write = 1; imm = imm_u; end
+            7'b0010111: begin is_auipc = 1; reg_write = 1; alu_src_imm = 1; imm = imm_u; end
             7'b1101111: begin is_jal = 1; reg_write = 1; imm = imm_j; end
             7'b1100111: begin is_jalr = 1; reg_write = 1; alu_src_imm = 1; imm = imm_i; end
             7'b1100011: begin is_branch = 1; imm = imm_b; end

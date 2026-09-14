@@ -1,0 +1,953 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)
+
+-- Executing script file `out/prf_synth.ys' --
+
+1. Executing Verilog-2005 frontend: ../rtl/rename/prf.sv
+Parsing SystemVerilog input from `../rtl/rename/prf.sv' to AST representation.
+Generating RTLIL representation for module `\prf'.
+Successfully finished Verilog frontend.
+
+2. Executing HIERARCHY pass (managing design hierarchy).
+
+2.1. Analyzing design hierarchy..
+Top module:  \prf
+
+2.2. Analyzing design hierarchy..
+Top module:  \prf
+Removed 0 unused modules.
+
+3. Executing SYNTH pass.
+
+3.1. Executing HIERARCHY pass (managing design hierarchy).
+
+3.1.1. Analyzing design hierarchy..
+Top module:  \prf
+
+3.1.2. Analyzing design hierarchy..
+Top module:  \prf
+Removed 0 unused modules.
+
+3.2. Executing PROC pass (convert processes to netlists).
+
+3.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+3.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 2 switch rules as full_case in process $proc$../rtl/rename/prf.sv:29$15 in module prf.
+Removed a total of 0 dead cases.
+
+3.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 6 assignments to connections.
+
+3.2.4. Executing PROC_INIT pass (extract init attributes).
+
+3.2.5. Executing PROC_ARST pass (detect async resets in processes).
+
+3.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~2 debug messages>
+
+3.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\prf.$proc$../rtl/rename/prf.sv:29$15'.
+     1/6: $1$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$31
+     2/6: $1$memwr$\regs$../rtl/rename/prf.sv:31$2_DATA[63:0]$30
+     3/6: $1$memwr$\regs$../rtl/rename/prf.sv:31$2_ADDR[5:0]$29
+     4/6: $1$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$26
+     5/6: $1$memwr$\regs$../rtl/rename/prf.sv:30$1_DATA[63:0]$25
+     6/6: $1$memwr$\regs$../rtl/rename/prf.sv:30$1_ADDR[5:0]$24
+
+3.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+3.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\prf.$memwr$\regs$../rtl/rename/prf.sv:30$1_ADDR' using process `\prf.$proc$../rtl/rename/prf.sv:29$15'.
+  created $dff cell `$procdff$50' with positive edge clock.
+Creating register for signal `\prf.$memwr$\regs$../rtl/rename/prf.sv:30$1_DATA' using process `\prf.$proc$../rtl/rename/prf.sv:29$15'.
+  created $dff cell `$procdff$51' with positive edge clock.
+Creating register for signal `\prf.$memwr$\regs$../rtl/rename/prf.sv:30$1_EN' using process `\prf.$proc$../rtl/rename/prf.sv:29$15'.
+  created $dff cell `$procdff$52' with positive edge clock.
+Creating register for signal `\prf.$memwr$\regs$../rtl/rename/prf.sv:31$2_ADDR' using process `\prf.$proc$../rtl/rename/prf.sv:29$15'.
+  created $dff cell `$procdff$53' with positive edge clock.
+Creating register for signal `\prf.$memwr$\regs$../rtl/rename/prf.sv:31$2_DATA' using process `\prf.$proc$../rtl/rename/prf.sv:29$15'.
+  created $dff cell `$procdff$54' with positive edge clock.
+Creating register for signal `\prf.$memwr$\regs$../rtl/rename/prf.sv:31$2_EN' using process `\prf.$proc$../rtl/rename/prf.sv:29$15'.
+  created $dff cell `$procdff$55' with positive edge clock.
+
+3.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+3.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 2 empty switches in `\prf.$proc$../rtl/rename/prf.sv:29$15'.
+Removing empty process `prf.$proc$../rtl/rename/prf.sv:29$15'.
+Cleaned up 2 empty switches.
+
+3.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module prf.
+<suppressed ~6 debug messages>
+
+3.3. Executing OPT_EXPR pass (perform const folding).
+Optimizing module prf.
+
+3.4. Executing CHECK pass (checking for obvious problems).
+Checking module prf...
+Found and reported 0 problems.
+
+3.5. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \prf..
+Removed 6 unused cells and 28 unused wires.
+<suppressed ~7 debug messages>
+
+3.6. Executing OPT pass (performing simple optimizations).
+
+3.6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module prf.
+
+3.6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\prf'.
+Computing hashes of 24 cells of `\prf'.
+Finding duplicate cells in `\prf'.
+Removed a total of 0 cells.
+
+3.6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \prf..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~20 debug messages>
+
+3.6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \prf.
+    Consolidated identical input bits for $mux cell $procmux$42:
+      Old ports: A=64'0000000000000000000000000000000000000000000000000000000000000000, B=64'1111111111111111111111111111111111111111111111111111111111111111, Y=$0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18
+      New ports: A=1'0, B=1'1, Y=$0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0]
+      New connections: $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [63:1] = { $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] $0$memwr$\regs$../rtl/rename/prf.sv:30$1_EN[63:0]$18 [0] }
+    Consolidated identical input bits for $mux cell $procmux$33:
+      Old ports: A=64'0000000000000000000000000000000000000000000000000000000000000000, B=64'1111111111111111111111111111111111111111111111111111111111111111, Y=$0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21
+      New ports: A=1'0, B=1'1, Y=$0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0]
+      New connections: $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [63:1] = { $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] $0$memwr$\regs$../rtl/rename/prf.sv:31$2_EN[63:0]$21 [0] }
+  Optimizing cells in module \prf.
+Performed a total of 2 changes.
+
+3.6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\prf'.
+Computing hashes of 24 cells of `\prf'.
+Finding duplicate cells in `\prf'.
+Removed a total of 0 cells.
+
+3.6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \prf..
+
+3.6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module prf.
+
+3.6.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+3.6.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \prf..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~20 debug messages>
+
+3.6.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \prf.
+Performed a total of 0 changes.
+
+3.6.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\prf'.
+Computing hashes of 24 cells of `\prf'.
+Finding duplicate cells in `\prf'.
+Removed a total of 0 cells.
+
+3.6.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.6.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \prf..
+
+3.6.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module prf.
+
+3.6.16. Finished fast OPT passes. (There is nothing left to do.)
+
+3.7. Executing FSM pass (extract and optimize FSM).
+
+3.7.1. Executing FSM_DETECT pass (finding FSMs in design).
+
+3.7.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+3.7.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+3.7.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \prf..
+
+3.7.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+3.7.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+3.7.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+3.7.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+3.8. Executing OPT pass (performing simple optimizations).
+
+3.8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module prf.
+
+3.8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\prf'.
+Computing hashes of 24 cells of `\prf'.
+Finding duplicate cells in `\prf'.
+Removed a total of 0 cells.
+
+3.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \prf..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~20 debug messages>
+
+3.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \prf.
+Performed a total of 0 changes.
+
+3.8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\prf'.
+Computing hashes of 24 cells of `\prf'.
+Finding duplicate cells in `\prf'.
+Removed a total of 0 cells.
+
+3.8.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \prf..
+
+3.8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module prf.
+
+3.8.9. Finished fast OPT passes. (There is nothing left to do.)
+
+3.9. Executing WREDUCE pass (reducing word size of cells).
+
+3.10. Executing PEEPOPT pass (run peephole optimizers).
+
+3.11. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \prf..
+
+3.12. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module prf:
+  created 0 $alu and 0 $macc cells.
+
+3.13. Executing SHARE pass (SAT-based resource sharing).
+Found 4 cells in module prf that may be considered for resource sharing.
+  Analyzing resource sharing options for $memrd$\regs$../rtl/rename/prf.sv:24$4 ($memrd):
+    Found 1 activation_patterns using ctrl signal $eq$../rtl/rename/prf.sv:24$3_Y.
+    Found 3 candidates: $memrd$\regs$../rtl/rename/prf.sv:25$7 $memrd$\regs$../rtl/rename/prf.sv:26$10 $memrd$\regs$../rtl/rename/prf.sv:27$13
+    Analyzing resource sharing with $memrd$\regs$../rtl/rename/prf.sv:25$7 ($memrd):
+      Found 1 activation_patterns using ctrl signal $eq$../rtl/rename/prf.sv:25$6_Y.
+      Activation pattern for cell $memrd$\regs$../rtl/rename/prf.sv:24$4: $eq$../rtl/rename/prf.sv:24$3_Y = 1'0
+      Activation pattern for cell $memrd$\regs$../rtl/rename/prf.sv:25$7: $eq$../rtl/rename/prf.sv:25$6_Y = 1'0
+      Size of SAT problem: 2 cells, 34 variables, 63 clauses
+      According to the SAT solver this pair of cells can not be shared.
+      Model from SAT solver: { $eq$../rtl/rename/prf.sv:25$6_Y $eq$../rtl/rename/prf.sv:24$3_Y } = 2'00
+    Analyzing resource sharing with $memrd$\regs$../rtl/rename/prf.sv:26$10 ($memrd):
+      Found 1 activation_patterns using ctrl signal $eq$../rtl/rename/prf.sv:26$9_Y.
+      Activation pattern for cell $memrd$\regs$../rtl/rename/prf.sv:24$4: $eq$../rtl/rename/prf.sv:24$3_Y = 1'0
+      Activation pattern for cell $memrd$\regs$../rtl/rename/prf.sv:26$10: $eq$../rtl/rename/prf.sv:26$9_Y = 1'0
+      Size of SAT problem: 2 cells, 34 variables, 63 clauses
+      According to the SAT solver this pair of cells can not be shared.
+      Model from SAT solver: { $eq$../rtl/rename/prf.sv:26$9_Y $eq$../rtl/rename/prf.sv:24$3_Y } = 2'00
+    Analyzing resource sharing with $memrd$\regs$../rtl/rename/prf.sv:27$13 ($memrd):
+      Found 1 activation_patterns using ctrl signal $eq$../rtl/rename/prf.sv:27$12_Y.
+      Activation pattern for cell $memrd$\regs$../rtl/rename/prf.sv:24$4: $eq$../rtl/rename/prf.sv:24$3_Y = 1'0
+      Activation pattern for cell $memrd$\regs$../rtl/rename/prf.sv:27$13: $eq$../rtl/rename/prf.sv:27$12_Y = 1'0
+      Size of SAT problem: 2 cells, 34 variables, 63 clauses
+      According to the SAT solver this pair of cells can not be shared.
+      Model from SAT solver: { $eq$../rtl/rename/prf.sv:27$12_Y $eq$../rtl/rename/prf.sv:24$3_Y } = 2'00
+  Analyzing resource sharing options for $memrd$\regs$../rtl/rename/prf.sv:25$7 ($memrd):
+    Found 1 activation_patterns using ctrl signal $eq$../rtl/rename/prf.sv:25$6_Y.
+    Found 2 candidates: $memrd$\regs$../rtl/rename/prf.sv:26$10 $memrd$\regs$../rtl/rename/prf.sv:27$13
+    Analyzing resource sharing with $memrd$\regs$../rtl/rename/prf.sv:26$10 ($memrd):
+      Found 1 activation_patterns using ctrl signal $eq$../rtl/rename/prf.sv:26$9_Y.
+      Activation pattern for cell $memrd$\regs$../rtl/rename/prf.sv:25$7: $eq$../rtl/rename/prf.sv:25$6_Y = 1'0
+      Activation pattern for cell $memrd$\regs$../rtl/rename/prf.sv:26$10: $eq$../rtl/rename/prf.sv:26$9_Y = 1'0
+      Size of SAT problem: 2 cells, 34 variables, 63 clauses
+      According to the SAT solver this pair of cells can not be shared.
+      Model from SAT solver: { $eq$../rtl/rename/prf.sv:26$9_Y $eq$../rtl/rename/prf.sv:25$6_Y } = 2'00
+    Analyzing resource sharing with $memrd$\regs$../rtl/rename/prf.sv:27$13 ($memrd):
+      Found 1 activation_patterns using ctrl signal $eq$../rtl/rename/prf.sv:27$12_Y.
+      Activation pattern for cell $memrd$\regs$../rtl/rename/prf.sv:25$7: $eq$../rtl/rename/prf.sv:25$6_Y = 1'0
+      Activation pattern for cell $memrd$\regs$../rtl/rename/prf.sv:27$13: $eq$../rtl/rename/prf.sv:27$12_Y = 1'0
+      Size of SAT problem: 2 cells, 34 variables, 63 clauses
+      According to the SAT solver this pair of cells can not be shared.
+      Model from SAT solver: { $eq$../rtl/rename/prf.sv:27$12_Y $eq$../rtl/rename/prf.sv:25$6_Y } = 2'00
+  Analyzing resource sharing options for $memrd$\regs$../rtl/rename/prf.sv:26$10 ($memrd):
+    Found 1 activation_patterns using ctrl signal $eq$../rtl/rename/prf.sv:26$9_Y.
+    Found 1 candidates: $memrd$\regs$../rtl/rename/prf.sv:27$13
+    Analyzing resource sharing with $memrd$\regs$../rtl/rename/prf.sv:27$13 ($memrd):
+      Found 1 activation_patterns using ctrl signal $eq$../rtl/rename/prf.sv:27$12_Y.
+      Activation pattern for cell $memrd$\regs$../rtl/rename/prf.sv:26$10: $eq$../rtl/rename/prf.sv:26$9_Y = 1'0
+      Activation pattern for cell $memrd$\regs$../rtl/rename/prf.sv:27$13: $eq$../rtl/rename/prf.sv:27$12_Y = 1'0
+      Size of SAT problem: 2 cells, 34 variables, 63 clauses
+      According to the SAT solver this pair of cells can not be shared.
+      Model from SAT solver: { $eq$../rtl/rename/prf.sv:27$12_Y $eq$../rtl/rename/prf.sv:26$9_Y } = 2'00
+  Analyzing resource sharing options for $memrd$\regs$../rtl/rename/prf.sv:27$13 ($memrd):
+    Found 1 activation_patterns using ctrl signal $eq$../rtl/rename/prf.sv:27$12_Y.
+    No candidates found.
+
+3.14. Executing OPT pass (performing simple optimizations).
+
+3.14.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module prf.
+
+3.14.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\prf'.
+Computing hashes of 24 cells of `\prf'.
+Finding duplicate cells in `\prf'.
+Removed a total of 0 cells.
+
+3.14.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \prf..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~20 debug messages>
+
+3.14.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \prf.
+Performed a total of 0 changes.
+
+3.14.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\prf'.
+Computing hashes of 24 cells of `\prf'.
+Finding duplicate cells in `\prf'.
+Removed a total of 0 cells.
+
+3.14.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.14.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \prf..
+
+3.14.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module prf.
+
+3.14.9. Finished fast OPT passes. (There is nothing left to do.)
+
+3.15. Executing MEMORY pass.
+
+3.15.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+3.15.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+3.15.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+  Analyzing prf.regs write port 0.
+  Analyzing prf.regs write port 1.
+
+3.15.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+3.15.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+Checking read port `\regs'[0] in module `\prf': no output FF found.
+Checking read port `\regs'[1] in module `\prf': no output FF found.
+Checking read port `\regs'[2] in module `\prf': no output FF found.
+Checking read port `\regs'[3] in module `\prf': no output FF found.
+Checking read port address `\regs'[0] in module `\prf': no address FF found.
+Checking read port address `\regs'[1] in module `\prf': no address FF found.
+Checking read port address `\regs'[2] in module `\prf': no address FF found.
+Checking read port address `\regs'[3] in module `\prf': no address FF found.
+
+3.15.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \prf..
+
+3.15.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+Consolidating read ports of memory prf.regs by address:
+Consolidating write ports of memory prf.regs by address:
+Consolidating write ports of memory prf.regs using sat-based resource sharing:
+  Checking group clocked with posedge \clk, width 64: ports 0, 1.
+  Common input cone for all EN signals: 6 cells.
+  Size of unconstrained SAT problem: 50 variables, 96 clauses
+  According to SAT solver sharing of port 0 with port 1 is not possible.
+
+3.15.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+3.15.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \prf..
+
+3.15.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+3.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \prf..
+
+3.17. Executing OPT pass (performing simple optimizations).
+
+3.17.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module prf.
+<suppressed ~6 debug messages>
+
+3.17.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\prf'.
+Computing hashes of 13 cells of `\prf'.
+Finding duplicate cells in `\prf'.
+Removed a total of 0 cells.
+
+3.17.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.17.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \prf..
+Removed 0 unused cells and 6 unused wires.
+<suppressed ~1 debug messages>
+
+3.17.5. Finished fast OPT passes.
+
+3.18. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+Mapping memory \regs in module \prf:
+  created 64 $dff cells and 0 static cells of width 64.
+  read interface: 0 $dff and 252 $mux cells.
+  write interface: 128 write mux blocks.
+
+3.19. Executing OPT pass (performing simple optimizations).
+
+3.19.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module prf.
+<suppressed ~24 debug messages>
+
+3.19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\prf'.
+Computing hashes of 772 cells of `\prf'.
+Finding duplicate cells in `\prf'.
+Removed a total of 0 cells.
+
+3.19.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \prf..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~452 debug messages>
+
+3.19.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \prf.
+Performed a total of 0 changes.
+
+3.19.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\prf'.
+Computing hashes of 772 cells of `\prf'.
+Finding duplicate cells in `\prf'.
+Removed a total of 0 cells.
+
+3.19.6. Executing OPT_SHARE pass.
+
+3.19.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.19.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \prf..
+Removed 0 unused cells and 332 unused wires.
+<suppressed ~1 debug messages>
+
+3.19.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module prf.
+
+3.19.10. Rerunning OPT passes. (Maybe there is more to do..)
+
+3.19.11. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \prf..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~452 debug messages>
+
+3.19.12. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \prf.
+Performed a total of 0 changes.
+
+3.19.13. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\prf'.
+Computing hashes of 772 cells of `\prf'.
+Finding duplicate cells in `\prf'.
+Removed a total of 0 cells.
+
+3.19.14. Executing OPT_SHARE pass.
+
+3.19.15. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $memory\regs[0]$66 ($dff) from module prf (D = $memory\regs$wrmux[0][1][0]$y$1001, Q = \regs[0]).
+Adding EN signal on $memory\regs[1]$68 ($dff) from module prf (D = $memory\regs$wrmux[1][1][0]$y$1021, Q = \regs[1]).
+Adding EN signal on $memory\regs[2]$70 ($dff) from module prf (D = $memory\regs$wrmux[2][1][0]$y$1045, Q = \regs[2]).
+Adding EN signal on $memory\regs[3]$72 ($dff) from module prf (D = $memory\regs$wrmux[3][1][0]$y$1061, Q = \regs[3]).
+Adding EN signal on $memory\regs[4]$74 ($dff) from module prf (D = $memory\regs$wrmux[4][1][0]$y$1085, Q = \regs[4]).
+Adding EN signal on $memory\regs[5]$76 ($dff) from module prf (D = $memory\regs$wrmux[5][1][0]$y$1101, Q = \regs[5]).
+Adding EN signal on $memory\regs[6]$78 ($dff) from module prf (D = $memory\regs$wrmux[6][1][0]$y$1121, Q = \regs[6]).
+Adding EN signal on $memory\regs[7]$80 ($dff) from module prf (D = $memory\regs$wrmux[7][1][0]$y$1137, Q = \regs[7]).
+Adding EN signal on $memory\regs[8]$82 ($dff) from module prf (D = $memory\regs$wrmux[8][1][0]$y$1157, Q = \regs[8]).
+Adding EN signal on $memory\regs[9]$84 ($dff) from module prf (D = $memory\regs$wrmux[9][1][0]$y$1169, Q = \regs[9]).
+Adding EN signal on $memory\regs[10]$86 ($dff) from module prf (D = $memory\regs$wrmux[10][1][0]$y$1181, Q = \regs[10]).
+Adding EN signal on $memory\regs[11]$88 ($dff) from module prf (D = $memory\regs$wrmux[11][1][0]$y$1193, Q = \regs[11]).
+Adding EN signal on $memory\regs[12]$90 ($dff) from module prf (D = $memory\regs$wrmux[12][1][0]$y$1205, Q = \regs[12]).
+Adding EN signal on $memory\regs[13]$92 ($dff) from module prf (D = $memory\regs$wrmux[13][1][0]$y$1217, Q = \regs[13]).
+Adding EN signal on $memory\regs[14]$94 ($dff) from module prf (D = $memory\regs$wrmux[14][1][0]$y$1229, Q = \regs[14]).
+Adding EN signal on $memory\regs[15]$96 ($dff) from module prf (D = $memory\regs$wrmux[15][1][0]$y$1241, Q = \regs[15]).
+Adding EN signal on $memory\regs[16]$98 ($dff) from module prf (D = $memory\regs$wrmux[16][1][0]$y$1265, Q = \regs[16]).
+Adding EN signal on $memory\regs[17]$100 ($dff) from module prf (D = $memory\regs$wrmux[17][1][0]$y$1277, Q = \regs[17]).
+Adding EN signal on $memory\regs[18]$102 ($dff) from module prf (D = $memory\regs$wrmux[18][1][0]$y$1289, Q = \regs[18]).
+Adding EN signal on $memory\regs[19]$104 ($dff) from module prf (D = $memory\regs$wrmux[19][1][0]$y$1301, Q = \regs[19]).
+Adding EN signal on $memory\regs[20]$106 ($dff) from module prf (D = $memory\regs$wrmux[20][1][0]$y$1313, Q = \regs[20]).
+Adding EN signal on $memory\regs[21]$108 ($dff) from module prf (D = $memory\regs$wrmux[21][1][0]$y$1325, Q = \regs[21]).
+Adding EN signal on $memory\regs[22]$110 ($dff) from module prf (D = $memory\regs$wrmux[22][1][0]$y$1337, Q = \regs[22]).
+Adding EN signal on $memory\regs[23]$112 ($dff) from module prf (D = $memory\regs$wrmux[23][1][0]$y$1349, Q = \regs[23]).
+Adding EN signal on $memory\regs[24]$114 ($dff) from module prf (D = $memory\regs$wrmux[24][1][0]$y$1365, Q = \regs[24]).
+Adding EN signal on $memory\regs[25]$116 ($dff) from module prf (D = $memory\regs$wrmux[25][1][0]$y$1377, Q = \regs[25]).
+Adding EN signal on $memory\regs[26]$118 ($dff) from module prf (D = $memory\regs$wrmux[26][1][0]$y$1389, Q = \regs[26]).
+Adding EN signal on $memory\regs[27]$120 ($dff) from module prf (D = $memory\regs$wrmux[27][1][0]$y$1401, Q = \regs[27]).
+Adding EN signal on $memory\regs[28]$122 ($dff) from module prf (D = $memory\regs$wrmux[28][1][0]$y$1413, Q = \regs[28]).
+Adding EN signal on $memory\regs[29]$124 ($dff) from module prf (D = $memory\regs$wrmux[29][1][0]$y$1425, Q = \regs[29]).
+Adding EN signal on $memory\regs[30]$126 ($dff) from module prf (D = $memory\regs$wrmux[30][1][0]$y$1437, Q = \regs[30]).
+Adding EN signal on $memory\regs[31]$128 ($dff) from module prf (D = $memory\regs$wrmux[31][1][0]$y$1449, Q = \regs[31]).
+Adding EN signal on $memory\regs[32]$130 ($dff) from module prf (D = $memory\regs$wrmux[32][1][0]$y$1473, Q = \regs[32]).
+Adding EN signal on $memory\regs[33]$132 ($dff) from module prf (D = $memory\regs$wrmux[33][1][0]$y$1485, Q = \regs[33]).
+Adding EN signal on $memory\regs[34]$134 ($dff) from module prf (D = $memory\regs$wrmux[34][1][0]$y$1497, Q = \regs[34]).
+Adding EN signal on $memory\regs[35]$136 ($dff) from module prf (D = $memory\regs$wrmux[35][1][0]$y$1509, Q = \regs[35]).
+Adding EN signal on $memory\regs[36]$138 ($dff) from module prf (D = $memory\regs$wrmux[36][1][0]$y$1521, Q = \regs[36]).
+Adding EN signal on $memory\regs[37]$140 ($dff) from module prf (D = $memory\regs$wrmux[37][1][0]$y$1533, Q = \regs[37]).
+Adding EN signal on $memory\regs[38]$142 ($dff) from module prf (D = $memory\regs$wrmux[38][1][0]$y$1545, Q = \regs[38]).
+Adding EN signal on $memory\regs[39]$144 ($dff) from module prf (D = $memory\regs$wrmux[39][1][0]$y$1557, Q = \regs[39]).
+Adding EN signal on $memory\regs[40]$146 ($dff) from module prf (D = $memory\regs$wrmux[40][1][0]$y$1573, Q = \regs[40]).
+Adding EN signal on $memory\regs[41]$148 ($dff) from module prf (D = $memory\regs$wrmux[41][1][0]$y$1585, Q = \regs[41]).
+Adding EN signal on $memory\regs[42]$150 ($dff) from module prf (D = $memory\regs$wrmux[42][1][0]$y$1597, Q = \regs[42]).
+Adding EN signal on $memory\regs[43]$152 ($dff) from module prf (D = $memory\regs$wrmux[43][1][0]$y$1609, Q = \regs[43]).
+Adding EN signal on $memory\regs[44]$154 ($dff) from module prf (D = $memory\regs$wrmux[44][1][0]$y$1621, Q = \regs[44]).
+Adding EN signal on $memory\regs[45]$156 ($dff) from module prf (D = $memory\regs$wrmux[45][1][0]$y$1633, Q = \regs[45]).
+Adding EN signal on $memory\regs[46]$158 ($dff) from module prf (D = $memory\regs$wrmux[46][1][0]$y$1645, Q = \regs[46]).
+Adding EN signal on $memory\regs[47]$160 ($dff) from module prf (D = $memory\regs$wrmux[47][1][0]$y$1657, Q = \regs[47]).
+Adding EN signal on $memory\regs[48]$162 ($dff) from module prf (D = $memory\regs$wrmux[48][1][0]$y$1677, Q = \regs[48]).
+Adding EN signal on $memory\regs[49]$164 ($dff) from module prf (D = $memory\regs$wrmux[49][1][0]$y$1689, Q = \regs[49]).
+Adding EN signal on $memory\regs[50]$166 ($dff) from module prf (D = $memory\regs$wrmux[50][1][0]$y$1701, Q = \regs[50]).
+Adding EN signal on $memory\regs[51]$168 ($dff) from module prf (D = $memory\regs$wrmux[51][1][0]$y$1713, Q = \regs[51]).
+Adding EN signal on $memory\regs[52]$170 ($dff) from module prf (D = $memory\regs$wrmux[52][1][0]$y$1725, Q = \regs[52]).
+Adding EN signal on $memory\regs[53]$172 ($dff) from module prf (D = $memory\regs$wrmux[53][1][0]$y$1737, Q = \regs[53]).
+Adding EN signal on $memory\regs[54]$174 ($dff) from module prf (D = $memory\regs$wrmux[54][1][0]$y$1749, Q = \regs[54]).
+Adding EN signal on $memory\regs[55]$176 ($dff) from module prf (D = $memory\regs$wrmux[55][1][0]$y$1761, Q = \regs[55]).
+Adding EN signal on $memory\regs[56]$178 ($dff) from module prf (D = $memory\regs$wrmux[56][1][0]$y$1777, Q = \regs[56]).
+Adding EN signal on $memory\regs[57]$180 ($dff) from module prf (D = $memory\regs$wrmux[57][1][0]$y$1789, Q = \regs[57]).
+Adding EN signal on $memory\regs[58]$182 ($dff) from module prf (D = $memory\regs$wrmux[58][1][0]$y$1801, Q = \regs[58]).
+Adding EN signal on $memory\regs[59]$184 ($dff) from module prf (D = $memory\regs$wrmux[59][1][0]$y$1813, Q = \regs[59]).
+Adding EN signal on $memory\regs[60]$186 ($dff) from module prf (D = $memory\regs$wrmux[60][1][0]$y$1825, Q = \regs[60]).
+Adding EN signal on $memory\regs[61]$188 ($dff) from module prf (D = $memory\regs$wrmux[61][1][0]$y$1837, Q = \regs[61]).
+Adding EN signal on $memory\regs[62]$190 ($dff) from module prf (D = $memory\regs$wrmux[62][1][0]$y$1849, Q = \regs[62]).
+Adding EN signal on $memory\regs[63]$192 ($dff) from module prf (D = $memory\regs$wrmux[63][1][0]$y$1861, Q = \regs[63]).
+
+3.19.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \prf..
+
+3.19.17. Executing OPT_EXPR pass (perform const folding).
+Optimizing module prf.
+<suppressed ~128 debug messages>
+
+3.19.18. Rerunning OPT passes. (Maybe there is more to do..)
+
+3.19.19. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \prf..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~388 debug messages>
+
+3.19.20. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \prf.
+Performed a total of 0 changes.
+
+3.19.21. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\prf'.
+Computing hashes of 772 cells of `\prf'.
+Finding duplicate cells in `\prf'.
+Removed a total of 0 cells.
+
+3.19.22. Executing OPT_SHARE pass.
+
+3.19.23. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.19.24. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \prf..
+Removed 0 unused cells and 64 unused wires.
+<suppressed ~1 debug messages>
+
+3.19.25. Executing OPT_EXPR pass (perform const folding).
+Optimizing module prf.
+
+3.19.26. Rerunning OPT passes. (Maybe there is more to do..)
+
+3.19.27. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \prf..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~388 debug messages>
+
+3.19.28. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \prf.
+Performed a total of 0 changes.
+
+3.19.29. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\prf'.
+Computing hashes of 772 cells of `\prf'.
+Finding duplicate cells in `\prf'.
+Removed a total of 0 cells.
+
+3.19.30. Executing OPT_SHARE pass.
+
+3.19.31. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.19.32. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \prf..
+
+3.19.33. Executing OPT_EXPR pass (perform const folding).
+Optimizing module prf.
+
+3.19.34. Finished fast OPT passes. (There is nothing left to do.)
+
+3.20. Executing TECHMAP pass (map to technology primitives).
+
+3.20.1. Executing Verilog-2005 frontend: /home/bomma/oss-cad-suite/lib/../share/yosys/techmap.v
+Parsing Verilog input from `/home/bomma/oss-cad-suite/lib/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `$__div_mod_u'.
+Generating RTLIL representation for module `$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Generating RTLIL representation for module `$connect'.
+Generating RTLIL representation for module `$input_port'.
+Successfully finished Verilog frontend.
+
+3.20.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using extmapper simplemap for cells of type $dffe.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $logic_not.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $logic_and.
+No more expansions possible.
+<suppressed ~849 debug messages>
+
+3.21. Executing OPT pass (performing simple optimizations).
+
+3.21.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module prf.
+<suppressed ~256 debug messages>
+
+3.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\prf'.
+Computing hashes of 24998 cells of `\prf'.
+Finding duplicate cells in `\prf'.
+Removed a total of 0 cells.
+
+3.21.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.21.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \prf..
+Removed 4 unused cells and 70 unused wires.
+<suppressed ~5 debug messages>
+
+3.21.5. Finished fast OPT passes.
+
+3.22. Executing ABC pass (technology mapping using ABC).
+
+3.22.1. Extracting gate netlist of module `\prf' to `<abc-temp-dir>/input.blif'..
+
+3.22.1.1. Executed ABC.
+Extracted 20898 gates and 25167 wires to a netlist network with 4268 inputs and 4416 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+3.22.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:     3394
+ABC RESULTS:            ANDNOT cells:       43
+ABC RESULTS:               MUX cells:    16391
+ABC RESULTS:              NAND cells:     5827
+ABC RESULTS:               NOR cells:      139
+ABC RESULTS:                OR cells:      355
+ABC RESULTS:             ORNOT cells:      263
+ABC RESULTS:        internal signals:    16483
+ABC RESULTS:           input signals:     4268
+ABC RESULTS:          output signals:     4416
+Removing temp directory.
+Removing global temp directory.
+
+3.23. Executing OPT pass (performing simple optimizations).
+
+3.23.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module prf.
+
+3.23.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\prf'.
+Computing hashes of 30508 cells of `\prf'.
+Finding duplicate cells in `\prf'.
+Removed a total of 0 cells.
+
+3.23.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \prf..
+Removed 0 unused cells and 5240 unused wires.
+<suppressed ~1 debug messages>
+
+3.23.5. Finished fast OPT passes.
+
+3.24. Executing HIERARCHY pass (managing design hierarchy).
+Attribute `top' found on module `prf'. Setting top module to prf.
+
+3.24.1. Analyzing design hierarchy..
+Top module:  \prf
+
+3.24.2. Analyzing design hierarchy..
+Top module:  \prf
+Removed 0 unused modules.
+
+3.25. Printing statistics.
+
+=== prf ===
+
+        +----------Local Count, excluding submodules.
+        | 
+    26235 wires
+    30681 wire bits
+       79 public wires
+     4525 public wire bits
+       15 ports
+      429 port bits
+    30508 cells
+       43   $_ANDNOT_
+     3394   $_AND_
+     4096   $_DFFE_PP_
+    16391   $_MUX_
+     5827   $_NAND_
+      139   $_NOR_
+      263   $_ORNOT_
+      355   $_OR_
+
+3.26. Executing CHECK pass (checking for obvious problems).
+Checking module prf...
+Found and reported 0 problems.
+
+4. Executing DFFLIBMAP pass (mapping DFF/DLATCH cells to sequential cells from liberty file).
+  cell sg13g2_dfrbpq_1 (noninv, pins=4, area=48.99) is a direct match for cell type $_DFF_PN0_.
+  cell sg13g2_dlhq_1 (noninv, pins=3, area=30.84) is a direct match for cell type $_DLATCH_P_.
+  cell sg13g2_dllrq_1 (noninv, pins=4, area=29.03) is a direct match for cell type $_DLATCH_NN0_.
+  cell sg13g2_dlhrq_1 (noninv, pins=4, area=27.22) is a direct match for cell type $_DLATCH_PN0_.
+  final dff/dlatch cell mappings:
+    unmapped dff/dlatch cell: $_DFF_N_
+    unmapped dff/dlatch cell: $_DFF_P_
+    unmapped dff/dlatch cell: $_DFF_NN0_
+    unmapped dff/dlatch cell: $_DFF_NN1_
+    unmapped dff/dlatch cell: $_DFF_NP0_
+    unmapped dff/dlatch cell: $_DFF_NP1_
+    \sg13g2_dfrbpq_1 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DFF_PN1_
+    unmapped dff/dlatch cell: $_DFF_PP0_
+    unmapped dff/dlatch cell: $_DFF_PP1_
+    unmapped dff/dlatch cell: $_DFFE_NN_
+    unmapped dff/dlatch cell: $_DFFE_NP_
+    unmapped dff/dlatch cell: $_DFFE_PN_
+    unmapped dff/dlatch cell: $_DFFE_PP_
+    unmapped dff/dlatch cell: $_DFFSR_NNN_
+    unmapped dff/dlatch cell: $_DFFSR_NNP_
+    unmapped dff/dlatch cell: $_DFFSR_NPN_
+    unmapped dff/dlatch cell: $_DFFSR_NPP_
+    unmapped dff/dlatch cell: $_DFFSR_PNN_
+    unmapped dff/dlatch cell: $_DFFSR_PNP_
+    unmapped dff/dlatch cell: $_DFFSR_PPN_
+    unmapped dff/dlatch cell: $_DFFSR_PPP_
+    unmapped dff/dlatch cell: $_DLATCH_N_
+    \sg13g2_dlhq_1 _DLATCH_P_ (.D( D), .GATE( E), .Q( Q));
+    \sg13g2_dllrq_1 _DLATCH_NN0_ (.D( D), .GATE_N( E), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DLATCH_NN1_
+    unmapped dff/dlatch cell: $_DLATCH_NP0_
+    unmapped dff/dlatch cell: $_DLATCH_NP1_
+    \sg13g2_dlhrq_1 _DLATCH_PN0_ (.D( D), .GATE( E), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DLATCH_PN1_
+    unmapped dff/dlatch cell: $_DLATCH_PP0_
+    unmapped dff/dlatch cell: $_DLATCH_PP1_
+    unmapped dff/dlatch cell: $_DLATCHSR_NNN_
+    unmapped dff/dlatch cell: $_DLATCHSR_NNP_
+    unmapped dff/dlatch cell: $_DLATCHSR_NPN_
+    unmapped dff/dlatch cell: $_DLATCHSR_NPP_
+    unmapped dff/dlatch cell: $_DLATCHSR_PNN_
+    unmapped dff/dlatch cell: $_DLATCHSR_PNP_
+    unmapped dff/dlatch cell: $_DLATCHSR_PPN_
+    unmapped dff/dlatch cell: $_DLATCHSR_PPP_
+
+4.1. Executing DFFLEGALIZE pass (convert FFs and LATCHes to types supported by the target).
+<suppressed ~4 debug messages>
+Mapping DFF/DLATCH cells in module `\prf':
+  mapped 4096 $_DFF_PN0_ cells to \sg13g2_dfrbpq_1 cells.
+
+5. Executing ABC pass (technology mapping using ABC).
+
+5.1. Extracting gate netlist of module `\prf' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: /tmp/yosys-liberty-scl-cache-1000/yosys_merged_0a0e92c0.scl (1 files)
+
+5.1.1. Executed ABC.
+Extracted 30508 gates and 34776 wires to a netlist network with 4268 inputs and 4352 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl /tmp/yosys-liberty-scl-cache-1000/yosys_merged_0a0e92c0.scl 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+5.1.2. Re-integrating ABC results.
+ABC RESULTS:     sg13g2_a21o_1 cells:      120
+ABC RESULTS:    sg13g2_a21oi_1 cells:     6392
+ABC RESULTS:   sg13g2_a221oi_1 cells:      742
+ABC RESULTS:    sg13g2_a22oi_1 cells:     1944
+ABC RESULTS:     sg13g2_and2_1 cells:     1711
+ABC RESULTS:     sg13g2_and3_1 cells:       18
+ABC RESULTS:     sg13g2_and4_1 cells:        2
+ABC RESULTS:      sg13g2_inv_1 cells:     1391
+ABC RESULTS:     sg13g2_mux2_1 cells:     2227
+ABC RESULTS:     sg13g2_mux4_1 cells:     3109
+ABC RESULTS:    sg13g2_nand2_1 cells:     2642
+ABC RESULTS:   sg13g2_nand2b_1 cells:      142
+ABC RESULTS:    sg13g2_nand3_1 cells:      233
+ABC RESULTS:   sg13g2_nand3b_1 cells:       12
+ABC RESULTS:    sg13g2_nand4_1 cells:       91
+ABC RESULTS:     sg13g2_nor2_1 cells:     2668
+ABC RESULTS:    sg13g2_nor2b_1 cells:     1086
+ABC RESULTS:     sg13g2_nor3_1 cells:       28
+ABC RESULTS:     sg13g2_nor4_1 cells:       69
+ABC RESULTS:    sg13g2_o21ai_1 cells:     2527
+ABC RESULTS:      sg13g2_or2_1 cells:      155
+ABC RESULTS:      sg13g2_or3_1 cells:       10
+ABC RESULTS:      sg13g2_or4_1 cells:        5
+ABC RESULTS:        internal signals:    26156
+ABC RESULTS:           input signals:     4268
+ABC RESULTS:          output signals:     4352
+Removing temp directory.
+Removing global temp directory.
+
+6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \prf..
+Removed 0 unused cells and 34776 unused wires.
+<suppressed ~1 debug messages>
+
+7. Printing statistics.
+
+=== prf ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+    27147        - wires
+    31593        - wire bits
+       79        - public wires
+     4525        - public wire bits
+       15        - ports
+      429        - port bits
+    31420 5.53E+05 cells
+      120 1.52E+03   sg13g2_a21o_1
+     6392  5.8E+04   sg13g2_a21oi_1
+      742 1.08E+04   sg13g2_a221oi_1
+     1944 2.11E+04   sg13g2_a22oi_1
+     1711 1.55E+04   sg13g2_and2_1
+       18  228.614   sg13g2_and3_1
+        2    29.03   sg13g2_and4_1
+     4096 2.01E+05   sg13g2_dfrbpq_1
+     1391 7.57E+03   sg13g2_inv_1
+     2227 4.04E+04   sg13g2_mux2_1
+     3109 1.18E+05   sg13g2_mux4_1
+     2642 1.92E+04   sg13g2_nand2_1
+      142 1.29E+03   sg13g2_nand2b_1
+      233 2.11E+03   sg13g2_nand3_1
+       12   152.41   sg13g2_nand3b_1
+       91  990.662   sg13g2_nand4_1
+     2668 1.94E+04   sg13g2_nor2_1
+     1086 9.85E+03   sg13g2_nor2b_1
+       28  254.016   sg13g2_nor3_1
+       69  751.162   sg13g2_nor4_1
+     2527 2.29E+04   sg13g2_o21ai_1
+      155  1406.16   sg13g2_or2_1
+       10  127.008   sg13g2_or3_1
+        5   72.576   sg13g2_or4_1
+
+   Chip area for module '\prf': 552719.764800
+     of which used for sequential elements: 200658.124800 (36.30%)
+
+8. Executing Verilog backend.
+
+8.1. Executing BMUXMAP pass.
+
+8.2. Executing DEMUXMAP pass.
+Dumping module `\prf'.
+
+9. Executing JSON backend.
+
+End of script. Logfile hash: ffddf183bc, time: 7.52s, user: 1.55s, system: 0.17s, MEM: 127.30 MB peak
+Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)
+Time spent: 82% 2x abc (5 sec), 5% 18x opt_clean (0 sec), ...
