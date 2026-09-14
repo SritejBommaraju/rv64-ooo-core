@@ -1,0 +1,47 @@
+OpenSTA 3.1.0 d97587f669 Copyright (c) 2026, Parallax Software, Inc.
+License GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>
+
+This is free software, and you are free to change and redistribute it
+under certain conditions; type `show_copying' for details. 
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show_warranty'.
+Startpoint: _789290_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: _789456_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ _789290_/CLK (sg13g2_dfrbpq_1)
+ 172.05  172.05 ^ _789290_/Q (sg13g2_dfrbpq_1)
+ 749.86  921.91 v _390026_/Y (sg13g2_inv_1)
+4931.70 5853.61 ^ _461872_/Y (sg13g2_nor2_1)
+   0.07 5853.67 v _522683_/Y (sg13g2_nand3_1)
+   0.05 5853.73 ^ _522686_/Y (sg13g2_nand4_1)
+   0.08 5853.80 v _522692_/Y (sg13g2_a221oi_1)
+   2.90 5856.71 ^ _522693_/Y (sg13g2_o21ai_1)
+   0.34 5857.04 v _522853_/Y (sg13g2_a22oi_1)
+   0.15 5857.19 ^ _522854_/Y (sg13g2_nand4_1)
+   0.42 5857.61 ^ _766319_/X (sg13g2_a21o_1)
+   0.09 5857.70 v _766320_/Y (sg13g2_a21oi_1)
+   1.64 5859.34 v _766325_/Y (sg13g2_nand2b_1)
+   0.14 5859.48 ^ _780858_/Y (sg13g2_a21oi_1)
+   0.00 5859.48 ^ _789456_/D (sg13g2_dfrbpq_1)
+        5859.48   data arrival time
+
+  10.00   10.00   clock clk (rise edge)
+   0.00   10.00   clock network delay (ideal)
+   0.00   10.00   clock reconvergence pessimism
+          10.00 ^ _789456_/CLK (sg13g2_dfrbpq_1)
+  -7.95    2.05   library setup time
+           2.05   data required time
+---------------------------------------------------------
+           2.05   data required time
+        -5859.48   data arrival time
+---------------------------------------------------------
+        -5857.43   slack (VIOLATED)
+
+
+tns max -16763244.00
+wns max -5857.43

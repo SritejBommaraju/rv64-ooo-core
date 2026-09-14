@@ -1,0 +1,48 @@
+OpenSTA 3.1.0 d97587f669 Copyright (c) 2026, Parallax Software, Inc.
+License GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>
+
+This is free software, and you are free to change and redistribute it
+under certain conditions; type `show_copying' for details. 
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show_warranty'.
+Startpoint: _282_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: u_rename_map/_15546_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ _282_/CLK (sg13g2_dfrbpq_1)
+   0.20    0.20 v _282_/Q (sg13g2_dfrbpq_1)
+   0.19    0.39 v _120_/X (sg13g2_or3_1)
+   0.11    0.50 v _124_/X (sg13g2_xor2_1)
+   0.09    0.60 v _130_/X (sg13g2_and3_1)
+   0.16    0.75 v _133_/X (sg13g2_or2_1)
+   0.09    0.84 ^ _135_/Y (sg13g2_nor2_1)
+   0.08    0.92 v _136_/Y (sg13g2_nand2_1)
+   0.13    1.05 ^ _137_/Y (sg13g2_inv_1)
+   0.14    1.19 v _142_/Y (sg13g2_nand3_1)
+   0.35    1.54 ^ _202_/Y (sg13g2_xnor2_1)
+   0.14    1.68 v u_rename_map/_09552_/Y (sg13g2_nand2b_1)
+   4.42    6.10 ^ u_rename_map/_09554_/Y (sg13g2_nor2_1)
+   6.00   12.10 v u_rename_map/_09578_/Y (sg13g2_nor3_1)
+   0.42   12.51 ^ u_rename_map/_10386_/Y (sg13g2_a221oi_1)
+   0.00   12.51 ^ u_rename_map/_15546_/D (sg13g2_dfrbpq_1)
+          12.51   data arrival time
+
+  10.00   10.00   clock clk (rise edge)
+   0.00   10.00   clock network delay (ideal)
+   0.00   10.00   clock reconvergence pessimism
+          10.00 ^ u_rename_map/_15546_/CLK (sg13g2_dfrbpq_1)
+  -0.26    9.74   library setup time
+           9.74   data required time
+---------------------------------------------------------
+           9.74   data required time
+         -12.51   data arrival time
+---------------------------------------------------------
+          -2.77   slack (VIOLATED)
+
+
+tns max -4372.17
+wns max -2.77

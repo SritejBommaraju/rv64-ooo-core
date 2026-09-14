@@ -1,567 +1,3 @@
---- lsq ---
-3.25. Printing statistics.
-
-=== lsq ===
-
-        +----------Local Count, excluding submodules.
-        | 
-   116455 wires
-   118651 wire bits
-      140 public wires
-     2314 public wire bits
-       38 ports
-      592 port bits
-   118304 cells
-     4153   $_ANDNOT_
-    32984   $_AND_
-     1656   $_DFFE_PP_
-       24   $_DFF_P_
-     9835   $_MUX_
-    38128   $_NAND_
-     2907   $_NOR_
-      224   $_NOT_
-    13966   $_ORNOT_
-     8940   $_OR_
-       20   $_SDFF_PP0_
-     3130   $_XNOR_
-     2337   $_XOR_
-
-3.26. Executing CHECK pass (checking for obvious problems).
-Checking module lsq...
-Found and reported 0 problems.
-
-4. Executing DFFLIBMAP pass (mapping DFF/DLATCH cells to sequential cells from liberty file).
-  cell sg13g2_dfrbpq_1 (noninv, pins=4, area=48.99) is a direct match for cell type $_DFF_PN0_.
-  cell sg13g2_dlhq_1 (noninv, pins=3, area=30.84) is a direct match for cell type $_DLATCH_P_.
-  cell sg13g2_dllrq_1 (noninv, pins=4, area=29.03) is a direct match for cell type $_DLATCH_NN0_.
-  cell sg13g2_dlhrq_1 (noninv, pins=4, area=27.22) is a direct match for cell type $_DLATCH_PN0_.
-  final dff/dlatch cell mappings:
-    unmapped dff/dlatch cell: $_DFF_N_
-    unmapped dff/dlatch cell: $_DFF_P_
-    unmapped dff/dlatch cell: $_DFF_NN0_
-    unmapped dff/dlatch cell: $_DFF_NN1_
-    unmapped dff/dlatch cell: $_DFF_NP0_
-    unmapped dff/dlatch cell: $_DFF_NP1_
-    \sg13g2_dfrbpq_1 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
-    unmapped dff/dlatch cell: $_DFF_PN1_
-    unmapped dff/dlatch cell: $_DFF_PP0_
-    unmapped dff/dlatch cell: $_DFF_PP1_
-    unmapped dff/dlatch cell: $_DFFE_NN_
-    unmapped dff/dlatch cell: $_DFFE_NP_
-    unmapped dff/dlatch cell: $_DFFE_PN_
-    unmapped dff/dlatch cell: $_DFFE_PP_
-    unmapped dff/dlatch cell: $_DFFSR_NNN_
-    unmapped dff/dlatch cell: $_DFFSR_NNP_
-    unmapped dff/dlatch cell: $_DFFSR_NPN_
-    unmapped dff/dlatch cell: $_DFFSR_NPP_
-    unmapped dff/dlatch cell: $_DFFSR_PNN_
-    unmapped dff/dlatch cell: $_DFFSR_PNP_
-    unmapped dff/dlatch cell: $_DFFSR_PPN_
-    unmapped dff/dlatch cell: $_DFFSR_PPP_
-    unmapped dff/dlatch cell: $_DLATCH_N_
-    \sg13g2_dlhq_1 _DLATCH_P_ (.D( D), .GATE( E), .Q( Q));
-    \sg13g2_dllrq_1 _DLATCH_NN0_ (.D( D), .GATE_N( E), .Q( Q), .RESET_B( R));
-    unmapped dff/dlatch cell: $_DLATCH_NN1_
-    unmapped dff/dlatch cell: $_DLATCH_NP0_
-    unmapped dff/dlatch cell: $_DLATCH_NP1_
-    \sg13g2_dlhrq_1 _DLATCH_PN0_ (.D( D), .GATE( E), .Q( Q), .RESET_B( R));
-    unmapped dff/dlatch cell: $_DLATCH_PN1_
-    unmapped dff/dlatch cell: $_DLATCH_PP0_
-    unmapped dff/dlatch cell: $_DLATCH_PP1_
-    unmapped dff/dlatch cell: $_DLATCHSR_NNN_
-    unmapped dff/dlatch cell: $_DLATCHSR_NNP_
-    unmapped dff/dlatch cell: $_DLATCHSR_NPN_
-    unmapped dff/dlatch cell: $_DLATCHSR_NPP_
-    unmapped dff/dlatch cell: $_DLATCHSR_PNN_
-    unmapped dff/dlatch cell: $_DLATCHSR_PNP_
-    unmapped dff/dlatch cell: $_DLATCHSR_PPN_
-    unmapped dff/dlatch cell: $_DLATCHSR_PPP_
-
-4.1. Executing DFFLEGALIZE pass (convert FFs and LATCHes to types supported by the target).
-<suppressed ~4 debug messages>
-Mapping DFF/DLATCH cells in module `\lsq':
-  mapped 1700 $_DFF_PN0_ cells to \sg13g2_dfrbpq_1 cells.
-
-5. Executing ABC pass (technology mapping using ABC).
-
-5.1. Extracting gate netlist of module `\lsq' to `<abc-temp-dir>/input.blif'..
-ABC: using cached merged SCL: /tmp/yosys-liberty-scl-cache-1000/yosys_merged_0a0e92c0.scl (1 files)
-
-5.1.1. Executed ABC.
-Extracted 118280 gates and 120279 wires to a netlist network with 1998 inputs and 1979 outputs.
-Running ABC script: <abc-temp-dir>/abc.script
-ABC: UC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)
-ABC: abc 01> empty
-ABC: abc 01> source <abc-temp-dir>/abc.script
-ABC: + read_blif <abc-temp-dir>/input.blif 
-ABC: + read_scl /tmp/yosys-liberty-scl-cache-1000/yosys_merged_0a0e92c0.scl 
-ABC: + strash 
-ABC: + &get -n 
-ABC: + &fraig -x 
-ABC: + &put 
-ABC: + scorr 
-ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
-ABC: + dc2 
-ABC: + dretime 
-ABC: + strash 
-ABC: + &get -n 
-ABC: + &dch -f 
-ABC: + &nf 
-ABC: + &put 
-ABC: + write_blif <abc-temp-dir>/output.blif 
-ABC: 
-ABC: YOSYS_ABC_DONE 
-
-5.1.2. Re-integrating ABC results.
-ABC RESULTS:     sg13g2_a21o_1 cells:     1800
-ABC RESULTS:    sg13g2_a21oi_1 cells:     9124
-ABC RESULTS:   sg13g2_a221oi_1 cells:     5578
-ABC RESULTS:    sg13g2_a22oi_1 cells:     7024
-ABC RESULTS:     sg13g2_and2_1 cells:     1876
-ABC RESULTS:     sg13g2_and3_1 cells:      207
-ABC RESULTS:     sg13g2_and4_1 cells:      260
-ABC RESULTS:      sg13g2_inv_1 cells:      984
-ABC RESULTS:     sg13g2_mux2_1 cells:     3074
-ABC RESULTS:     sg13g2_mux4_1 cells:     1678
-ABC RESULTS:    sg13g2_nand2_1 cells:     8572
-ABC RESULTS:   sg13g2_nand2b_1 cells:     1528
-ABC RESULTS:    sg13g2_nand3_1 cells:     2800
-ABC RESULTS:   sg13g2_nand3b_1 cells:      267
-ABC RESULTS:    sg13g2_nand4_1 cells:     1401
-ABC RESULTS:     sg13g2_nor2_1 cells:     7052
-ABC RESULTS:    sg13g2_nor2b_1 cells:     1030
-ABC RESULTS:     sg13g2_nor3_1 cells:     2236
-ABC RESULTS:     sg13g2_nor4_1 cells:     1071
-ABC RESULTS:    sg13g2_o21ai_1 cells:     9827
-ABC RESULTS:      sg13g2_or2_1 cells:      563
-ABC RESULTS:      sg13g2_or3_1 cells:      209
-ABC RESULTS:      sg13g2_or4_1 cells:      179
-ABC RESULTS:    sg13g2_xnor2_1 cells:     3920
-ABC RESULTS:     sg13g2_xor2_1 cells:      170
-ABC RESULTS:        internal signals:   116302
-ABC RESULTS:           input signals:     1998
-ABC RESULTS:          output signals:     1979
-Removing temp directory.
-Removing global temp directory.
-
-6. Executing OPT_CLEAN pass (remove unused cells and wires).
-Finding unused cells or wires in module \lsq..
-Removed 0 unused cells and 120268 unused wires.
-<suppressed ~1 debug messages>
-
-7. Printing statistics.
-
-=== lsq ===
-
-        +----------Local Count, excluding submodules.
-        |        +-Local Area, excluding submodules.
-        |        | 
-    72291        - wires
-    74465        - wire bits
-      140        - public wires
-     2314        - public wire bits
-       38        - ports
-      592        - port bits
-    74130 8.66E+05 cells
-     1800 2.29E+04   sg13g2_a21o_1
-     9124 8.28E+04   sg13g2_a21oi_1
-     5578  8.1E+04   sg13g2_a221oi_1
-     7024 7.62E+04   sg13g2_a22oi_1
-     1876  1.7E+04   sg13g2_and2_1
-      207 2.63E+03   sg13g2_and3_1
-      260 3.77E+03   sg13g2_and4_1
-     1700 8.33E+04   sg13g2_dfrbpq_1
-      984 5.36E+03   sg13g2_inv_1
-     3074 5.58E+04   sg13g2_mux2_1
-     1678 6.39E+04   sg13g2_mux4_1
-     8572 6.22E+04   sg13g2_nand2_1
-     1528 1.39E+04   sg13g2_nand2b_1
-     2800  25401.6   sg13g2_nand3_1
-      267 3.39E+03   sg13g2_nand3b_1
-     1401 1.53E+04   sg13g2_nand4_1
-     7052 5.12E+04   sg13g2_nor2_1
-     1030  9344.16   sg13g2_nor2b_1
-     2236 2.03E+04   sg13g2_nor3_1
-     1071 1.17E+04   sg13g2_nor4_1
-     9827 8.92E+04   sg13g2_o21ai_1
-      563 5.11E+03   sg13g2_or2_1
-      209 2.65E+03   sg13g2_or3_1
-      179  2.6E+03   sg13g2_or4_1
-     3920 5.69E+04   sg13g2_xnor2_1
-      170 2.47E+03   sg13g2_xor2_1
-
-   Chip area for module '\lsq': 866036.102400
-     of which used for sequential elements: 83280.960000 (9.62%)
-
-8. Executing Verilog backend.
-
-8.1. Executing BMUXMAP pass.
-
-8.2. Executing DEMUXMAP pass.
-Dumping module `\lsq'.
-
-9. Executing JSON backend.
-
-End of script. Logfile hash: 12768b3e79, time: 1628.75s, user: 1018.84s, system: 6.42s, MEM: 804.47 MB peak
-Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)
-Time spent: 61% 1x share (1002 sec), 37% 2x abc (602 sec), ...
---- l1d ---
-4.25. Printing statistics.
-
-=== l1d ===
-
-        +----------Local Count, excluding submodules.
-        | 
-   518117 wires
-   596984 wire bits
-      712 public wires
-    79172 public wire bits
-       26 ports
-     1462 port bits
-   593755 cells
-     1287   $_ANDNOT_
-   145376   $_AND_
-    74468   $_DFFE_PP_
-      320   $_DFF_P_
-   118322   $_MUX_
-   229340   $_NAND_
-     1096   $_NOR_
-      296   $_NOT_
-    10700   $_ORNOT_
-    12141   $_OR_
-        5   $_SDFFE_PN0N_
-      168   $_SDFFE_PN0P_
-       14   $_SDFF_PN0_
-       31   $_XNOR_
-      191   $_XOR_
-        1 submodules
-        1   $paramod$3b3ebe2a805de999e571f1f6aa39b69c15a9144c\mshr
-
-=== $paramod$3b3ebe2a805de999e571f1f6aa39b69c15a9144c\mshr ===
-
-        +----------Local Count, excluding submodules.
-        | 
-     9342 wires
-    16709 wire bits
-       84 public wires
-     7449 public wire bits
-       35 ports
-     2530 port bits
-    15410 cells
-       18   $_ANDNOT_
-     3239   $_AND_
-     4902   $_DFFE_PP_
-       60   $_MUX_
-     6479   $_NAND_
-        3   $_NOR_
-       15   $_NOT_
-      357   $_ORNOT_
-       31   $_OR_
-       13   $_SDFFE_PP0P_
-      293   $_XNOR_
-
-=== design hierarchy ===
-
-        +----------Count including submodules.
-        | 
-   609165 l1d
-    15410 $paramod$3b3ebe2a805de999e571f1f6aa39b69c15a9144c\mshr
-
-        +----------Count including submodules.
-        | 
-   527459 wires
-   613693 wire bits
-      796 public wires
-    86621 public wire bits
-       61 ports
-     3992 port bits
-        - memories
-        - memory bits
-        - processes
-   609165 cells
-     1305   $_ANDNOT_
-   148615   $_AND_
-    79370   $_DFFE_PP_
-      320   $_DFF_P_
-   118382   $_MUX_
-   235819   $_NAND_
-     1099   $_NOR_
-      311   $_NOT_
-    11057   $_ORNOT_
-    12172   $_OR_
-        5   $_SDFFE_PN0N_
-      168   $_SDFFE_PN0P_
-       13   $_SDFFE_PP0P_
-       14   $_SDFF_PN0_
-      324   $_XNOR_
-      191   $_XOR_
-        1 submodules
-        1   $paramod$3b3ebe2a805de999e571f1f6aa39b69c15a9144c\mshr
-
-4.26. Executing CHECK pass (checking for obvious problems).
-Checking module l1d...
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [31]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110957 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110757 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [0]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110926 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110726 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [1]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110927 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110727 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [2]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110928 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110728 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [3]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110929 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110729 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [4]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110930 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110730 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [5]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110931 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110731 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [6]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110932 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110732 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [7]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110933 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110733 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [8]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110934 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110734 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [9]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110935 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110735 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [10]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110936 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110736 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [11]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110937 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110737 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [12]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110938 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110738 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [13]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110939 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110739 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [14]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110940 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110740 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [15]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110941 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110741 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [16]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110942 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110742 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [17]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110943 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110743 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [18]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110944 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110744 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [19]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110945 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110745 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [20]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110946 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110746 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [21]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110947 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110747 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [22]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110948 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110748 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [23]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110949 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110749 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [24]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110950 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110750 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [25]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110951 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110751 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [26]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110952 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110752 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [27]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110953 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110753 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [28]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110954 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110754 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [29]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110955 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110755 ($_SDFFE_PN0P_)
-Warning: multiple conflicting drivers for l1d.\cnt_writebacks [30]:
-    port Q[0] of cell $auto$ff.cc:337:slice$110956 ($_DFFE_PP_)
-    port Q[0] of cell $auto$ff.cc:337:slice$110756 ($_SDFFE_PN0P_)
-Checking module $paramod$3b3ebe2a805de999e571f1f6aa39b69c15a9144c\mshr...
-Found and reported 32 problems.
-
-5. Executing DFFLIBMAP pass (mapping DFF/DLATCH cells to sequential cells from liberty file).
-  cell sg13g2_dfrbpq_1 (noninv, pins=4, area=48.99) is a direct match for cell type $_DFF_PN0_.
-  cell sg13g2_dlhq_1 (noninv, pins=3, area=30.84) is a direct match for cell type $_DLATCH_P_.
-  cell sg13g2_dllrq_1 (noninv, pins=4, area=29.03) is a direct match for cell type $_DLATCH_NN0_.
-  cell sg13g2_dlhrq_1 (noninv, pins=4, area=27.22) is a direct match for cell type $_DLATCH_PN0_.
-  final dff/dlatch cell mappings:
-    unmapped dff/dlatch cell: $_DFF_N_
-    unmapped dff/dlatch cell: $_DFF_P_
---
-8. Printing statistics.
-
-=== l1d ===
-
-        +----------Local Count, excluding submodules.
-        |        +-Local Area, excluding submodules.
-        |        | 
-   390732        - wires
-   469192        - wire bits
-      710        - public wires
-    79170        - public wire bits
-       26        - ports
-     1462        - port bits
-   466144 7.82E+06 cells
-    18507 2.35E+05   sg13g2_a21o_1
-    50232 4.56E+05   sg13g2_a21oi_1
-    11781 1.71E+05   sg13g2_a221oi_1
-   119885  1.3E+06   sg13g2_a22oi_1
-    11970 1.09E+05   sg13g2_and2_1
-      282 3.58E+03   sg13g2_and3_1
-      509 7.39E+03   sg13g2_and4_1
-    74975 3.67E+06   sg13g2_dfrbpq_1
-    15475 8.42E+04   sg13g2_inv_1
-     8746 1.59E+05   sg13g2_mux2_1
-     9944 3.79E+05   sg13g2_mux4_1
-    23974 1.74E+05   sg13g2_nand2_1
-      666 6.04E+03   sg13g2_nand2b_1
-    16509  1.5E+05   sg13g2_nand3_1
-       73  927.158   sg13g2_nand3b_1
-     5126 5.58E+04   sg13g2_nand4_1
-    17715 1.29E+05   sg13g2_nor2_1
-      298  2.7E+03   sg13g2_nor2b_1
-     1297 1.18E+04   sg13g2_nor3_1
-     2064 2.25E+04   sg13g2_nor4_1
-    75070 6.81E+05   sg13g2_o21ai_1
-      625     5670   sg13g2_or2_1
-      164 2.08E+03   sg13g2_or3_1
-      198  2874.01   sg13g2_or4_1
-       48   696.73   sg13g2_xnor2_1
-       11  159.667   sg13g2_xor2_1
-        1        - submodules
-        1        -   $paramod$3b3ebe2a805de999e571f1f6aa39b69c15a9144c\mshr
-
-   Chip area for module '\l1d': 7821216.862196
-     of which used for sequential elements: 3672935.279997 (46.96%)
-
-=== $paramod$3b3ebe2a805de999e571f1f6aa39b69c15a9144c\mshr ===
-
-        +----------Local Count, excluding submodules.
-        |        +-Local Area, excluding submodules.
-        |        | 
-     8947        - wires
-    16311        - wire bits
-       83        - public wires
-     7447        - public wire bits
-       35        - ports
-     2530        - port bits
-    15014 3.79E+05 cells
-       59  749.347   sg13g2_a21o_1
-      138 1.25E+03   sg13g2_a21oi_1
-       88 1.28E+03   sg13g2_a221oi_1
-     2581  2.8E+04   sg13g2_a22oi_1
-       11   99.792   sg13g2_and2_1
-        5   63.504   sg13g2_and3_1
-        9  130.637   sg13g2_and4_1
-     4915 2.41E+05   sg13g2_dfrbpq_1
-      225  1224.72   sg13g2_inv_1
-     4808 8.72E+04   sg13g2_mux2_1
-     1357 9.85E+03   sg13g2_nand2_1
-       59  535.248   sg13g2_nand2b_1
-       99  898.128   sg13g2_nand3_1
-       11  139.709   sg13g2_nand3b_1
-       92    1E+03   sg13g2_nand4_1
-       86  624.154   sg13g2_nor2_1
-      142 1.29E+03   sg13g2_nor2b_1
-       23  208.656   sg13g2_nor3_1
-       53  576.979   sg13g2_nor4_1
-       49  444.528   sg13g2_o21ai_1
-        5    45.36   sg13g2_or2_1
-        2   25.402   sg13g2_or3_1
-        1   14.515   sg13g2_or4_1
-       76  1.1E+03   sg13g2_xnor2_1
-      120 1.74E+03   sg13g2_xor2_1
-
-   Chip area for module '$paramod$3b3ebe2a805de999e571f1f6aa39b69c15a9144c\mshr': 379309.807800
-     of which used for sequential elements: 240779.952000 (63.48%)
-
-=== design hierarchy ===
-
-        +----------Count including submodules.
-        |        +-Area including submodules.
-        |        | 
-   481158  8.2E+06 l1d
-    15014 3.79E+05 $paramod$3b3ebe2a805de999e571f1f6aa39b69c15a9144c\mshr
-
-        +----------Count including submodules.
-        |        +-Area including submodules.
-        |        | 
-   399679        - wires
-   485503        - wire bits
-      793        - public wires
-    86617        - public wire bits
-       61        - ports
-     3992        - port bits
-        -        - memories
-        -        - memory bits
-        -        - processes
-   481158  8.2E+06 cells
-    18566 2.36E+05   sg13g2_a21o_1
-    50370 4.57E+05   sg13g2_a21oi_1
-    11869 1.72E+05   sg13g2_a221oi_1
-   122466 1.33E+06   sg13g2_a22oi_1
-    11981 1.09E+05   sg13g2_and2_1
-      287  3645.13   sg13g2_and3_1
-      518 7.52E+03   sg13g2_and4_1
-    79890 3.91E+06   sg13g2_dfrbpq_1
-    15700 8.55E+04   sg13g2_inv_1
-    13554 2.46E+05   sg13g2_mux2_1
-     9944 3.79E+05   sg13g2_mux4_1
-    25331 1.84E+05   sg13g2_nand2_1
-      725   6577.2   sg13g2_nand2b_1
-    16608 1.51E+05   sg13g2_nand3_1
-       84 1.07E+03   sg13g2_nand3b_1
-     5218 5.68E+04   sg13g2_nand4_1
-    17801 1.29E+05   sg13g2_nor2_1
-      440  3991.68   sg13g2_nor2b_1
-     1320  1.2E+04   sg13g2_nor3_1
-     2117  2.3E+04   sg13g2_nor4_1
-    75119 6.81E+05   sg13g2_o21ai_1
-      630  5715.36   sg13g2_or2_1
-      166 2.11E+03   sg13g2_or3_1
-      199 2.89E+03   sg13g2_or4_1
-      124  1.8E+03   sg13g2_xnor2_1
-      131  1.9E+03   sg13g2_xor2_1
-        1 3.79E+05 submodules
-        1 3.79E+05   $paramod$3b3ebe2a805de999e571f1f6aa39b69c15a9144c\mshr
-
-   Chip area for top module '\l1d': 8200526.670052
-     of which used for sequential elements: 3913715.231997 (47.73%)
-
-9. Executing Verilog backend.
-
-9.1. Executing BMUXMAP pass.
-
-9.2. Executing DEMUXMAP pass.
-Dumping module `$paramod$3b3ebe2a805de999e571f1f6aa39b69c15a9144c\mshr'.
-Dumping module `\l1d'.
-
-10. Executing JSON backend.
-
-Warnings: 64 unique messages, 64 total
-End of script. Logfile hash: c155aa316f, time: 871.36s, user: 48.44s, system: 3.31s, MEM: 1698.85 MB peak
-Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)
-Time spent: 95% 2x abc (833 sec), 1% 29x opt_clean (14 sec), ...
 --- core ---
 7.25. Printing statistics.
 
@@ -966,3 +402,1658 @@ Found and reported 0 problems.
 
    Chip area for module '\alu': 24435.923400
      of which used for sequential elements: 0.000000 (0.00%)
+--- muldiv ---
+3.25. Printing statistics.
+
+=== muldiv ===
+
+        +----------Local Count, excluding submodules.
+        | 
+    55046 wires
+    56324 wire bits
+       32 public wires
+     1241 public wire bits
+       10 ports
+      201 port bits
+    55387 cells
+      323   $_ANDNOT_
+     5909   $_AND_
+      166   $_DFFE_PP_
+      185   $_MUX_
+    28075   $_NAND_
+       63   $_NOR_
+       26   $_NOT_
+      730   $_ORNOT_
+      906   $_OR_
+       70   $_SDFFCE_PN0P_
+        1   $_SDFFCE_PN1P_
+       32   $_SDFFCE_PP0P_
+       66   $_SDFFE_PP0P_
+        1   $_SDFF_PP0_
+     4547   $_XNOR_
+    14287   $_XOR_
+
+3.26. Executing CHECK pass (checking for obvious problems).
+Checking module muldiv...
+Found and reported 0 problems.
+
+4. Executing DFFLIBMAP pass (mapping DFF/DLATCH cells to sequential cells from liberty file).
+  cell sg13g2_dfrbpq_1 (noninv, pins=4, area=48.99) is a direct match for cell type $_DFF_PN0_.
+  cell sg13g2_dlhq_1 (noninv, pins=3, area=30.84) is a direct match for cell type $_DLATCH_P_.
+  cell sg13g2_dllrq_1 (noninv, pins=4, area=29.03) is a direct match for cell type $_DLATCH_NN0_.
+  cell sg13g2_dlhrq_1 (noninv, pins=4, area=27.22) is a direct match for cell type $_DLATCH_PN0_.
+  final dff/dlatch cell mappings:
+    unmapped dff/dlatch cell: $_DFF_N_
+    unmapped dff/dlatch cell: $_DFF_P_
+    unmapped dff/dlatch cell: $_DFF_NN0_
+    unmapped dff/dlatch cell: $_DFF_NN1_
+    unmapped dff/dlatch cell: $_DFF_NP0_
+    unmapped dff/dlatch cell: $_DFF_NP1_
+    \sg13g2_dfrbpq_1 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DFF_PN1_
+    unmapped dff/dlatch cell: $_DFF_PP0_
+    unmapped dff/dlatch cell: $_DFF_PP1_
+    unmapped dff/dlatch cell: $_DFFE_NN_
+    unmapped dff/dlatch cell: $_DFFE_NP_
+    unmapped dff/dlatch cell: $_DFFE_PN_
+    unmapped dff/dlatch cell: $_DFFE_PP_
+    unmapped dff/dlatch cell: $_DFFSR_NNN_
+    unmapped dff/dlatch cell: $_DFFSR_NNP_
+    unmapped dff/dlatch cell: $_DFFSR_NPN_
+    unmapped dff/dlatch cell: $_DFFSR_NPP_
+    unmapped dff/dlatch cell: $_DFFSR_PNN_
+    unmapped dff/dlatch cell: $_DFFSR_PNP_
+    unmapped dff/dlatch cell: $_DFFSR_PPN_
+    unmapped dff/dlatch cell: $_DFFSR_PPP_
+    unmapped dff/dlatch cell: $_DLATCH_N_
+    \sg13g2_dlhq_1 _DLATCH_P_ (.D( D), .GATE( E), .Q( Q));
+    \sg13g2_dllrq_1 _DLATCH_NN0_ (.D( D), .GATE_N( E), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DLATCH_NN1_
+    unmapped dff/dlatch cell: $_DLATCH_NP0_
+    unmapped dff/dlatch cell: $_DLATCH_NP1_
+    \sg13g2_dlhrq_1 _DLATCH_PN0_ (.D( D), .GATE( E), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DLATCH_PN1_
+    unmapped dff/dlatch cell: $_DLATCH_PP0_
+    unmapped dff/dlatch cell: $_DLATCH_PP1_
+    unmapped dff/dlatch cell: $_DLATCHSR_NNN_
+    unmapped dff/dlatch cell: $_DLATCHSR_NNP_
+    unmapped dff/dlatch cell: $_DLATCHSR_NPN_
+    unmapped dff/dlatch cell: $_DLATCHSR_NPP_
+    unmapped dff/dlatch cell: $_DLATCHSR_PNN_
+    unmapped dff/dlatch cell: $_DLATCHSR_PNP_
+    unmapped dff/dlatch cell: $_DLATCHSR_PPN_
+    unmapped dff/dlatch cell: $_DLATCHSR_PPP_
+
+4.1. Executing DFFLEGALIZE pass (convert FFs and LATCHes to types supported by the target).
+<suppressed ~4 debug messages>
+Mapping DFF/DLATCH cells in module `\muldiv':
+  mapped 336 $_DFF_PN0_ cells to \sg13g2_dfrbpq_1 cells.
+
+5. Executing ABC pass (technology mapping using ABC).
+
+5.1. Extracting gate netlist of module `\muldiv' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: /tmp/yosys-liberty-scl-cache-1000/yosys_merged_0a0e92c0.scl (1 files)
+
+5.1.1. Executed ABC.
+Extracted 55556 gates and 56027 wires to a netlist network with 469 inputs and 337 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl /tmp/yosys-liberty-scl-cache-1000/yosys_merged_0a0e92c0.scl 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+5.1.2. Re-integrating ABC results.
+ABC RESULTS:     sg13g2_a21o_1 cells:     2487
+ABC RESULTS:    sg13g2_a21oi_1 cells:     3089
+ABC RESULTS:   sg13g2_a221oi_1 cells:      100
+ABC RESULTS:    sg13g2_a22oi_1 cells:     1014
+ABC RESULTS:     sg13g2_and2_1 cells:     1626
+ABC RESULTS:     sg13g2_and3_1 cells:      592
+ABC RESULTS:     sg13g2_and4_1 cells:       78
+ABC RESULTS:      sg13g2_inv_1 cells:     1086
+ABC RESULTS:     sg13g2_mux2_1 cells:       36
+ABC RESULTS:    sg13g2_nand2_1 cells:     6488
+ABC RESULTS:   sg13g2_nand2b_1 cells:     3794
+ABC RESULTS:    sg13g2_nand3_1 cells:     2330
+ABC RESULTS:   sg13g2_nand3b_1 cells:       41
+ABC RESULTS:    sg13g2_nand4_1 cells:      154
+ABC RESULTS:     sg13g2_nor2_1 cells:     2930
+ABC RESULTS:    sg13g2_nor2b_1 cells:     2076
+ABC RESULTS:     sg13g2_nor3_1 cells:     1735
+ABC RESULTS:     sg13g2_nor4_1 cells:       68
+ABC RESULTS:    sg13g2_o21ai_1 cells:     4748
+ABC RESULTS:      sg13g2_or2_1 cells:      916
+ABC RESULTS:      sg13g2_or3_1 cells:     1326
+ABC RESULTS:      sg13g2_or4_1 cells:        9
+ABC RESULTS:    sg13g2_xnor2_1 cells:     8151
+ABC RESULTS:     sg13g2_xor2_1 cells:     4851
+ABC RESULTS:        internal signals:    55221
+ABC RESULTS:           input signals:      469
+ABC RESULTS:          output signals:      337
+Removing temp directory.
+Removing global temp directory.
+
+6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \muldiv..
+Removed 0 unused cells and 55989 unused wires.
+<suppressed ~1 debug messages>
+
+7. Printing statistics.
+
+=== muldiv ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+    49756        - wires
+    50965        - wire bits
+       32        - public wires
+     1241        - public wire bits
+       10        - ports
+      201        - port bits
+    50061 5.37E+05 cells
+     2487 3.16E+04   sg13g2_a21o_1
+     3089  2.8E+04   sg13g2_a21oi_1
+      100  1451.52   sg13g2_a221oi_1
+     1014  1.1E+04   sg13g2_a22oi_1
+     1626 1.48E+04   sg13g2_and2_1
+      592 7.52E+03   sg13g2_and3_1
+       78 1.13E+03   sg13g2_and4_1
+      336 1.65E+04   sg13g2_dfrbpq_1
+     1086 5.91E+03   sg13g2_inv_1
+       36  653.184   sg13g2_mux2_1
+     6488 4.71E+04   sg13g2_nand2_1
+     3794 3.44E+04   sg13g2_nand2b_1
+     2330 2.11E+04   sg13g2_nand3_1
+       41  520.733   sg13g2_nand3b_1
+      154 1.68E+03   sg13g2_nand4_1
+     2930 2.13E+04   sg13g2_nor2_1
+     2076 1.88E+04   sg13g2_nor2b_1
+     1735 1.57E+04   sg13g2_nor3_1
+       68  740.275   sg13g2_nor4_1
+     4748 4.31E+04   sg13g2_o21ai_1
+      916 8.31E+03   sg13g2_or2_1
+     1326 1.68E+04   sg13g2_or3_1
+        9  130.637   sg13g2_or4_1
+     8151 1.18E+05   sg13g2_xnor2_1
+     4851 7.04E+04   sg13g2_xor2_1
+
+   Chip area for module '\muldiv': 536991.411600
+     of which used for sequential elements: 16460.236800 (3.07%)
+
+8. Executing Verilog backend.
+
+8.1. Executing BMUXMAP pass.
+
+8.2. Executing DEMUXMAP pass.
+Dumping module `\muldiv'.
+
+9. Executing JSON backend.
+
+End of script. Logfile hash: fd99a101ee, time: 439.76s, user: 9.41s, system: 0.46s, MEM: 348.55 MB peak
+Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)
+Time spent: 98% 2x abc (432 sec), 0% 30x opt_expr (2 sec), ...
+--- alu ---
+3.25. Printing statistics.
+
+=== alu ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     3168 wires
+     3360 wire bits
+        5 public wires
+      197 public wire bits
+        5 ports
+      197 port bits
+     3227 cells
+       94   $_ANDNOT_
+      771   $_AND_
+      565   $_MUX_
+     1050   $_NAND_
+       26   $_NOR_
+       37   $_NOT_
+      251   $_ORNOT_
+      317   $_OR_
+       48   $_XNOR_
+       68   $_XOR_
+
+3.26. Executing CHECK pass (checking for obvious problems).
+Checking module alu...
+Found and reported 0 problems.
+
+4. Executing DFFLIBMAP pass (mapping DFF/DLATCH cells to sequential cells from liberty file).
+  cell sg13g2_dfrbpq_1 (noninv, pins=4, area=48.99) is a direct match for cell type $_DFF_PN0_.
+  cell sg13g2_dlhq_1 (noninv, pins=3, area=30.84) is a direct match for cell type $_DLATCH_P_.
+  cell sg13g2_dllrq_1 (noninv, pins=4, area=29.03) is a direct match for cell type $_DLATCH_NN0_.
+  cell sg13g2_dlhrq_1 (noninv, pins=4, area=27.22) is a direct match for cell type $_DLATCH_PN0_.
+  final dff/dlatch cell mappings:
+    unmapped dff/dlatch cell: $_DFF_N_
+    unmapped dff/dlatch cell: $_DFF_P_
+    unmapped dff/dlatch cell: $_DFF_NN0_
+    unmapped dff/dlatch cell: $_DFF_NN1_
+    unmapped dff/dlatch cell: $_DFF_NP0_
+    unmapped dff/dlatch cell: $_DFF_NP1_
+    \sg13g2_dfrbpq_1 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DFF_PN1_
+    unmapped dff/dlatch cell: $_DFF_PP0_
+    unmapped dff/dlatch cell: $_DFF_PP1_
+    unmapped dff/dlatch cell: $_DFFE_NN_
+    unmapped dff/dlatch cell: $_DFFE_NP_
+    unmapped dff/dlatch cell: $_DFFE_PN_
+    unmapped dff/dlatch cell: $_DFFE_PP_
+    unmapped dff/dlatch cell: $_DFFSR_NNN_
+    unmapped dff/dlatch cell: $_DFFSR_NNP_
+    unmapped dff/dlatch cell: $_DFFSR_NPN_
+    unmapped dff/dlatch cell: $_DFFSR_NPP_
+    unmapped dff/dlatch cell: $_DFFSR_PNN_
+    unmapped dff/dlatch cell: $_DFFSR_PNP_
+    unmapped dff/dlatch cell: $_DFFSR_PPN_
+    unmapped dff/dlatch cell: $_DFFSR_PPP_
+    unmapped dff/dlatch cell: $_DLATCH_N_
+    \sg13g2_dlhq_1 _DLATCH_P_ (.D( D), .GATE( E), .Q( Q));
+    \sg13g2_dllrq_1 _DLATCH_NN0_ (.D( D), .GATE_N( E), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DLATCH_NN1_
+    unmapped dff/dlatch cell: $_DLATCH_NP0_
+    unmapped dff/dlatch cell: $_DLATCH_NP1_
+    \sg13g2_dlhrq_1 _DLATCH_PN0_ (.D( D), .GATE( E), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DLATCH_PN1_
+    unmapped dff/dlatch cell: $_DLATCH_PP0_
+    unmapped dff/dlatch cell: $_DLATCH_PP1_
+    unmapped dff/dlatch cell: $_DLATCHSR_NNN_
+    unmapped dff/dlatch cell: $_DLATCHSR_NNP_
+    unmapped dff/dlatch cell: $_DLATCHSR_NPN_
+    unmapped dff/dlatch cell: $_DLATCHSR_NPP_
+    unmapped dff/dlatch cell: $_DLATCHSR_PNN_
+    unmapped dff/dlatch cell: $_DLATCHSR_PNP_
+    unmapped dff/dlatch cell: $_DLATCHSR_PPN_
+    unmapped dff/dlatch cell: $_DLATCHSR_PPP_
+
+4.1. Executing DFFLEGALIZE pass (convert FFs and LATCHes to types supported by the target).
+<suppressed ~4 debug messages>
+Mapping DFF/DLATCH cells in module `\alu':
+
+5. Executing ABC pass (technology mapping using ABC).
+
+5.1. Extracting gate netlist of module `\alu' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: /tmp/yosys-liberty-scl-cache-1000/yosys_merged_0a0e92c0.scl (1 files)
+
+5.1.1. Executed ABC.
+Extracted 3227 gates and 3360 wires to a netlist network with 133 inputs and 64 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl /tmp/yosys-liberty-scl-cache-1000/yosys_merged_0a0e92c0.scl 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+5.1.2. Re-integrating ABC results.
+ABC RESULTS:     sg13g2_a21o_1 cells:       52
+ABC RESULTS:    sg13g2_a21oi_1 cells:      337
+ABC RESULTS:   sg13g2_a221oi_1 cells:      110
+ABC RESULTS:    sg13g2_a22oi_1 cells:      107
+ABC RESULTS:     sg13g2_and2_1 cells:      104
+ABC RESULTS:     sg13g2_and3_1 cells:        9
+ABC RESULTS:     sg13g2_and4_1 cells:        1
+ABC RESULTS:      sg13g2_inv_1 cells:       71
+ABC RESULTS:     sg13g2_mux2_1 cells:       87
+ABC RESULTS:     sg13g2_mux4_1 cells:       27
+ABC RESULTS:    sg13g2_nand2_1 cells:      371
+ABC RESULTS:   sg13g2_nand2b_1 cells:       73
+ABC RESULTS:    sg13g2_nand3_1 cells:       92
+ABC RESULTS:   sg13g2_nand3b_1 cells:        7
+ABC RESULTS:    sg13g2_nand4_1 cells:       11
+ABC RESULTS:     sg13g2_nor2_1 cells:      309
+ABC RESULTS:    sg13g2_nor2b_1 cells:       59
+ABC RESULTS:     sg13g2_nor3_1 cells:       60
+ABC RESULTS:     sg13g2_nor4_1 cells:       14
+ABC RESULTS:    sg13g2_o21ai_1 cells:      462
+ABC RESULTS:      sg13g2_or2_1 cells:       64
+ABC RESULTS:      sg13g2_or3_1 cells:        7
+ABC RESULTS:      sg13g2_or4_1 cells:        4
+ABC RESULTS:    sg13g2_xnor2_1 cells:       53
+ABC RESULTS:     sg13g2_xor2_1 cells:       23
+ABC RESULTS:        internal signals:     3163
+ABC RESULTS:           input signals:      133
+ABC RESULTS:          output signals:       64
+Removing temp directory.
+Removing global temp directory.
+
+6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \alu..
+Removed 0 unused cells and 3360 unused wires.
+<suppressed ~1 debug messages>
+
+7. Printing statistics.
+
+=== alu ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     2455        - wires
+     2647        - wire bits
+        5        - public wires
+      197        - public wire bits
+        5        - ports
+      197        - port bits
+     2514 2.44E+04 cells
+       52  660.442   sg13g2_a21o_1
+      337 3.06E+03   sg13g2_a21oi_1
+      110  1.6E+03   sg13g2_a221oi_1
+      107   1160.8   sg13g2_a22oi_1
+      104  943.488   sg13g2_and2_1
+        9  114.307   sg13g2_and3_1
+        1   14.515   sg13g2_and4_1
+       71  386.467   sg13g2_inv_1
+       87 1.58E+03   sg13g2_mux2_1
+       27 1.03E+03   sg13g2_mux4_1
+      371  2692.57   sg13g2_nand2_1
+       73  662.256   sg13g2_nand2b_1
+       92  834.624   sg13g2_nand3_1
+        7   88.906   sg13g2_nand3b_1
+       11   119.75   sg13g2_nand4_1
+      309 2.24E+03   sg13g2_nor2_1
+       59  535.248   sg13g2_nor2b_1
+       60   544.32   sg13g2_nor3_1
+       14   152.41   sg13g2_nor4_1
+      462 4.19E+03   sg13g2_o21ai_1
+       64  580.608   sg13g2_or2_1
+        7   88.906   sg13g2_or3_1
+        4   58.061   sg13g2_or4_1
+       53  769.306   sg13g2_xnor2_1
+       23   333.85   sg13g2_xor2_1
+
+   Chip area for module '\alu': 24435.923400
+     of which used for sequential elements: 0.000000 (0.00%)
+
+8. Executing Verilog backend.
+
+8.1. Executing BMUXMAP pass.
+
+8.2. Executing DEMUXMAP pass.
+Dumping module `\alu'.
+
+9. Executing JSON backend.
+
+End of script. Logfile hash: 5dddfb8098, time: 0.88s, user: 0.22s, system: 0.04s, MEM: 38.22 MB peak
+Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)
+Time spent: 69% 2x abc (0 sec), 5% 1x techmap (0 sec), ...
+--- rob ---
+3.25. Printing statistics.
+
+=== rob ===
+
+        +----------Local Count, excluding submodules.
+        | 
+    22899 wires
+    28123 wire bits
+      362 public wires
+     5568 public wire bits
+       31 ports
+      588 port bits
+    27678 cells
+      717   $_ANDNOT_
+     4465   $_AND_
+     4800   $_DFFE_PP_
+       64   $_DFF_P_
+     6225   $_MUX_
+     9881   $_NAND_
+      224   $_NOR_
+       76   $_NOT_
+      560   $_ORNOT_
+      574   $_OR_
+       16   $_SDFF_PP0_
+       50   $_XNOR_
+       26   $_XOR_
+
+3.26. Executing CHECK pass (checking for obvious problems).
+Checking module rob...
+Found and reported 0 problems.
+
+4. Executing DFFLIBMAP pass (mapping DFF/DLATCH cells to sequential cells from liberty file).
+  cell sg13g2_dfrbpq_1 (noninv, pins=4, area=48.99) is a direct match for cell type $_DFF_PN0_.
+  cell sg13g2_dlhq_1 (noninv, pins=3, area=30.84) is a direct match for cell type $_DLATCH_P_.
+  cell sg13g2_dllrq_1 (noninv, pins=4, area=29.03) is a direct match for cell type $_DLATCH_NN0_.
+  cell sg13g2_dlhrq_1 (noninv, pins=4, area=27.22) is a direct match for cell type $_DLATCH_PN0_.
+  final dff/dlatch cell mappings:
+    unmapped dff/dlatch cell: $_DFF_N_
+    unmapped dff/dlatch cell: $_DFF_P_
+    unmapped dff/dlatch cell: $_DFF_NN0_
+    unmapped dff/dlatch cell: $_DFF_NN1_
+    unmapped dff/dlatch cell: $_DFF_NP0_
+    unmapped dff/dlatch cell: $_DFF_NP1_
+    \sg13g2_dfrbpq_1 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DFF_PN1_
+    unmapped dff/dlatch cell: $_DFF_PP0_
+    unmapped dff/dlatch cell: $_DFF_PP1_
+    unmapped dff/dlatch cell: $_DFFE_NN_
+    unmapped dff/dlatch cell: $_DFFE_NP_
+    unmapped dff/dlatch cell: $_DFFE_PN_
+    unmapped dff/dlatch cell: $_DFFE_PP_
+    unmapped dff/dlatch cell: $_DFFSR_NNN_
+    unmapped dff/dlatch cell: $_DFFSR_NNP_
+    unmapped dff/dlatch cell: $_DFFSR_NPN_
+    unmapped dff/dlatch cell: $_DFFSR_NPP_
+    unmapped dff/dlatch cell: $_DFFSR_PNN_
+    unmapped dff/dlatch cell: $_DFFSR_PNP_
+    unmapped dff/dlatch cell: $_DFFSR_PPN_
+    unmapped dff/dlatch cell: $_DFFSR_PPP_
+    unmapped dff/dlatch cell: $_DLATCH_N_
+    \sg13g2_dlhq_1 _DLATCH_P_ (.D( D), .GATE( E), .Q( Q));
+    \sg13g2_dllrq_1 _DLATCH_NN0_ (.D( D), .GATE_N( E), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DLATCH_NN1_
+    unmapped dff/dlatch cell: $_DLATCH_NP0_
+    unmapped dff/dlatch cell: $_DLATCH_NP1_
+    \sg13g2_dlhrq_1 _DLATCH_PN0_ (.D( D), .GATE( E), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DLATCH_PN1_
+    unmapped dff/dlatch cell: $_DLATCH_PP0_
+    unmapped dff/dlatch cell: $_DLATCH_PP1_
+    unmapped dff/dlatch cell: $_DLATCHSR_NNN_
+    unmapped dff/dlatch cell: $_DLATCHSR_NNP_
+    unmapped dff/dlatch cell: $_DLATCHSR_NPN_
+    unmapped dff/dlatch cell: $_DLATCHSR_NPP_
+    unmapped dff/dlatch cell: $_DLATCHSR_PNN_
+    unmapped dff/dlatch cell: $_DLATCHSR_PNP_
+    unmapped dff/dlatch cell: $_DLATCHSR_PPN_
+    unmapped dff/dlatch cell: $_DLATCHSR_PPP_
+
+4.1. Executing DFFLEGALIZE pass (convert FFs and LATCHes to types supported by the target).
+<suppressed ~4 debug messages>
+Mapping DFF/DLATCH cells in module `\rob':
+  mapped 4880 $_DFF_PN0_ cells to \sg13g2_dfrbpq_1 cells.
+
+5. Executing ABC pass (technology mapping using ABC).
+
+5.1. Extracting gate netlist of module `\rob' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: /tmp/yosys-liberty-scl-cache-1000/yosys_merged_0a0e92c0.scl (1 files)
+
+5.1.1. Executed ABC.
+Extracted 27614 gates and 32810 wires to a netlist network with 5195 inputs and 5134 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl /tmp/yosys-liberty-scl-cache-1000/yosys_merged_0a0e92c0.scl 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+5.1.2. Re-integrating ABC results.
+ABC RESULTS:     sg13g2_a21o_1 cells:      147
+ABC RESULTS:    sg13g2_a21oi_1 cells:     2962
+ABC RESULTS:   sg13g2_a221oi_1 cells:      398
+ABC RESULTS:    sg13g2_a22oi_1 cells:     6775
+ABC RESULTS:     sg13g2_and2_1 cells:      177
+ABC RESULTS:     sg13g2_and3_1 cells:       38
+ABC RESULTS:     sg13g2_and4_1 cells:        5
+ABC RESULTS:      sg13g2_inv_1 cells:     3479
+ABC RESULTS:     sg13g2_mux2_1 cells:       66
+ABC RESULTS:     sg13g2_mux4_1 cells:      394
+ABC RESULTS:    sg13g2_nand2_1 cells:     4693
+ABC RESULTS:   sg13g2_nand2b_1 cells:       60
+ABC RESULTS:    sg13g2_nand3_1 cells:      778
+ABC RESULTS:   sg13g2_nand3b_1 cells:        7
+ABC RESULTS:    sg13g2_nand4_1 cells:       16
+ABC RESULTS:     sg13g2_nor2_1 cells:     2942
+ABC RESULTS:    sg13g2_nor2b_1 cells:       52
+ABC RESULTS:     sg13g2_nor3_1 cells:     1023
+ABC RESULTS:     sg13g2_nor4_1 cells:      157
+ABC RESULTS:    sg13g2_o21ai_1 cells:     2170
+ABC RESULTS:      sg13g2_or2_1 cells:       29
+ABC RESULTS:      sg13g2_or3_1 cells:       15
+ABC RESULTS:      sg13g2_or4_1 cells:        2
+ABC RESULTS:    sg13g2_xnor2_1 cells:       73
+ABC RESULTS:     sg13g2_xor2_1 cells:       13
+ABC RESULTS:        internal signals:    22481
+ABC RESULTS:           input signals:     5195
+ABC RESULTS:          output signals:     5134
+Removing temp directory.
+Removing global temp directory.
+
+6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rob..
+Removed 0 unused cells and 32802 unused wires.
+<suppressed ~1 debug messages>
+
+7. Printing statistics.
+
+=== rob ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+    26579        - wires
+    31785        - wire bits
+      362        - public wires
+     5568        - public wire bits
+       31        - ports
+      588        - port bits
+    31351 4.81E+05 cells
+      147 1.87E+03   sg13g2_a21o_1
+     2962 2.69E+04   sg13g2_a21oi_1
+      398  5777.05   sg13g2_a221oi_1
+     6775 7.35E+04   sg13g2_a22oi_1
+      177 1.61E+03   sg13g2_and2_1
+       38   482.63   sg13g2_and3_1
+        5   72.576   sg13g2_and4_1
+     4880 2.39E+05   sg13g2_dfrbpq_1
+     3479 1.89E+04   sg13g2_inv_1
+       66  1.2E+03   sg13g2_mux2_1
+      394  1.5E+04   sg13g2_mux4_1
+     4693 3.41E+04   sg13g2_nand2_1
+       60   544.32   sg13g2_nand2b_1
+      778 7.06E+03   sg13g2_nand3_1
+        7   88.906   sg13g2_nand3b_1
+       16  174.182   sg13g2_nand4_1
+     2942 2.14E+04   sg13g2_nor2_1
+       52  471.744   sg13g2_nor2b_1
+     1023 9.28E+03   sg13g2_nor3_1
+      157 1.71E+03   sg13g2_nor4_1
+     2170 1.97E+04   sg13g2_o21ai_1
+       29  263.088   sg13g2_or2_1
+       15  190.512   sg13g2_or3_1
+        2    29.03   sg13g2_or4_1
+       73  1059.61   sg13g2_xnor2_1
+       13  188.698   sg13g2_xor2_1
+
+   Chip area for module '\rob': 480543.575400
+     of which used for sequential elements: 239065.344000 (49.75%)
+
+8. Executing Verilog backend.
+
+8.1. Executing BMUXMAP pass.
+
+8.2. Executing DEMUXMAP pass.
+Dumping module `\rob'.
+
+9. Executing JSON backend.
+
+End of script. Logfile hash: 02033abd5e, time: 6.76s, user: 2.00s, system: 0.14s, MEM: 132.65 MB peak
+Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)
+Time spent: 73% 2x abc (4 sec), 6% 27x opt_clean (0 sec), ...
+--- rename ---
+9. Printing statistics.
+
+=== rename ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      168        - wires
+      321        - wire bits
+       52        - public wires
+      205        - public wire bits
+       36        - ports
+      134        - port bits
+      169  2.2E+03 cells
+        1   12.701   sg13g2_a21o_1
+       10    90.72   sg13g2_a21oi_1
+        2    29.03   sg13g2_a221oi_1
+        2   21.697   sg13g2_a22oi_1
+       17  154.224   sg13g2_and2_1
+        3   38.102   sg13g2_and3_1
+        1   14.515   sg13g2_and4_1
+        7  342.922   sg13g2_dfrbpq_1
+        9   48.989   sg13g2_inv_1
+       22  399.168   sg13g2_mux2_1
+        4    29.03   sg13g2_nand2_1
+        5    45.36   sg13g2_nand2b_1
+        5    45.36   sg13g2_nand3_1
+        3   32.659   sg13g2_nand4_1
+        8   58.061   sg13g2_nor2_1
+        8   72.576   sg13g2_nor2b_1
+        8   72.576   sg13g2_nor3_1
+        8   87.091   sg13g2_nor4_1
+        7   63.504   sg13g2_o21ai_1
+        4   36.288   sg13g2_or2_1
+        2   25.402   sg13g2_or3_1
+        1   14.515   sg13g2_or4_1
+       19  275.789   sg13g2_xnor2_1
+       13  188.698   sg13g2_xor2_1
+        2        - submodules
+        1        -   $paramod$7a9c93ef556ab733d78c737e48b554af5759dabc\free_list
+        1        -   $paramod\rename_map\N_CKPT=s32'00000000000000000000000000001000
+
+   Chip area for module '\rename': 2198.977200
+     of which used for sequential elements: 342.921600 (15.59%)
+
+=== $paramod$7a9c93ef556ab733d78c737e48b554af5759dabc\free_list ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     1340        - wires
+     1620        - wire bits
+       64        - public wires
+      344        - public wire bits
+       17        - ports
+       52        - port bits
+     1570 2.95E+04 cells
+        7   88.906   sg13g2_a21o_1
+       57  517.104   sg13g2_a21oi_1
+      127  1843.43   sg13g2_a221oi_1
+      152 1.65E+03   sg13g2_a22oi_1
+       32  290.304   sg13g2_and2_1
+      280 1.37E+04   sg13g2_dfrbpq_1
+       66  359.251   sg13g2_inv_1
+       23  417.312   sg13g2_mux2_1
+      123 4.69E+03   sg13g2_mux4_1
+      225  1632.96   sg13g2_nand2_1
+       19  172.368   sg13g2_nand2b_1
+       14  127.008   sg13g2_nand3_1
+        1   10.886   sg13g2_nand4_1
+      155 1.12E+03   sg13g2_nor2_1
+       67  607.824   sg13g2_nor2b_1
+       43  390.096   sg13g2_nor3_1
+        1   10.886   sg13g2_nor4_1
+      110   997.92   sg13g2_o21ai_1
+       15   136.08   sg13g2_or2_1
+       13   165.11   sg13g2_or3_1
+        1   14.515   sg13g2_or4_1
+       32  464.486   sg13g2_xnor2_1
+        7  101.606   sg13g2_xor2_1
+
+   Chip area for module '$paramod$7a9c93ef556ab733d78c737e48b554af5759dabc\free_list': 29525.428800
+     of which used for sequential elements: 13716.864000 (46.46%)
+
+=== $paramod\rename_map\N_CKPT=s32'00000000000000000000000000001000 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     7730        - wires
+     9544        - wire bits
+      314        - public wires
+     2128        - public wire bits
+       26        - ports
+      112        - port bits
+     9474 1.92E+05 cells
+        4   50.803   sg13g2_a21o_1
+      207 1.88E+03   sg13g2_a21oi_1
+     1753 2.54E+04   sg13g2_a221oi_1
+       36   390.55   sg13g2_a22oi_1
+       54  489.888   sg13g2_and2_1
+       24  304.819   sg13g2_and3_1
+       54  783.821   sg13g2_and4_1
+     2016 9.88E+04   sg13g2_dfrbpq_1
+      342 1.86E+03   sg13g2_inv_1
+      578 1.05E+04   sg13g2_mux2_1
+      448 1.71E+04   sg13g2_mux4_1
+       78  566.093   sg13g2_nand2_1
+       11   99.792   sg13g2_nand2b_1
+      327 2.97E+03   sg13g2_nand3_1
+     1219 1.33E+04   sg13g2_nand4_1
+     1793  1.3E+04   sg13g2_nor2_1
+       41  371.952   sg13g2_nor2b_1
+       35   317.52   sg13g2_nor3_1
+       85  925.344   sg13g2_nor4_1
+      365  3311.28   sg13g2_o21ai_1
+        4   36.288   sg13g2_or2_1
+
+   Chip area for module '$paramod\rename_map\N_CKPT=s32'00000000000000000000000000001000': 192401.244000
+     of which used for sequential elements: 98761.420800 (51.33%)
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        |        +-Area including submodules.
+        |        | 
+    11213 2.24E+05 rename
+     1570 2.95E+04 $paramod$7a9c93ef556ab733d78c737e48b554af5759dabc\free_list
+     9474 1.92E+05 $paramod\rename_map\N_CKPT=s32'00000000000000000000000000001000
+
+        +----------Count including submodules.
+        |        +-Area including submodules.
+        |        | 
+     9238        - wires
+    11485        - wire bits
+      430        - public wires
+     2677        - public wire bits
+       79        - ports
+      298        - port bits
+        -        - memories
+        -        - memory bits
+        -        - processes
+    11213 2.24E+05 cells
+       12   152.41   sg13g2_a21o_1
+      274 2.49E+03   sg13g2_a21oi_1
+     1882 2.73E+04   sg13g2_a221oi_1
+      190 2.06E+03   sg13g2_a22oi_1
+      103  934.416   sg13g2_and2_1
+       27  342.922   sg13g2_and3_1
+       55  798.336   sg13g2_and4_1
+     2303 1.13E+05   sg13g2_dfrbpq_1
+      417 2.27E+03   sg13g2_inv_1
+      623 1.13E+04   sg13g2_mux2_1
+      571 2.18E+04   sg13g2_mux4_1
+      307 2.23E+03   sg13g2_nand2_1
+       35   317.52   sg13g2_nand2b_1
+      346 3.14E+03   sg13g2_nand3_1
+     1223 1.33E+04   sg13g2_nand4_1
+     1956 1.42E+04   sg13g2_nor2_1
+      116 1.05E+03   sg13g2_nor2b_1
+       86  780.192   sg13g2_nor3_1
+       94 1.02E+03   sg13g2_nor4_1
+      482 4.37E+03   sg13g2_o21ai_1
+       23  208.656   sg13g2_or2_1
+       15  190.512   sg13g2_or3_1
+        2    29.03   sg13g2_or4_1
+       51  740.275   sg13g2_xnor2_1
+       20  290.304   sg13g2_xor2_1
+        2 2.22E+05 submodules
+        1 2.95E+04   $paramod$7a9c93ef556ab733d78c737e48b554af5759dabc\free_list
+        1 1.92E+05   $paramod\rename_map\N_CKPT=s32'00000000000000000000000000001000
+
+   Chip area for top module '\rename': 224125.650000
+     of which used for sequential elements: 112821.206400 (50.34%)
+
+10. Executing Verilog backend.
+
+10.1. Executing BMUXMAP pass.
+
+10.2. Executing DEMUXMAP pass.
+Dumping module `$paramod$7a9c93ef556ab733d78c737e48b554af5759dabc\free_list'.
+Dumping module `$paramod\rename_map\N_CKPT=s32'00000000000000000000000000001000'.
+Dumping module `\rename'.
+
+11. Executing JSON backend.
+
+Warnings: 3 unique messages, 6 total
+End of script. Logfile hash: a63f63a7b2, time: 6.23s, user: 3.42s, system: 0.14s, MEM: 156.12 MB peak
+Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)
+Time spent: 42% 2x abc (2 sec), 10% 29x opt_expr (0 sec), ...
+--- prf ---
+3.25. Printing statistics.
+
+=== prf ===
+
+        +----------Local Count, excluding submodules.
+        | 
+    26235 wires
+    30681 wire bits
+       79 public wires
+     4525 public wire bits
+       15 ports
+      429 port bits
+    30508 cells
+       43   $_ANDNOT_
+     3394   $_AND_
+     4096   $_DFFE_PP_
+    16391   $_MUX_
+     5827   $_NAND_
+      139   $_NOR_
+      263   $_ORNOT_
+      355   $_OR_
+
+3.26. Executing CHECK pass (checking for obvious problems).
+Checking module prf...
+Found and reported 0 problems.
+
+4. Executing DFFLIBMAP pass (mapping DFF/DLATCH cells to sequential cells from liberty file).
+  cell sg13g2_dfrbpq_1 (noninv, pins=4, area=48.99) is a direct match for cell type $_DFF_PN0_.
+  cell sg13g2_dlhq_1 (noninv, pins=3, area=30.84) is a direct match for cell type $_DLATCH_P_.
+  cell sg13g2_dllrq_1 (noninv, pins=4, area=29.03) is a direct match for cell type $_DLATCH_NN0_.
+  cell sg13g2_dlhrq_1 (noninv, pins=4, area=27.22) is a direct match for cell type $_DLATCH_PN0_.
+  final dff/dlatch cell mappings:
+    unmapped dff/dlatch cell: $_DFF_N_
+    unmapped dff/dlatch cell: $_DFF_P_
+    unmapped dff/dlatch cell: $_DFF_NN0_
+    unmapped dff/dlatch cell: $_DFF_NN1_
+    unmapped dff/dlatch cell: $_DFF_NP0_
+    unmapped dff/dlatch cell: $_DFF_NP1_
+    \sg13g2_dfrbpq_1 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DFF_PN1_
+    unmapped dff/dlatch cell: $_DFF_PP0_
+    unmapped dff/dlatch cell: $_DFF_PP1_
+    unmapped dff/dlatch cell: $_DFFE_NN_
+    unmapped dff/dlatch cell: $_DFFE_NP_
+    unmapped dff/dlatch cell: $_DFFE_PN_
+    unmapped dff/dlatch cell: $_DFFE_PP_
+    unmapped dff/dlatch cell: $_DFFSR_NNN_
+    unmapped dff/dlatch cell: $_DFFSR_NNP_
+    unmapped dff/dlatch cell: $_DFFSR_NPN_
+    unmapped dff/dlatch cell: $_DFFSR_NPP_
+    unmapped dff/dlatch cell: $_DFFSR_PNN_
+    unmapped dff/dlatch cell: $_DFFSR_PNP_
+    unmapped dff/dlatch cell: $_DFFSR_PPN_
+    unmapped dff/dlatch cell: $_DFFSR_PPP_
+    unmapped dff/dlatch cell: $_DLATCH_N_
+    \sg13g2_dlhq_1 _DLATCH_P_ (.D( D), .GATE( E), .Q( Q));
+    \sg13g2_dllrq_1 _DLATCH_NN0_ (.D( D), .GATE_N( E), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DLATCH_NN1_
+    unmapped dff/dlatch cell: $_DLATCH_NP0_
+    unmapped dff/dlatch cell: $_DLATCH_NP1_
+    \sg13g2_dlhrq_1 _DLATCH_PN0_ (.D( D), .GATE( E), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DLATCH_PN1_
+    unmapped dff/dlatch cell: $_DLATCH_PP0_
+    unmapped dff/dlatch cell: $_DLATCH_PP1_
+    unmapped dff/dlatch cell: $_DLATCHSR_NNN_
+    unmapped dff/dlatch cell: $_DLATCHSR_NNP_
+    unmapped dff/dlatch cell: $_DLATCHSR_NPN_
+    unmapped dff/dlatch cell: $_DLATCHSR_NPP_
+    unmapped dff/dlatch cell: $_DLATCHSR_PNN_
+    unmapped dff/dlatch cell: $_DLATCHSR_PNP_
+    unmapped dff/dlatch cell: $_DLATCHSR_PPN_
+    unmapped dff/dlatch cell: $_DLATCHSR_PPP_
+
+4.1. Executing DFFLEGALIZE pass (convert FFs and LATCHes to types supported by the target).
+<suppressed ~4 debug messages>
+Mapping DFF/DLATCH cells in module `\prf':
+  mapped 4096 $_DFF_PN0_ cells to \sg13g2_dfrbpq_1 cells.
+
+5. Executing ABC pass (technology mapping using ABC).
+
+5.1. Extracting gate netlist of module `\prf' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: /tmp/yosys-liberty-scl-cache-1000/yosys_merged_0a0e92c0.scl (1 files)
+
+5.1.1. Executed ABC.
+Extracted 30508 gates and 34776 wires to a netlist network with 4268 inputs and 4352 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl /tmp/yosys-liberty-scl-cache-1000/yosys_merged_0a0e92c0.scl 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+5.1.2. Re-integrating ABC results.
+ABC RESULTS:     sg13g2_a21o_1 cells:      120
+ABC RESULTS:    sg13g2_a21oi_1 cells:     6392
+ABC RESULTS:   sg13g2_a221oi_1 cells:      742
+ABC RESULTS:    sg13g2_a22oi_1 cells:     1944
+ABC RESULTS:     sg13g2_and2_1 cells:     1711
+ABC RESULTS:     sg13g2_and3_1 cells:       18
+ABC RESULTS:     sg13g2_and4_1 cells:        2
+ABC RESULTS:      sg13g2_inv_1 cells:     1391
+ABC RESULTS:     sg13g2_mux2_1 cells:     2227
+ABC RESULTS:     sg13g2_mux4_1 cells:     3109
+ABC RESULTS:    sg13g2_nand2_1 cells:     2642
+ABC RESULTS:   sg13g2_nand2b_1 cells:      142
+ABC RESULTS:    sg13g2_nand3_1 cells:      233
+ABC RESULTS:   sg13g2_nand3b_1 cells:       12
+ABC RESULTS:    sg13g2_nand4_1 cells:       91
+ABC RESULTS:     sg13g2_nor2_1 cells:     2668
+ABC RESULTS:    sg13g2_nor2b_1 cells:     1086
+ABC RESULTS:     sg13g2_nor3_1 cells:       28
+ABC RESULTS:     sg13g2_nor4_1 cells:       69
+ABC RESULTS:    sg13g2_o21ai_1 cells:     2527
+ABC RESULTS:      sg13g2_or2_1 cells:      155
+ABC RESULTS:      sg13g2_or3_1 cells:       10
+ABC RESULTS:      sg13g2_or4_1 cells:        5
+ABC RESULTS:        internal signals:    26156
+ABC RESULTS:           input signals:     4268
+ABC RESULTS:          output signals:     4352
+Removing temp directory.
+Removing global temp directory.
+
+6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \prf..
+Removed 0 unused cells and 34776 unused wires.
+<suppressed ~1 debug messages>
+
+7. Printing statistics.
+
+=== prf ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+    27147        - wires
+    31593        - wire bits
+       79        - public wires
+     4525        - public wire bits
+       15        - ports
+      429        - port bits
+    31420 5.53E+05 cells
+      120 1.52E+03   sg13g2_a21o_1
+     6392  5.8E+04   sg13g2_a21oi_1
+      742 1.08E+04   sg13g2_a221oi_1
+     1944 2.11E+04   sg13g2_a22oi_1
+     1711 1.55E+04   sg13g2_and2_1
+       18  228.614   sg13g2_and3_1
+        2    29.03   sg13g2_and4_1
+     4096 2.01E+05   sg13g2_dfrbpq_1
+     1391 7.57E+03   sg13g2_inv_1
+     2227 4.04E+04   sg13g2_mux2_1
+     3109 1.18E+05   sg13g2_mux4_1
+     2642 1.92E+04   sg13g2_nand2_1
+      142 1.29E+03   sg13g2_nand2b_1
+      233 2.11E+03   sg13g2_nand3_1
+       12   152.41   sg13g2_nand3b_1
+       91  990.662   sg13g2_nand4_1
+     2668 1.94E+04   sg13g2_nor2_1
+     1086 9.85E+03   sg13g2_nor2b_1
+       28  254.016   sg13g2_nor3_1
+       69  751.162   sg13g2_nor4_1
+     2527 2.29E+04   sg13g2_o21ai_1
+      155  1406.16   sg13g2_or2_1
+       10  127.008   sg13g2_or3_1
+        5   72.576   sg13g2_or4_1
+
+   Chip area for module '\prf': 552719.764800
+     of which used for sequential elements: 200658.124800 (36.30%)
+
+8. Executing Verilog backend.
+
+8.1. Executing BMUXMAP pass.
+
+8.2. Executing DEMUXMAP pass.
+Dumping module `\prf'.
+
+9. Executing JSON backend.
+
+End of script. Logfile hash: ffddf183bc, time: 7.52s, user: 1.55s, system: 0.17s, MEM: 127.30 MB peak
+Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)
+Time spent: 82% 2x abc (5 sec), 5% 18x opt_clean (0 sec), ...
+--- lsq ---
+3.25. Printing statistics.
+
+=== lsq ===
+
+        +----------Local Count, excluding submodules.
+        | 
+   116455 wires
+   118651 wire bits
+      140 public wires
+     2314 public wire bits
+       38 ports
+      592 port bits
+   118304 cells
+     4153   $_ANDNOT_
+    32984   $_AND_
+     1656   $_DFFE_PP_
+       24   $_DFF_P_
+     9835   $_MUX_
+    38128   $_NAND_
+     2907   $_NOR_
+      224   $_NOT_
+    13966   $_ORNOT_
+     8940   $_OR_
+       20   $_SDFF_PP0_
+     3130   $_XNOR_
+     2337   $_XOR_
+
+3.26. Executing CHECK pass (checking for obvious problems).
+Checking module lsq...
+Found and reported 0 problems.
+
+4. Executing DFFLIBMAP pass (mapping DFF/DLATCH cells to sequential cells from liberty file).
+  cell sg13g2_dfrbpq_1 (noninv, pins=4, area=48.99) is a direct match for cell type $_DFF_PN0_.
+  cell sg13g2_dlhq_1 (noninv, pins=3, area=30.84) is a direct match for cell type $_DLATCH_P_.
+  cell sg13g2_dllrq_1 (noninv, pins=4, area=29.03) is a direct match for cell type $_DLATCH_NN0_.
+  cell sg13g2_dlhrq_1 (noninv, pins=4, area=27.22) is a direct match for cell type $_DLATCH_PN0_.
+  final dff/dlatch cell mappings:
+    unmapped dff/dlatch cell: $_DFF_N_
+    unmapped dff/dlatch cell: $_DFF_P_
+    unmapped dff/dlatch cell: $_DFF_NN0_
+    unmapped dff/dlatch cell: $_DFF_NN1_
+    unmapped dff/dlatch cell: $_DFF_NP0_
+    unmapped dff/dlatch cell: $_DFF_NP1_
+    \sg13g2_dfrbpq_1 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DFF_PN1_
+    unmapped dff/dlatch cell: $_DFF_PP0_
+    unmapped dff/dlatch cell: $_DFF_PP1_
+    unmapped dff/dlatch cell: $_DFFE_NN_
+    unmapped dff/dlatch cell: $_DFFE_NP_
+    unmapped dff/dlatch cell: $_DFFE_PN_
+    unmapped dff/dlatch cell: $_DFFE_PP_
+    unmapped dff/dlatch cell: $_DFFSR_NNN_
+    unmapped dff/dlatch cell: $_DFFSR_NNP_
+    unmapped dff/dlatch cell: $_DFFSR_NPN_
+    unmapped dff/dlatch cell: $_DFFSR_NPP_
+    unmapped dff/dlatch cell: $_DFFSR_PNN_
+    unmapped dff/dlatch cell: $_DFFSR_PNP_
+    unmapped dff/dlatch cell: $_DFFSR_PPN_
+    unmapped dff/dlatch cell: $_DFFSR_PPP_
+    unmapped dff/dlatch cell: $_DLATCH_N_
+    \sg13g2_dlhq_1 _DLATCH_P_ (.D( D), .GATE( E), .Q( Q));
+    \sg13g2_dllrq_1 _DLATCH_NN0_ (.D( D), .GATE_N( E), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DLATCH_NN1_
+    unmapped dff/dlatch cell: $_DLATCH_NP0_
+    unmapped dff/dlatch cell: $_DLATCH_NP1_
+    \sg13g2_dlhrq_1 _DLATCH_PN0_ (.D( D), .GATE( E), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DLATCH_PN1_
+    unmapped dff/dlatch cell: $_DLATCH_PP0_
+    unmapped dff/dlatch cell: $_DLATCH_PP1_
+    unmapped dff/dlatch cell: $_DLATCHSR_NNN_
+    unmapped dff/dlatch cell: $_DLATCHSR_NNP_
+    unmapped dff/dlatch cell: $_DLATCHSR_NPN_
+    unmapped dff/dlatch cell: $_DLATCHSR_NPP_
+    unmapped dff/dlatch cell: $_DLATCHSR_PNN_
+    unmapped dff/dlatch cell: $_DLATCHSR_PNP_
+    unmapped dff/dlatch cell: $_DLATCHSR_PPN_
+    unmapped dff/dlatch cell: $_DLATCHSR_PPP_
+
+4.1. Executing DFFLEGALIZE pass (convert FFs and LATCHes to types supported by the target).
+<suppressed ~4 debug messages>
+Mapping DFF/DLATCH cells in module `\lsq':
+  mapped 1700 $_DFF_PN0_ cells to \sg13g2_dfrbpq_1 cells.
+
+5. Executing ABC pass (technology mapping using ABC).
+
+5.1. Extracting gate netlist of module `\lsq' to `<abc-temp-dir>/input.blif'..
+--- l1d ---
+4.25. Printing statistics.
+
+=== l1d ===
+
+        +----------Local Count, excluding submodules.
+        | 
+   518117 wires
+   596984 wire bits
+      712 public wires
+    79172 public wire bits
+       26 ports
+     1462 port bits
+   593755 cells
+     1287   $_ANDNOT_
+   145376   $_AND_
+    74468   $_DFFE_PP_
+      320   $_DFF_P_
+   118322   $_MUX_
+   229340   $_NAND_
+     1096   $_NOR_
+      296   $_NOT_
+    10700   $_ORNOT_
+    12141   $_OR_
+        5   $_SDFFE_PN0N_
+      168   $_SDFFE_PN0P_
+       14   $_SDFF_PN0_
+       31   $_XNOR_
+      191   $_XOR_
+        1 submodules
+        1   $paramod$3b3ebe2a805de999e571f1f6aa39b69c15a9144c\mshr
+
+=== $paramod$3b3ebe2a805de999e571f1f6aa39b69c15a9144c\mshr ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     9342 wires
+    16709 wire bits
+       84 public wires
+     7449 public wire bits
+       35 ports
+     2530 port bits
+    15410 cells
+       18   $_ANDNOT_
+     3239   $_AND_
+     4902   $_DFFE_PP_
+       60   $_MUX_
+     6479   $_NAND_
+        3   $_NOR_
+       15   $_NOT_
+      357   $_ORNOT_
+       31   $_OR_
+       13   $_SDFFE_PP0P_
+      293   $_XNOR_
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        | 
+   609165 l1d
+    15410 $paramod$3b3ebe2a805de999e571f1f6aa39b69c15a9144c\mshr
+
+        +----------Count including submodules.
+        | 
+   527459 wires
+   613693 wire bits
+      796 public wires
+    86621 public wire bits
+       61 ports
+     3992 port bits
+        - memories
+        - memory bits
+        - processes
+   609165 cells
+     1305   $_ANDNOT_
+   148615   $_AND_
+    79370   $_DFFE_PP_
+      320   $_DFF_P_
+   118382   $_MUX_
+   235819   $_NAND_
+     1099   $_NOR_
+      311   $_NOT_
+    11057   $_ORNOT_
+    12172   $_OR_
+        5   $_SDFFE_PN0N_
+      168   $_SDFFE_PN0P_
+       13   $_SDFFE_PP0P_
+       14   $_SDFF_PN0_
+      324   $_XNOR_
+      191   $_XOR_
+        1 submodules
+        1   $paramod$3b3ebe2a805de999e571f1f6aa39b69c15a9144c\mshr
+
+4.26. Executing CHECK pass (checking for obvious problems).
+Checking module l1d...
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [31]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110957 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110757 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [0]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110926 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110726 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [1]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110927 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110727 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [2]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110928 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110728 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [3]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110929 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110729 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [4]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110930 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110730 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [5]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110931 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110731 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [6]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110932 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110732 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [7]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110933 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110733 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [8]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110934 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110734 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [9]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110935 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110735 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [10]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110936 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110736 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [11]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110937 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110737 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [12]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110938 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110738 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [13]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110939 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110739 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [14]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110940 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110740 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [15]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110941 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110741 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [16]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110942 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110742 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [17]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110943 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110743 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [18]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110944 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110744 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [19]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110945 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110745 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [20]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110946 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110746 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [21]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110947 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110747 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [22]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110948 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110748 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [23]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110949 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110749 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [24]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110950 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110750 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [25]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110951 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110751 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [26]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110952 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110752 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [27]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110953 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110753 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [28]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110954 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110754 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [29]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110955 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110755 ($_SDFFE_PN0P_)
+Warning: multiple conflicting drivers for l1d.\cnt_writebacks [30]:
+    port Q[0] of cell $auto$ff.cc:337:slice$110956 ($_DFFE_PP_)
+    port Q[0] of cell $auto$ff.cc:337:slice$110756 ($_SDFFE_PN0P_)
+Checking module $paramod$3b3ebe2a805de999e571f1f6aa39b69c15a9144c\mshr...
+Found and reported 32 problems.
+
+5. Executing DFFLIBMAP pass (mapping DFF/DLATCH cells to sequential cells from liberty file).
+  cell sg13g2_dfrbpq_1 (noninv, pins=4, area=48.99) is a direct match for cell type $_DFF_PN0_.
+  cell sg13g2_dlhq_1 (noninv, pins=3, area=30.84) is a direct match for cell type $_DLATCH_P_.
+  cell sg13g2_dllrq_1 (noninv, pins=4, area=29.03) is a direct match for cell type $_DLATCH_NN0_.
+  cell sg13g2_dlhrq_1 (noninv, pins=4, area=27.22) is a direct match for cell type $_DLATCH_PN0_.
+  final dff/dlatch cell mappings:
+    unmapped dff/dlatch cell: $_DFF_N_
+    unmapped dff/dlatch cell: $_DFF_P_
+--
+8. Printing statistics.
+
+=== l1d ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+   390732        - wires
+   469192        - wire bits
+      710        - public wires
+    79170        - public wire bits
+       26        - ports
+     1462        - port bits
+   466144 7.82E+06 cells
+    18507 2.35E+05   sg13g2_a21o_1
+    50232 4.56E+05   sg13g2_a21oi_1
+    11781 1.71E+05   sg13g2_a221oi_1
+   119885  1.3E+06   sg13g2_a22oi_1
+    11970 1.09E+05   sg13g2_and2_1
+      282 3.58E+03   sg13g2_and3_1
+      509 7.39E+03   sg13g2_and4_1
+    74975 3.67E+06   sg13g2_dfrbpq_1
+    15475 8.42E+04   sg13g2_inv_1
+     8746 1.59E+05   sg13g2_mux2_1
+     9944 3.79E+05   sg13g2_mux4_1
+    23974 1.74E+05   sg13g2_nand2_1
+      666 6.04E+03   sg13g2_nand2b_1
+    16509  1.5E+05   sg13g2_nand3_1
+       73  927.158   sg13g2_nand3b_1
+     5126 5.58E+04   sg13g2_nand4_1
+    17715 1.29E+05   sg13g2_nor2_1
+      298  2.7E+03   sg13g2_nor2b_1
+     1297 1.18E+04   sg13g2_nor3_1
+     2064 2.25E+04   sg13g2_nor4_1
+    75070 6.81E+05   sg13g2_o21ai_1
+      625     5670   sg13g2_or2_1
+      164 2.08E+03   sg13g2_or3_1
+      198  2874.01   sg13g2_or4_1
+       48   696.73   sg13g2_xnor2_1
+       11  159.667   sg13g2_xor2_1
+        1        - submodules
+        1        -   $paramod$3b3ebe2a805de999e571f1f6aa39b69c15a9144c\mshr
+
+   Chip area for module '\l1d': 7821216.862196
+     of which used for sequential elements: 3672935.279997 (46.96%)
+
+=== $paramod$3b3ebe2a805de999e571f1f6aa39b69c15a9144c\mshr ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     8947        - wires
+    16311        - wire bits
+       83        - public wires
+     7447        - public wire bits
+       35        - ports
+     2530        - port bits
+    15014 3.79E+05 cells
+       59  749.347   sg13g2_a21o_1
+      138 1.25E+03   sg13g2_a21oi_1
+       88 1.28E+03   sg13g2_a221oi_1
+     2581  2.8E+04   sg13g2_a22oi_1
+       11   99.792   sg13g2_and2_1
+        5   63.504   sg13g2_and3_1
+        9  130.637   sg13g2_and4_1
+     4915 2.41E+05   sg13g2_dfrbpq_1
+      225  1224.72   sg13g2_inv_1
+     4808 8.72E+04   sg13g2_mux2_1
+     1357 9.85E+03   sg13g2_nand2_1
+       59  535.248   sg13g2_nand2b_1
+       99  898.128   sg13g2_nand3_1
+       11  139.709   sg13g2_nand3b_1
+       92    1E+03   sg13g2_nand4_1
+       86  624.154   sg13g2_nor2_1
+      142 1.29E+03   sg13g2_nor2b_1
+       23  208.656   sg13g2_nor3_1
+       53  576.979   sg13g2_nor4_1
+       49  444.528   sg13g2_o21ai_1
+        5    45.36   sg13g2_or2_1
+        2   25.402   sg13g2_or3_1
+        1   14.515   sg13g2_or4_1
+       76  1.1E+03   sg13g2_xnor2_1
+      120 1.74E+03   sg13g2_xor2_1
+
+   Chip area for module '$paramod$3b3ebe2a805de999e571f1f6aa39b69c15a9144c\mshr': 379309.807800
+     of which used for sequential elements: 240779.952000 (63.48%)
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        |        +-Area including submodules.
+        |        | 
+   481158  8.2E+06 l1d
+    15014 3.79E+05 $paramod$3b3ebe2a805de999e571f1f6aa39b69c15a9144c\mshr
+
+        +----------Count including submodules.
+        |        +-Area including submodules.
+        |        | 
+   399679        - wires
+   485503        - wire bits
+      793        - public wires
+    86617        - public wire bits
+       61        - ports
+     3992        - port bits
+        -        - memories
+        -        - memory bits
+        -        - processes
+   481158  8.2E+06 cells
+    18566 2.36E+05   sg13g2_a21o_1
+    50370 4.57E+05   sg13g2_a21oi_1
+    11869 1.72E+05   sg13g2_a221oi_1
+   122466 1.33E+06   sg13g2_a22oi_1
+    11981 1.09E+05   sg13g2_and2_1
+      287  3645.13   sg13g2_and3_1
+      518 7.52E+03   sg13g2_and4_1
+    79890 3.91E+06   sg13g2_dfrbpq_1
+    15700 8.55E+04   sg13g2_inv_1
+    13554 2.46E+05   sg13g2_mux2_1
+     9944 3.79E+05   sg13g2_mux4_1
+    25331 1.84E+05   sg13g2_nand2_1
+      725   6577.2   sg13g2_nand2b_1
+    16608 1.51E+05   sg13g2_nand3_1
+       84 1.07E+03   sg13g2_nand3b_1
+     5218 5.68E+04   sg13g2_nand4_1
+    17801 1.29E+05   sg13g2_nor2_1
+      440  3991.68   sg13g2_nor2b_1
+     1320  1.2E+04   sg13g2_nor3_1
+     2117  2.3E+04   sg13g2_nor4_1
+    75119 6.81E+05   sg13g2_o21ai_1
+      630  5715.36   sg13g2_or2_1
+      166 2.11E+03   sg13g2_or3_1
+      199 2.89E+03   sg13g2_or4_1
+      124  1.8E+03   sg13g2_xnor2_1
+      131  1.9E+03   sg13g2_xor2_1
+        1 3.79E+05 submodules
+        1 3.79E+05   $paramod$3b3ebe2a805de999e571f1f6aa39b69c15a9144c\mshr
+
+   Chip area for top module '\l1d': 8200526.670052
+     of which used for sequential elements: 3913715.231997 (47.73%)
+
+9. Executing Verilog backend.
+
+9.1. Executing BMUXMAP pass.
+
+9.2. Executing DEMUXMAP pass.
+Dumping module `$paramod$3b3ebe2a805de999e571f1f6aa39b69c15a9144c\mshr'.
+Dumping module `\l1d'.
+
+10. Executing JSON backend.
+
+Warnings: 64 unique messages, 64 total
+End of script. Logfile hash: c155aa316f, time: 829.24s, user: 48.61s, system: 3.62s, MEM: 1702.72 MB peak
+Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)
+Time spent: 95% 2x abc (796 sec), 1% 29x opt_clean (15 sec), ...
+--- bp_bimodal_btb ---
+3.25. Printing statistics.
+
+=== bp_bimodal_btb ===
+
+        +----------Local Count, excluding submodules.
+        | 
+    20831 wires
+    27422 wire bits
+     1232 public wires
+     7822 public wire bits
+       10 ports
+      262 port bits
+    27154 cells
+      325   $_ANDNOT_
+     4799   $_AND_
+     5376   $_DFFE_PP_
+       64   $_DFF_P_
+     3311   $_MUX_
+     5971   $_NAND_
+      551   $_NOR_
+        6   $_NOT_
+     2068   $_ORNOT_
+     2625   $_OR_
+     1024   $_SDFFCE_PN0P_
+     1024   $_SDFFCE_PN1P_
+       10   $_XNOR_
+
+3.26. Executing CHECK pass (checking for obvious problems).
+Checking module bp_bimodal_btb...
+Found and reported 0 problems.
+
+4. Executing DFFLIBMAP pass (mapping DFF/DLATCH cells to sequential cells from liberty file).
+  cell sg13g2_dfrbpq_1 (noninv, pins=4, area=48.99) is a direct match for cell type $_DFF_PN0_.
+  cell sg13g2_dlhq_1 (noninv, pins=3, area=30.84) is a direct match for cell type $_DLATCH_P_.
+  cell sg13g2_dllrq_1 (noninv, pins=4, area=29.03) is a direct match for cell type $_DLATCH_NN0_.
+  cell sg13g2_dlhrq_1 (noninv, pins=4, area=27.22) is a direct match for cell type $_DLATCH_PN0_.
+  final dff/dlatch cell mappings:
+    unmapped dff/dlatch cell: $_DFF_N_
+    unmapped dff/dlatch cell: $_DFF_P_
+    unmapped dff/dlatch cell: $_DFF_NN0_
+    unmapped dff/dlatch cell: $_DFF_NN1_
+    unmapped dff/dlatch cell: $_DFF_NP0_
+    unmapped dff/dlatch cell: $_DFF_NP1_
+    \sg13g2_dfrbpq_1 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DFF_PN1_
+    unmapped dff/dlatch cell: $_DFF_PP0_
+    unmapped dff/dlatch cell: $_DFF_PP1_
+    unmapped dff/dlatch cell: $_DFFE_NN_
+    unmapped dff/dlatch cell: $_DFFE_NP_
+    unmapped dff/dlatch cell: $_DFFE_PN_
+    unmapped dff/dlatch cell: $_DFFE_PP_
+    unmapped dff/dlatch cell: $_DFFSR_NNN_
+    unmapped dff/dlatch cell: $_DFFSR_NNP_
+    unmapped dff/dlatch cell: $_DFFSR_NPN_
+    unmapped dff/dlatch cell: $_DFFSR_NPP_
+    unmapped dff/dlatch cell: $_DFFSR_PNN_
+    unmapped dff/dlatch cell: $_DFFSR_PNP_
+    unmapped dff/dlatch cell: $_DFFSR_PPN_
+    unmapped dff/dlatch cell: $_DFFSR_PPP_
+    unmapped dff/dlatch cell: $_DLATCH_N_
+    \sg13g2_dlhq_1 _DLATCH_P_ (.D( D), .GATE( E), .Q( Q));
+    \sg13g2_dllrq_1 _DLATCH_NN0_ (.D( D), .GATE_N( E), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DLATCH_NN1_
+    unmapped dff/dlatch cell: $_DLATCH_NP0_
+    unmapped dff/dlatch cell: $_DLATCH_NP1_
+    \sg13g2_dlhrq_1 _DLATCH_PN0_ (.D( D), .GATE( E), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DLATCH_PN1_
+    unmapped dff/dlatch cell: $_DLATCH_PP0_
+    unmapped dff/dlatch cell: $_DLATCH_PP1_
+    unmapped dff/dlatch cell: $_DLATCHSR_NNN_
+    unmapped dff/dlatch cell: $_DLATCHSR_NNP_
+    unmapped dff/dlatch cell: $_DLATCHSR_NPN_
+    unmapped dff/dlatch cell: $_DLATCHSR_NPP_
+    unmapped dff/dlatch cell: $_DLATCHSR_PNN_
+    unmapped dff/dlatch cell: $_DLATCHSR_PNP_
+    unmapped dff/dlatch cell: $_DLATCHSR_PPN_
+    unmapped dff/dlatch cell: $_DLATCHSR_PPP_
+
+4.1. Executing DFFLEGALIZE pass (convert FFs and LATCHes to types supported by the target).
+<suppressed ~4 debug messages>
+Mapping DFF/DLATCH cells in module `\bp_bimodal_btb':
+  mapped 7488 $_DFF_PN0_ cells to \sg13g2_dfrbpq_1 cells.
+
+5. Executing ABC pass (technology mapping using ABC).
+
+5.1. Extracting gate netlist of module `\bp_bimodal_btb' to `<abc-temp-dir>/input.blif'..
+ABC: using cached merged SCL: /tmp/yosys-liberty-scl-cache-1000/yosys_merged_0a0e92c0.scl (1 files)
+
+5.1.1. Executed ABC.
+Extracted 29138 gates and 36747 wires to a netlist network with 7607 inputs and 7554 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_scl /tmp/yosys-liberty-scl-cache-1000/yosys_merged_0a0e92c0.scl 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+5.1.2. Re-integrating ABC results.
+ABC RESULTS:     sg13g2_a21o_1 cells:     1124
+ABC RESULTS:    sg13g2_a21oi_1 cells:     1977
+ABC RESULTS:   sg13g2_a221oi_1 cells:      222
+ABC RESULTS:    sg13g2_a22oi_1 cells:     1249
+ABC RESULTS:     sg13g2_and2_1 cells:      155
+ABC RESULTS:     sg13g2_and3_1 cells:        5
+ABC RESULTS:     sg13g2_and4_1 cells:        9
+ABC RESULTS:      sg13g2_inv_1 cells:     1202
+ABC RESULTS:     sg13g2_mux2_1 cells:     5569
+ABC RESULTS:     sg13g2_mux4_1 cells:     1900
+ABC RESULTS:    sg13g2_nand2_1 cells:      704
+ABC RESULTS:   sg13g2_nand2b_1 cells:      199
+ABC RESULTS:    sg13g2_nand3_1 cells:      231
+ABC RESULTS:   sg13g2_nand3b_1 cells:       10
+ABC RESULTS:    sg13g2_nand4_1 cells:       98
+ABC RESULTS:     sg13g2_nor2_1 cells:     1374
+ABC RESULTS:    sg13g2_nor2b_1 cells:       84
+ABC RESULTS:     sg13g2_nor3_1 cells:     1065
+ABC RESULTS:     sg13g2_nor4_1 cells:        8
+ABC RESULTS:    sg13g2_o21ai_1 cells:      837
+ABC RESULTS:      sg13g2_or2_1 cells:       36
+ABC RESULTS:      sg13g2_or3_1 cells:        5
+ABC RESULTS:    sg13g2_xnor2_1 cells:        1
+ABC RESULTS:     sg13g2_xor2_1 cells:        2
+ABC RESULTS:        internal signals:    21586
+ABC RESULTS:           input signals:     7607
+ABC RESULTS:          output signals:     7554
+Removing temp directory.
+Removing global temp directory.
+
+6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \bp_bimodal_btb..
+Removed 0 unused cells and 36744 unused wires.
+<suppressed ~1 debug messages>
+
+7. Printing statistics.
+
+=== bp_bimodal_btb ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+    19232        - wires
+    25822        - wire bits
+     1232        - public wires
+     7822        - public wire bits
+       10        - ports
+      262        - port bits
+    25554 6.36E+05 cells
+     1124 1.43E+04   sg13g2_a21o_1
+     1977 1.79E+04   sg13g2_a21oi_1
+      222 3.22E+03   sg13g2_a221oi_1
+     1249 1.35E+04   sg13g2_a22oi_1
+      155  1406.16   sg13g2_and2_1
+        5   63.504   sg13g2_and3_1
+        9  130.637   sg13g2_and4_1
+     7488 3.67E+05   sg13g2_dfrbpq_1
+     1202 6.54E+03   sg13g2_inv_1
+     5569 1.01E+05   sg13g2_mux2_1
+     1900 7.24E+04   sg13g2_mux4_1
+      704  5109.35   sg13g2_nand2_1
+      199 1.81E+03   sg13g2_nand2b_1
+      231  2.1E+03   sg13g2_nand3_1
+       10  127.008   sg13g2_nand3b_1
+       98 1.07E+03   sg13g2_nand4_1
+     1374 9.97E+03   sg13g2_nor2_1
+       84  762.048   sg13g2_nor2b_1
+     1065  9661.68   sg13g2_nor3_1
+        8   87.091   sg13g2_nor4_1
+      837 7.59E+03   sg13g2_o21ai_1
+       36  326.592   sg13g2_or2_1
+        5   63.504   sg13g2_or3_1
+        1   14.515   sg13g2_xnor2_1
+        2    29.03   sg13g2_xor2_1
+
+   Chip area for module '\bp_bimodal_btb': 636106.829400
+     of which used for sequential elements: 366828.134400 (57.67%)
+
+8. Executing Verilog backend.
+
+8.1. Executing BMUXMAP pass.
+
+8.2. Executing DEMUXMAP pass.
+Dumping module `\bp_bimodal_btb'.
+
+9. Executing JSON backend.
+
+End of script. Logfile hash: bd12a9d840, time: 8.29s, user: 2.82s, system: 0.12s, MEM: 109.40 MB peak
+Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)
+Time spent: 67% 2x abc (5 sec), 7% 1x opt_mem_priority (0 sec), ...

@@ -1,24 +1,17 @@
-block             status         cells     area um^2   seq%path                                               arr ns   WNS ns  fmax MHz  wall s
-------------------------------------------------------------------------------------------------------------------------------------------------
-core              SYN-OK(no STA)  n/a      763137.43    15.30 n/a                                                n/a      n/a       n/a       1
-muldiv            OK            49893     538523.14      3.06_99365_ -> _99365_                                 11.07    -1.23     89.05     281
-alu               OK             2514      24435.92      0.00 n/a                                                n/a     0.00       n/a       1
-rob               SYN-OK(no STA)  n/a      480543.58    49.75 n/a                                                n/a      n/a       n/a       0
-rename            SYN-OK(no STA)  n/a      224125.65    50.34 n/a                                                n/a      n/a       n/a       1
-prf               OK            31420     552719.76     36.30_58479_ -> _58479_                                  0.48     0.00    100.00       7
-lsq               SYN-OK(no STA)  n/a      866036.10     9.62 n/a                                                n/a      n/a       n/a       0
-l1d               SYN-OK(no STA)  n/a     8200526.67    47.73 n/a                                                n/a      n/a       n/a       0
-bp_bimodal_btb    OK            25554     636106.83     57.67_36970_ -> _36101_                                 50.04   -40.45     19.82       9
+block             status      cells     area um^2   seq%path                                               arr ns   WNS ns  fmax MHz  wall s
+--------------------------------------------------------------------------------------------------------------------------------------------
+core              OK           2119      23114.96  13.56u_regfile/_09477_ -> u_muldiv/_99083_               20.41   -10.54     48.69     304
+muldiv            OK          50061     536991.41   3.07_99655_ -> _99656_                                  11.81    -1.94     83.75     440
+alu               OK           2514      24435.92   0.00n/a                                                   n/a     0.00       n/a       1
+rob               OK          31351     480543.58  49.75_57489_ -> _55388_                                  41.14   -31.31     24.21       6
+rename            OK            169       2198.98  15.59_282_ -> u_rename_map/_15546_                       12.51    -2.77     78.31       6
+prf               OK          31420     552719.76  36.30_58479_ -> _58479_                                   0.48     0.00    100.00       8
+lsq               TIMEOUT       n/a           n/a    n/a_146276_ -> _144611_                               144.94  -135.07      6.89    1800
+l1d               OK         466144    7821216.86  46.96_789290_ -> _789456_                              5859.48 -5857.43      0.17     829
+bp_bimodal_btb    OK          25554     636106.83  57.67_36970_ -> _36101_                                  50.04   -40.45     19.82       8
 
-NOTE (fixed post-hoc): the original run of this summary mislabeled core/rob/rename/lsq/l1d as "ERROR". Their
-yosys synthesis actually succeeded (see <block>_synth.status == OK, and <block>_syn.v/.json exist) with real
-area numbers above (recomputed via `yosys -p "read_verilog out/<block>_syn.v; stat -top <block> -liberty <lib>"`
-where summarize.py's own stat parse failed to run). What is genuinely missing for these five blocks is a
-completed OpenSTA timing run (no <block>_sta.txt was produced) -- summarize.py's ERROR label conflated
-"no STA yet" with "synthesis failed". Only muldiv, alu, prf, and bp_bimodal_btb got the full synth+STA pass
-in this session; core/rob/rename/lsq/l1d have area-only numbers until STA is run on them too.
-
-Headline result from this session: replacing rtl/muldiv.sv's single-cycle combinational divider with an
-iterative multi-cycle divider (see rtl/muldiv.sv, verified against model/iss.cpp over 3.4M random cycles,
-0 mismatches) took muldiv's own WNS from -361.40 ns (pre-existing baseline, see pd/results.txt) to -1.23 ns,
-i.e. estimated fmax from ~2.7 MHz to ~89 MHz -- the fix the original PD run's own analysis called for.
+NOTE: lsq's "TIMEOUT" status is a summarize.py labeling artifact from its long wall time (1800s), not
+a real failure -- pd/out/lsq_sta.txt shows a completed OpenSTA run (WNS -135.07ns, matches this table).
+l1d's enormous WNS (-5857ns, arrival time 5859ns vs a 10ns clock) is real and notable: as currently
+written (flattened, no pipelining across the tag/MSHR compare logic), l1d is far too slow for any
+practical clock and would need real pipelining before this number is meaningful for a target frequency.
