@@ -170,6 +170,16 @@ module ooo_core (
     assign rob_wb_redirect_pc[0]   = 64'd0;
     assign rob_wb_redirect_pc[1]   = 64'd0;
 
+    // this core only ever drains commit port 0 downstream (single rename/lsq commit consumer) -
+    // port 1 is deliberately never accepted so the rob's own 2-wide commit logic (needed here only
+    // for its 2-port WRITEBACK capability: ALU/store issue-complete on wb port0, async load
+    // response on wb port1) can never silently retire a second entry per cycle that nothing
+    // downstream would actually pop/free. See the KNOWN BUG note below this instantiation for the
+    // exact corruption this caused before commit_accept existed.
+    logic rob_commit_accept[2];
+    assign rob_commit_accept[0] = 1'b1;
+    assign rob_commit_accept[1] = 1'b0;
+
     rob #(.ROB_DEPTH(ROB_DEPTH), .WIDTH(2)) u_rob (
         .clk(clk), .rst(rst),
         .alloc_valid(rob_alloc_valid), .alloc_pc(rob_alloc_pc), .alloc_rd_arch(rob_alloc_rd_arch),
@@ -178,6 +188,7 @@ module ooo_core (
         .alloc_rob_idx(rob_alloc_rob_idx), .alloc_ready(rob_alloc_ready),
         .wb_valid(rob_wb_valid), .wb_rob_idx(rob_wb_rob_idx),
         .wb_exception(rob_wb_exception), .wb_mispredict(rob_wb_mispredict), .wb_redirect_pc(rob_wb_redirect_pc),
+        .commit_accept(rob_commit_accept),
         .commit_valid(rob_commit_valid), .commit_pc(rob_commit_pc), .commit_rd_arch(rob_commit_rd_arch),
         .commit_prd(rob_commit_prd), .commit_prev_prd(rob_commit_prev_prd), .commit_is_store(rob_commit_is_store),
         .flush_valid(), .flush_full(), .flush_pc(), .flush_branch_rob_idx(),
@@ -286,14 +297,17 @@ module ooo_core (
         iss_valid = 1'b0;
         iss_idx   = '0;
         for (int i = 0; i < ROB_DEPTH; i++) begin
-            if (!iss_valid && (i < rob_count)) begin
-                automatic logic [IDX_W-1:0] idx = rob_head + IDX_W'(i);
-                automatic logic r1ok = !tab_need_rs1[idx] || ready_q[tab_prs1[idx][5:0]];
-                automatic logic r2ok = !tab_need_rs2[idx] || ready_q[tab_prs2[idx][5:0]];
-                if (!issued_q[idx] && r1ok && r2ok) begin
-                    iss_valid = 1'b1;
-                    iss_idx   = idx;
-                end
+            // idx/r1ok/r2ok declared (not just assigned) every iteration so Verilator can prove
+            // they're never read uninitialized - the same values as the prior automatic-var form,
+            // just without triggering its (here spurious, but worth silencing) latch heuristic.
+            logic [IDX_W-1:0] idx;
+            logic              r1ok, r2ok;
+            idx  = rob_head + IDX_W'(i);
+            r1ok = !tab_need_rs1[idx] || ready_q[tab_prs1[idx][5:0]];
+            r2ok = !tab_need_rs2[idx] || ready_q[tab_prs2[idx][5:0]];
+            if (!iss_valid && (i < rob_count) && !issued_q[idx] && r1ok && r2ok) begin
+                iss_valid = 1'b1;
+                iss_idx   = idx;
             end
         end
     end
@@ -341,31 +355,29 @@ module ooo_core (
     // alu/lui/auipc/jal/jalr/branch write back a register (or none), and a store's
     // address+data are already known - only its dmem write itself waits for commit.
     //
-    // KNOWN BUG (found via tests/arch/src/x0_sink.s, stores.s, st_ld_forward.s under
-    // --dut ooo): rob.sv allows a head-of-ROB entry to writeback and commit in the
-    // SAME cycle. For a store, wb (this line) fires the same cycle st_addr_valid below
-    // pulses, but lsq.sv's sq_addr_q/sq_data_q are only WRITTEN via a registered
-    // `<=` on that same edge - not yet visible to a same-cycle combinational read.
-    // If that store is already at ROB head, commit_store_valid can therefore fire
-    // the SAME cycle, and dmem_wr_addr/dmem_wr_data (= sq_addr_q/sq_data_q[sq_head],
-    // read combinationally) sample the STALE previous occupant of that SQ slot instead
-    // of this store's real address/data - the store silently writes the wrong location
-    // with the wrong value. Confirmed via direct $display instrumentation (not a
-    // measurement artifact). A same-cycle wb+commit is rare (a fast-issuing store must
-    // already be at the ROB head with no older entry pending) which is why it only
-    // surfaces in the riscv-arch-test-style suite's longer/denser programs, not the
-    // shorter hand-written test1/test_w/test_m or the sw/build/*.bin directed tests.
-    // An attempted fix (delaying store wb by one registered cycle) was tried and
-    // REVERTED here: a single-slot delay register gets clobbered by a second store
-    // issuing before the first's delayed wb is consumed, and gating issue on that slot
-    // deadlocked several tests (ROB fills waiting on a store that can now never
-    // reissue). The correct fix needs either a small per-outstanding-store delay
-    // queue in ooo_core.sv, or (preferably) lsq.sv exposing a same-cycle
-    // store-address/data bypass path from st_addr_valid straight to dmem_wr_*  when
-    // commit_store_valid coincides with st_addr_valid for the same sq_idx - which
-    // needs touching lsq.sv itself. Left as-is (original single-cycle-wb behavior,
-    // which is what the sw/build/*.bin suite and test1/test_w/test_m validate) rather
-    // than shipping a broken fix.
+    // FIXED BUG (found via tests/arch/src/x0_sink.s, stores.s, st_ld_forward.s under --dut ooo):
+    // rob.sv is instantiated WIDTH=2 purely so its writeback port can accept an ALU/store
+    // issue-complete (port0) and an async load response (port1) in the same cycle - this core
+    // dispatches and commits single-issue and only ever drains commit port 0 downstream
+    // (commit_store_valid/commit_load_valid below, and rename's commit port1 tied to 1'b0).
+    // rob.sv's own commit eligibility, though, was driven purely by v_q/done_q with no external
+    // gate: whenever the head AND head+1 entries were BOTH independently done (any mix of wb
+    // ports, on any earlier cycles), it silently retired both in one cycle. Port 0's commit was
+    // consumed correctly; port 1's was NOT - nothing here ever pops the LSQ or frees the rename
+    // mapping for it - so the rob's internal head advanced two ahead of what actually got drained,
+    // permanently orphaning that skipped entry's SQ slot. When address arrival for some MUCH
+    // LATER store (reusing the LSQ's circular sq_head pointer, since it advances by exactly one
+    // per real pop) coincided with the orphaned slot's stale, ancient data still sitting at
+    // dmem_wr_addr/dmem_wr_data, the wrong (long-stale) value got written - not a same-cycle
+    // wb/commit race on the SAME store as originally suspected (confirmed by a $display trace: the
+    // committing rob_head/PC on the failing cycle belonged to a store whose real SQ slot,
+    // identified via its own dispatch-time sq_idx, was NOT the one lsq.sv was about to pop).
+    // Root-caused precisely by tracing rob_head/commit_pc/commit_is_store against each store's
+    // dispatch-assigned sq_idx and finding the rob's head silently jumping by 2 in a single cycle.
+    // Fixed at the source: rob.sv now takes a `commit_accept[WIDTH]` input gating can_commit per
+    // slot (see rob.sv; its own standalone TB ties both slots to 1, an exact behavioral no-op for
+    // that already-verified 2-wide test). Here, commit_accept = {1, 0} forces true single-commit
+    // while keeping the 2-port writeback this core's out-of-order load completion needs.
     wire iss_is_alu   = iss_valid && !iss_is_load;
 
     // loads: send address to lsq; completion arrives later via ld_resp_valid

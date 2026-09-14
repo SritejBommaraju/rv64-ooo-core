@@ -233,10 +233,18 @@ module lsq #(
                                             : found_fwd_data;
 
     // -------------------- commit --------------------
+    // same-cycle bypass: a store's address/data can arrive (st_addr_valid) the exact cycle it
+    // commits (head-of-ROB wb+commit in one cycle) - sq_addr_q/sq_size_q/sq_data_q are only
+    // written by the registered <= below, so without this bypass dmem_wr_* would read the STALE
+    // previous occupant of this SQ slot instead of the store actually committing. st_addr_valid
+    // for a given sq_idx fires exactly once (at issue), so st_sq_idx==sq_head here unambiguously
+    // means "this store's one-time address arrival is happening right now" - never a false hit.
+    logic store_bypass;
+    assign store_bypass  = st_addr_valid && (st_sq_idx == sq_head);
     assign dmem_wr_valid = commit_store_valid && (sq_cnt != 0);
-    assign dmem_wr_addr  = sq_addr_q[sq_head];
-    assign dmem_wr_size  = sq_size_q[sq_head];
-    assign dmem_wr_data  = sq_data_q[sq_head];
+    assign dmem_wr_addr  = store_bypass ? st_addr : sq_addr_q[sq_head];
+    assign dmem_wr_size  = store_bypass ? st_size : sq_size_q[sq_head];
+    assign dmem_wr_data  = store_bypass ? st_data : sq_data_q[sq_head];
 
     // -------------------- sequential state update --------------------
     always_ff @(posedge clk) begin

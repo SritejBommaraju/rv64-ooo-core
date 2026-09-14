@@ -27,6 +27,7 @@ static void applyRstOnly(bool rst) {
     for (int i = 0; i < WIDTH; i++) {
         dut->alloc_valid[i] = 0;
         dut->wb_valid[i] = 0;
+        dut->commit_accept[i] = 1; // this TB always wants full WIDTH-wide commit, matching the model
     }
 }
 

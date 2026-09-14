@@ -24,7 +24,13 @@ module rob #(
     input  logic        wb_mispredict[WIDTH],
     input  logic [63:0] wb_redirect_pc[WIDTH],
 
-    // commit port, WIDTH slots, in-order from head
+    // commit port, WIDTH slots, in-order from head. commit_accept[i] must be asserted by the
+    // caller for slot i to actually retire this cycle - lets a caller that can only consume
+    // fewer than WIDTH commits/cycle (e.g. a single-issue core using this ROB at WIDTH=2 purely
+    // for its 2-port writeback capability) force single-commit without losing state: without this
+    // gate, done_q/v_q alone would let two ready head entries retire together even though only
+    // commit port 0 is ever drained downstream, silently skipping port 1's LSQ pop/rename retire.
+    input  logic         commit_accept  [WIDTH],
     output logic        commit_valid   [WIDTH],
     output logic [63:0] commit_pc      [WIDTH],
     output logic [4:0]  commit_rd_arch [WIDTH],
@@ -89,10 +95,10 @@ module rob #(
         for (int i = 0; i < WIDTH; i++) begin
             head_idx[i] = head_q + IDX_W'(i);
         end
-        can_commit[0] = v_q[head_idx[0]] && done_q[head_idx[0]];
+        can_commit[0] = v_q[head_idx[0]] && done_q[head_idx[0]] && commit_accept[0];
         for (int i = 1; i < WIDTH; i++) begin
             can_commit[i] = can_commit[i-1] && !exc_q[head_idx[i-1]] && !mis_q[head_idx[i-1]] &&
-                            v_q[head_idx[i]] && done_q[head_idx[i]];
+                            v_q[head_idx[i]] && done_q[head_idx[i]] && commit_accept[i];
         end
     end
 
