@@ -15,10 +15,14 @@ module ooo_mem #(parameter DEPTH_BYTES = 65536) (
     input  logic [1:0]   dmem_wr_size,
     input  logic [63:0]  dmem_wr_data
 );
+    // addresses alias modulo DEPTH_BYTES (must be a power of two), so a program linked
+    // at e.g. 0x8000_0000 runs unmodified from byte 0 of this array.
+    localparam int AW = $clog2(DEPTH_BYTES);
+
     logic [7:0] bytes [0:DEPTH_BYTES-1] /* verilator public */;
-    logic [15:0] ia, da; // truncated indices, DEPTH_BYTES fits in 16 bits
-    assign ia = iaddr[15:0];
-    assign da = dmem_rd_addr[15:0];
+    logic [AW-1:0] ia, da;
+    assign ia = iaddr[AW-1:0];
+    assign da = dmem_rd_addr[AW-1:0];
 
     assign irdata = {bytes[ia+3], bytes[ia+2], bytes[ia+1], bytes[ia]};
 
@@ -27,8 +31,8 @@ module ooo_mem #(parameter DEPTH_BYTES = 65536) (
     assign dmem_rd_data = {bytes[da+7], bytes[da+6], bytes[da+5], bytes[da+4],
                             bytes[da+3], bytes[da+2], bytes[da+1], bytes[da]};
 
-    logic [15:0] wa;
-    assign wa = dmem_wr_addr[15:0];
+    logic [AW-1:0] wa;
+    assign wa = dmem_wr_addr[AW-1:0];
 
     always_ff @(posedge clk) begin
         if (dmem_wr_valid) begin

@@ -5,7 +5,9 @@
 // commit. No branch speculation: conditional branches and JALR stall fetch until
 // they resolve in the issue stage, so there is no flush/mispredict path (wb_mispredict
 // tied 0 throughout). JAL redirects immediately at decode (target needs no register).
-module ooo_core (
+module ooo_core #(
+    parameter logic [63:0] RESET_PC = 64'd0
+) (
     input  logic clk,
     input  logic rst,
 
@@ -34,7 +36,33 @@ module ooo_core (
     output logic         dbg_issue_is_load,
     output logic         dbg_ld_resp_valid,
     output logic         dbg_ld_from_mem,
-    output logic         dbg_wb_alu_valid
+    output logic         dbg_wb_alu_valid,
+
+    // RVFI retire port (riscv-formal naming, NRET=1, XLEN=64). One entry per committed
+    // instruction, driven combinationally from the ROB head on the commit cycle. Memory
+    // fields use the unaligned convention: mem_addr is the exact byte address and the masks
+    // are (1<<bytes)-1, i.e. not shifted into an aligned word.
+    output logic         rvfi_valid,
+    output logic [63:0]  rvfi_order,
+    output logic [31:0]  rvfi_insn,
+    output logic         rvfi_trap,
+    output logic         rvfi_halt,
+    output logic         rvfi_intr,
+    output logic [1:0]   rvfi_mode,
+    output logic [1:0]   rvfi_ixl,
+    output logic [4:0]   rvfi_rs1_addr,
+    output logic [4:0]   rvfi_rs2_addr,
+    output logic [63:0]  rvfi_rs1_rdata,
+    output logic [63:0]  rvfi_rs2_rdata,
+    output logic [4:0]   rvfi_rd_addr,
+    output logic [63:0]  rvfi_rd_wdata,
+    output logic [63:0]  rvfi_pc_rdata,
+    output logic [63:0]  rvfi_pc_wdata,
+    output logic [63:0]  rvfi_mem_addr,
+    output logic [7:0]   rvfi_mem_rmask,
+    output logic [7:0]   rvfi_mem_wmask,
+    output logic [63:0]  rvfi_mem_rdata,
+    output logic [63:0]  rvfi_mem_wdata
 );
     localparam int ROB_DEPTH = 32;
     localparam int IDX_W     = 5; // $clog2(ROB_DEPTH)
@@ -85,9 +113,12 @@ module ooo_core (
 
     // decode.sv doesn't gate the rd/rs fields by opcode (e.g. a store's instr[11:7]
     // is really immediate bits) - only present a real destination arch reg to rename.
-    wire [4:0] rd0_for_rename = reg_write_d ? rd_d : 5'd0;
+    // Zicsr: decode.sv treats all of SYSTEM as a NOP, so CSR ops are recognized here.
+    // funct3[2] selects the immediate (zimm = rs1 field) forms, which read no register.
+    wire       is_csr_d       = (fetch_instr[6:0] == 7'b1110011) && (funct3_d != 3'h0);
+    wire [4:0] rd0_for_rename = (reg_write_d || is_csr_d) ? rd_d : 5'd0;
     wire       is_mem_d       = is_load_d || is_store_d;
-    wire       need_rs1_d     = !(is_lui_d || is_jal_d || is_auipc_d);
+    wire       need_rs1_d     = !(is_lui_d || is_jal_d || is_auipc_d || (is_csr_d && funct3_d[2]));
     wire       need_rs2_d     = is_branch_d || is_store_d ||
                                  (reg_write_d && !alu_src_imm_d && !is_lui_d && !is_jal_d && !is_auipc_d);
 
@@ -256,6 +287,8 @@ module ooo_core (
     logic        tab_is_jal[ROB_DEPTH], tab_is_jalr[ROB_DEPTH], tab_is_lui[ROB_DEPTH], tab_is_auipc[ROB_DEPTH];
     logic [2:0]  tab_lq_idx[ROB_DEPTH], tab_sq_idx[ROB_DEPTH];
     logic        tab_need_rs1[ROB_DEPTH], tab_need_rs2[ROB_DEPTH];
+    logic        tab_is_csr[ROB_DEPTH];
+    logic [16:0] tab_csr[ROB_DEPTH];  // {rs1/zimm field, csr address}
     logic        issued_q[ROB_DEPTH];
 
     // ---- physical-register readiness scoreboard (p0 permanently ready) ----
@@ -272,7 +305,10 @@ module ooo_core (
     // lsq's port1 accounting once verilator flattens the disp_ready[2] array as one node
     wire lsq_ok = !is_mem_d || (is_load_d ? (lq_count < LQ_DEPTH[$clog2(LQ_DEPTH):0])
                                            : (sq_count < SQ_DEPTH[$clog2(SQ_DEPTH):0]));
-    always_comb dispatch_fire = fetch_valid && rename_ready0 && rob_alloc_ready && lsq_ok && !halt_latch_q;
+    // CSR ops serialize: they only enter an empty ROB, so they issue as the oldest
+    // instruction and CSR state is read/written in program order.
+    wire csr_ok = !is_csr_d || rob_empty;
+    always_comb dispatch_fire = fetch_valid && rename_ready0 && rob_alloc_ready && lsq_ok && csr_ok && !halt_latch_q;
 
     assign rob_alloc_valid[0]     = dispatch_fire;
     assign rob_alloc_pc[0]        = fetch_pc_q;
@@ -344,7 +380,31 @@ module ooo_core (
     wire [63:0] branch_target = branch_taken ? (tab_pc[iss_idx] + tab_imm[iss_idx]) : (tab_pc[iss_idx] + 64'd4);
     wire [63:0] ctrl_target   = tab_is_jalr[iss_idx] ? jalr_target : branch_target;
 
-    wire [63:0] alu_wdata = tab_is_lui[iss_idx]  ? tab_imm[iss_idx] :
+    // ---- CSR read-modify-write at issue ----
+    logic [63:0] csr_rdata, csr_wdata;
+    wire  [11:0] csr_addr    = tab_csr[iss_idx][11:0];
+    wire  [4:0]  csr_src     = tab_csr[iss_idx][16:12];
+    wire  [63:0] csr_operand = tab_funct3[iss_idx][2] ? {59'd0, csr_src} : rs1_val;
+    always_comb begin
+        unique case (tab_funct3[iss_idx][1:0])
+            2'h1:    csr_wdata = csr_operand;                // CSRRW(I)
+            2'h2:    csr_wdata = csr_rdata | csr_operand;    // CSRRS(I)
+            default: csr_wdata = csr_rdata & ~csr_operand;   // CSRRC(I)
+        endcase
+    end
+    // CSRRS/CSRRC with x0 / zimm=0 must not write (no side effects on read-only CSRs)
+    wire csr_wen = iss_valid && tab_is_csr[iss_idx] &&
+                   ((tab_funct3[iss_idx][1:0] == 2'h1) || (csr_src != 5'd0));
+
+    csr u_csr (
+        .clk(clk), .rst(rst),
+        .addr(csr_addr), .rdata(csr_rdata),
+        .wen(csr_wen), .wdata(csr_wdata),
+        .retire(rob_commit_valid[0])
+    );
+
+    wire [63:0] alu_wdata = tab_is_csr[iss_idx]  ? csr_rdata :
+                             tab_is_lui[iss_idx]  ? tab_imm[iss_idx] :
                              (tab_is_jal[iss_idx] || tab_is_jalr[iss_idx]) ? (tab_pc[iss_idx] + 64'd4) :
                              alu_y;
 
@@ -447,6 +507,8 @@ module ooo_core (
             tab_sq_idx[new_rob_idx]      <= lsq_disp_sq_idx[0];
             tab_need_rs1[new_rob_idx]    <= need_rs1_d;
             tab_need_rs2[new_rob_idx]    <= need_rs2_d;
+            tab_is_csr[new_rob_idx]      <= is_csr_d;
+            tab_csr[new_rob_idx]         <= fetch_instr[31:15];
         end
     end
 
@@ -482,7 +544,7 @@ module ooo_core (
     end
 
     always_ff @(posedge clk) begin
-        if (rst) fetch_pc_q <= 64'd0;
+        if (rst) fetch_pc_q <= RESET_PC;
         else if (redirect_valid) fetch_pc_q <= redirect_pc;
         else if (dispatch_fire) fetch_pc_q <= fetch_pc_q + 64'd4;
     end
@@ -514,6 +576,78 @@ module ooo_core (
     end
 
     assign dbg_halted = halt_latch_q && rob_empty;
+
+    // ==================================================================
+    // RVFI: per-ROB-entry retire record. Filled at dispatch (insn, fall-through
+    // next pc), at issue (operands, alu result, branch target, mem addr/wdata) and
+    // at load response (loaded value); read out at the ROB head on commit.
+    // Observation only - nothing in the pipeline reads these tables.
+    // ==================================================================
+    logic [31:0] rv_insn[ROB_DEPTH];
+    logic [63:0] rv_npc[ROB_DEPTH];
+    logic [63:0] rv_rs1_rdata[ROB_DEPTH], rv_rs2_rdata[ROB_DEPTH], rv_rd_wdata[ROB_DEPTH];
+    logic [63:0] rv_mem_addr[ROB_DEPTH], rv_mem_data[ROB_DEPTH];
+
+    function automatic logic [7:0] size_mask(input logic [1:0] sz);
+        unique case (sz)
+            2'h0: size_mask = 8'h01;
+            2'h1: size_mask = 8'h03;
+            2'h2: size_mask = 8'h0f;
+            default: size_mask = 8'hff;
+        endcase
+    endfunction
+
+    function automatic logic [63:0] bytes_to_bits(input logic [7:0] m);
+        for (int b = 0; b < 8; b++) bytes_to_bits[b*8 +: 8] = {8{m[b]}};
+    endfunction
+
+    always_ff @(posedge clk) begin
+        if (dispatch_fire) begin
+            rv_insn[new_rob_idx] <= fetch_instr;
+            rv_npc[new_rob_idx]  <= is_jal_d ? jal_target : (fetch_pc_q + 64'd4);
+        end
+        if (iss_valid) begin
+            rv_rs1_rdata[iss_idx] <= tab_need_rs1[iss_idx] ? rs1_val : 64'd0;
+            rv_rs2_rdata[iss_idx] <= tab_need_rs2[iss_idx] ? rs2_val : 64'd0;
+            rv_mem_addr[iss_idx]  <= alu_y;
+            rv_mem_data[iss_idx]  <= rs2_val;
+        end
+        if (iss_is_alu)  rv_rd_wdata[iss_idx] <= alu_wdata;
+        if (iss_is_ctrl) rv_npc[iss_idx]      <= ctrl_target;
+        if (ld_resp_valid) begin
+            rv_rd_wdata[ld_resp_rob_idx] <= ld_resp_data;
+            rv_mem_data[ld_resp_rob_idx] <= ld_resp_data;
+        end
+    end
+
+    always_ff @(posedge clk) begin
+        if (rst) rvfi_order <= 64'd0;
+        else if (rvfi_valid) rvfi_order <= rvfi_order + 64'd1;
+    end
+
+    wire [31:0] head_insn   = rv_insn[rob_head];
+    wire [7:0]  head_mask   = size_mask(tab_funct3[rob_head][1:0]);
+
+    assign rvfi_valid     = rob_commit_valid[0];
+    assign rvfi_insn      = head_insn;
+    assign rvfi_trap      = 1'b0;
+    assign rvfi_halt      = 1'b0;
+    assign rvfi_intr      = 1'b0;
+    assign rvfi_mode      = 2'd3;
+    assign rvfi_ixl       = 2'd2;
+    assign rvfi_rs1_addr  = tab_need_rs1[rob_head] ? head_insn[19:15] : 5'd0;
+    assign rvfi_rs2_addr  = tab_need_rs2[rob_head] ? head_insn[24:20] : 5'd0;
+    assign rvfi_rs1_rdata = (rvfi_rs1_addr == 5'd0) ? 64'd0 : rv_rs1_rdata[rob_head];
+    assign rvfi_rs2_rdata = (rvfi_rs2_addr == 5'd0) ? 64'd0 : rv_rs2_rdata[rob_head];
+    assign rvfi_rd_addr   = rob_commit_rd_arch[0];
+    assign rvfi_rd_wdata  = (rvfi_rd_addr == 5'd0) ? 64'd0 : rv_rd_wdata[rob_head];
+    assign rvfi_pc_rdata  = rob_commit_pc[0];
+    assign rvfi_pc_wdata  = rv_npc[rob_head];
+    assign rvfi_mem_addr  = (tab_is_load[rob_head] || tab_is_store[rob_head]) ? rv_mem_addr[rob_head] : 64'd0;
+    assign rvfi_mem_rmask = tab_is_load[rob_head]  ? head_mask : 8'h00;
+    assign rvfi_mem_wmask = tab_is_store[rob_head] ? head_mask : 8'h00;
+    assign rvfi_mem_rdata = tab_is_load[rob_head]  ? (rv_mem_data[rob_head] & bytes_to_bits(head_mask)) : 64'd0;
+    assign rvfi_mem_wdata = tab_is_store[rob_head] ? (rv_mem_data[rob_head] & bytes_to_bits(head_mask)) : 64'd0;
 
     // rob_full/lq_count/sq_count are available for a future backpressure story but
     // unused by this milestone's stats

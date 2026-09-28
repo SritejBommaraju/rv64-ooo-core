@@ -2,7 +2,7 @@ TOP = ooo_top
 RTL = ../../rtl/alu.sv ../../rtl/decode.sv \
       ../../rtl/rename/free_list.sv ../../rtl/rename/rename_map.sv ../../rtl/rename/rename.sv \
       ../../rtl/rename/prf.sv ../../rtl/ooo/rob.sv ../../rtl/lsq/lsq.sv \
-      ../../rtl/ooo/ooo_mem.sv ../../rtl/ooo/ooo_core.sv ../../rtl/ooo/ooo_top.sv
+      ../../rtl/ooo/ooo_mem.sv ../../rtl/ooo/csr.sv ../../rtl/ooo/ooo_core.sv ../../rtl/ooo/ooo_top.sv
 BINS = alu_imm alu_reg branch jump load_store lui_auipc
 
 .PHONY: build run run-all lint clean
