@@ -6,7 +6,10 @@
 // they resolve in the issue stage, so there is no flush/mispredict path (wb_mispredict
 // tied 0 throughout). JAL redirects immediately at decode (target needs no register).
 module ooo_core #(
-    parameter logic [63:0] RESET_PC = 64'd0
+    parameter logic [63:0] RESET_PC    = 64'd0,
+    // Legacy TB convention: stop dispatching once x31 == 1. Must be 0 for any
+    // program that uses x31 as an ordinary register (e.g. riscv-dv random tests).
+    parameter bit          HALT_ON_X31 = 1'b1
 ) (
     input  logic clk,
     input  logic rst,
@@ -508,7 +511,7 @@ module ooo_core #(
             tab_need_rs1[new_rob_idx]    <= need_rs1_d;
             tab_need_rs2[new_rob_idx]    <= need_rs2_d;
             tab_is_csr[new_rob_idx]      <= is_csr_d;
-            tab_csr[new_rob_idx]         <= fetch_instr[31:15];
+            tab_csr[new_rob_idx]         <= {fetch_instr[19:15], fetch_instr[31:20]};
         end
     end
 
@@ -572,7 +575,7 @@ module ooo_core #(
 
     always_ff @(posedge clk) begin
         if (rst) halt_latch_q <= 1'b0;
-        else if (x31_val == 64'd1) halt_latch_q <= 1'b1;
+        else if (HALT_ON_X31 && x31_val == 64'd1) halt_latch_q <= 1'b1;
     end
 
     assign dbg_halted = halt_latch_q && rob_empty;

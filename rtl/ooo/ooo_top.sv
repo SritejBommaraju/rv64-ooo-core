@@ -1,7 +1,8 @@
 // Top level: wires ooo_core to ooo_mem. Debug ports pass straight through for the TB.
 module ooo_top #(
     parameter logic [63:0] RESET_PC  = 64'd0,
-    parameter int          MEM_BYTES = 65536
+    parameter int          MEM_BYTES = 65536,
+    parameter bit          HALT_ON_X31 = 1'b1
 ) (
     input logic clk,
     input logic rst,
@@ -47,7 +48,7 @@ module ooo_top #(
     logic [63:0] dmem_wr_addr, dmem_wr_data;
     logic [1:0]  dmem_wr_size;
 
-    ooo_core #(.RESET_PC(RESET_PC)) u_core (
+    ooo_core #(.RESET_PC(RESET_PC), .HALT_ON_X31(HALT_ON_X31)) u_core (
         .clk(clk), .rst(rst),
         .imem_addr(imem_addr), .imem_rdata(imem_rdata),
         .dmem_rd_addr(dmem_rd_addr), .dmem_rd_data(dmem_rd_data),
