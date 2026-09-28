@@ -1,5 +1,5 @@
 // First integrated OOO pipeline: rename + PRF + ROB + LSQ wired around decode/alu.
-// RV64I only (no muldiv). Single-issue dispatch (rob/rename slot0 only), out-of-order
+// RV64IM: mul/div go to the iterative muldiv unit, one op in flight. Single-issue dispatch (rob/rename slot0 only), out-of-order
 // issue/completion (oldest-ready-first scoreboard scheduling: a younger ALU op can
 // complete and commit-block-clear before an older pending load returns), in-order
 // commit. No branch speculation: conditional branches and JALR stall fetch until
@@ -105,13 +105,14 @@ module ooo_core #(
     logic        is_load_d, is_store_d, is_branch_d, is_jal_d, is_jalr_d, is_lui_d, is_auipc_d;
     logic [2:0]  funct3_d;
     logic        is_word_d;
+    logic        is_muldiv_d;
 
     decode u_decode (
         .instr(fetch_instr), .rs1(rs1_d), .rs2(rs2_d), .rd(rd_d), .imm(imm_d),
         .alu_op(alu_op_d), .alu_src_imm(alu_src_imm_d), .reg_write(reg_write_d),
         .is_load(is_load_d), .is_store(is_store_d), .is_branch(is_branch_d),
         .is_jal(is_jal_d), .is_jalr(is_jalr_d), .is_lui(is_lui_d), .is_auipc(is_auipc_d),
-        .funct3(funct3_d), .is_word(is_word_d), .is_muldiv(), .muldiv_op()
+        .funct3(funct3_d), .is_word(is_word_d), .is_muldiv(is_muldiv_d), .muldiv_op()
     );
 
     // decode.sv doesn't gate the rd/rs fields by opcode (e.g. a store's instr[11:7]
@@ -291,6 +292,7 @@ module ooo_core #(
     logic [2:0]  tab_lq_idx[ROB_DEPTH], tab_sq_idx[ROB_DEPTH];
     logic        tab_need_rs1[ROB_DEPTH], tab_need_rs2[ROB_DEPTH];
     logic        tab_is_csr[ROB_DEPTH];
+    logic        tab_is_muldiv[ROB_DEPTH];
     logic [16:0] tab_csr[ROB_DEPTH];  // {rs1/zimm field, csr address}
     logic        issued_q[ROB_DEPTH];
 
@@ -332,6 +334,13 @@ module ooo_core #(
     logic       iss_valid;
     logic [IDX_W-1:0] iss_idx;
 
+    // mul/div: one op in flight in the iterative unit. Its result shares PRF/ROB
+    // writeback port 0 with the issue stage, so on the cycle it completes only
+    // loads (which write back later, on port 1) may issue.
+    logic             md_busy_q, md_done;
+    logic [IDX_W-1:0] md_idx_q;
+    logic [63:0]      md_y;
+
     always_comb begin
         iss_valid = 1'b0;
         iss_idx   = '0;
@@ -344,7 +353,9 @@ module ooo_core #(
             idx  = rob_head + IDX_W'(i);
             r1ok = !tab_need_rs1[idx] || ready_q[tab_prs1[idx][5:0]];
             r2ok = !tab_need_rs2[idx] || ready_q[tab_prs2[idx][5:0]];
-            if (!iss_valid && (i < rob_count) && !issued_q[idx] && r1ok && r2ok) begin
+            if (!iss_valid && (i < rob_count) && !issued_q[idx] && r1ok && r2ok &&
+                !(tab_is_muldiv[idx] && md_busy_q) &&
+                !(md_done && !tab_is_load[idx])) begin
                 iss_valid = 1'b1;
                 iss_idx   = idx;
             end
@@ -399,7 +410,7 @@ module ooo_core #(
     wire csr_wen = iss_valid && tab_is_csr[iss_idx] &&
                    ((tab_funct3[iss_idx][1:0] == 2'h1) || (csr_src != 5'd0));
 
-    csr u_csr (
+    csr #(.MISA(64'h8000_0000_0000_1100)) u_csr (  // RV64 I+M
         .clk(clk), .rst(rst),
         .addr(csr_addr), .rdata(csr_rdata),
         .wen(csr_wen), .wdata(csr_wdata),
@@ -441,7 +452,21 @@ module ooo_core #(
     // slot (see rob.sv; its own standalone TB ties both slots to 1, an exact behavioral no-op for
     // that already-verified 2-wide test). Here, commit_accept = {1, 0} forces true single-commit
     // while keeping the 2-port writeback this core's out-of-order load completion needs.
-    wire iss_is_alu   = iss_valid && !iss_is_load;
+    wire iss_is_muldiv = iss_valid && tab_is_muldiv[iss_idx];
+    wire iss_is_alu    = iss_valid && !iss_is_load && !iss_is_muldiv;
+
+    muldiv u_muldiv (
+        .clk(clk), .rst(rst),
+        .a(rs1_val), .b(rs2_val), .op(tab_funct3[iss_idx]), .is_word(tab_is_word[iss_idx]),
+        .start(iss_is_muldiv), .busy(), .done(md_done), .y(md_y)
+    );
+
+    always_ff @(posedge clk) begin
+        if (rst) md_busy_q <= 1'b0;
+        else if (iss_is_muldiv) md_busy_q <= 1'b1;
+        else if (md_done) md_busy_q <= 1'b0;
+        if (iss_is_muldiv) md_idx_q <= iss_idx;
+    end
 
     // loads: send address to lsq; completion arrives later via ld_resp_valid
     assign ld_addr_valid = iss_is_load;
@@ -458,12 +483,14 @@ module ooo_core #(
     assign st_data        = rs2_val;
 
     // ---- rob writeback: slot0 = issue-stage completion (alu/ctrl/store), slot1 = load response ----
-    assign rob_wb_valid[0]   = iss_is_alu;
-    assign rob_wb_rob_idx[0] = iss_idx;
+    // port 0 = issue-stage completion (alu/ctrl/store/csr), or a mul/div finishing
+    assign rob_wb_valid[0]   = iss_is_alu || md_done;
+    assign rob_wb_rob_idx[0] = md_done ? md_idx_q : iss_idx;
 
-    assign prf_wen0   = iss_is_alu && (tab_prd[iss_idx] != 7'd0);
-    assign prf_waddr0 = tab_prd[iss_idx];
-    assign prf_wdata0 = alu_wdata;
+    wire [6:0] wb0_prd = md_done ? tab_prd[md_idx_q] : tab_prd[iss_idx];
+    assign prf_wen0   = (iss_is_alu || md_done) && (wb0_prd != 7'd0);
+    assign prf_waddr0 = wb0_prd;
+    assign prf_wdata0 = md_done ? md_y : alu_wdata;
 
     assign prf_wen1   = ld_resp_valid;
     assign prf_waddr1 = tab_prd[ld_resp_rob_idx];
@@ -511,6 +538,7 @@ module ooo_core #(
             tab_need_rs1[new_rob_idx]    <= need_rs1_d;
             tab_need_rs2[new_rob_idx]    <= need_rs2_d;
             tab_is_csr[new_rob_idx]      <= is_csr_d;
+            tab_is_muldiv[new_rob_idx]   <= is_muldiv_d;
             tab_csr[new_rob_idx]         <= {fetch_instr[19:15], fetch_instr[31:20]};
         end
     end
@@ -616,6 +644,7 @@ module ooo_core #(
             rv_mem_data[iss_idx]  <= rs2_val;
         end
         if (iss_is_alu)  rv_rd_wdata[iss_idx] <= alu_wdata;
+        if (md_done)     rv_rd_wdata[md_idx_q] <= md_y;
         if (iss_is_ctrl) rv_npc[iss_idx]      <= ctrl_target;
         if (ld_resp_valid) begin
             rv_rd_wdata[ld_resp_rob_idx] <= ld_resp_data;
